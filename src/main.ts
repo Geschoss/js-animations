@@ -1,7 +1,6 @@
 import './style.css';
 
-import { ballsModule } from './articles/ball';
-import { helloModule } from './articles/hello';
+import { p_dorNodule, ballsModule, balls_2Module} from './articles/ball';
 import { createSite } from './common/core';
 
-createSite([ballsModule, helloModule]);
+createSite([p_dorNodule, ballsModule, balls_2Module]);

@@ -7,8 +7,6 @@ export class Ball {
   vy: number;
   originX: number;
   originY: number;
-  springFactor: number;
-  friction: number;
 
   constructor(x = 0, y = 0, r = 0, c = '#ff6600') {
     this.x = x;
@@ -17,8 +15,6 @@ export class Ball {
     this.c = c;
     this.vx = 0;
     this.vy = 0;
-    this.friction = 0.9;
-    this.springFactor = 0.005;
     this.originX = x;
     this.originY = y;
   }
@@ -28,7 +24,7 @@ export class Ball {
     this.y = y;
   }
 
-  think(p: Ball) {
+  think(p: Ball, env) {
     let dx = this.x - p.x;
     let dy = this.y - p.y;
     let dist = Math.sqrt(dx * dx + dy * dy);
@@ -44,15 +40,12 @@ export class Ball {
     }
 
     // spring back
-    let dxs = -(this.x - this.originX);
-    let dys = -(this.y - this.originY);
-
-    this.vx += dxs * this.springFactor;
-    this.vy += dys * this.springFactor;
+    this.vx += env.spring.vx(this.x, this.originX)
+    this.vy += env.spring.vy(this.y, this.originY)    
 
     // friction
-    this.vx *= this.friction;
-    this.vy *= this.friction;
+    this.vx *= env.friction.vx(this.x, this.originX);
+    this.vy *= env.friction.vy(this.x, this.originX);
 
     // actual move
     this.x += this.vx;
