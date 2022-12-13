@@ -17,11 +17,10 @@ export const p_dorNodule: Module = {
   },
   init: (canvas: HTMLCanvasElement) => {
     mouse = new Mouse(canvas);
-    balls = makeP_dor_Text()
-    // .map((ball) => {
-    //   ball.set(100 + Math.random() * 500, 100 + Math.random() * 400);
-    //   return ball;
-    // });
+    balls = makeP_dor_Text().map((ball) => {
+      ball.set(100 + Math.random() * 500, 100 + Math.random() * 400);
+      return ball;
+    });
     player = new Ball(100, 100, 20, '#eebe0a');
   },
   render: (ctx) => {
