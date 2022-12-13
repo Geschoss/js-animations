@@ -9,7 +9,7 @@ let player;
 let env = {
   friction: friction(0.5),
   spring: spring(0.01),
-}
+};
 
 export const ballsModule: Module = {
   settings: {
@@ -41,40 +41,31 @@ function makeBalls(count: number) {
   for (let i = 0; i < count; i++) {
     let x = 100 + Math.random() * 500;
     let y = 100 + Math.random() * 400;
-    balls.push(
-      new Ball(
-        x,
-        y,
-        2,
-        '#ff0000' 
-      )
-    );
+    balls.push(new Ball(x, y, 2, '#ff0000'));
   }
   return balls;
 }
-
-
 
 function spring(factor) {
   return {
     vx(x_1, x_2) {
       let dxs = -(x_1 - x_2);
-      return dxs * factor; 
+      return dxs * factor;
     },
     vy(y_1, y_2) {
       let dys = -(y_1 - y_2);
-      return dys * factor; 
-    }
-  } 
+      return dys * factor;
+    },
+  };
 }
 
 function friction(factor) {
   return {
-    vx(x_1, x_2) {
-      return factor; 
+    vx() {
+      return factor;
     },
-    vy(y_1, y_2) {
-      return factor; 
-    }
-  } 
+    vy() {
+      return factor;
+    },
+  };
 }

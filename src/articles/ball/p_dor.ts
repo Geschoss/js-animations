@@ -153,10 +153,10 @@ function spring(factor) {
 
 function friction(factor) {
   return {
-    vx(x_1, x_2) {
+    vx() {
       return factor;
     },
-    vy(y_1, y_2) {
+    vy() {
       return factor;
     },
   };

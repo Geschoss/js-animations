@@ -76,11 +76,11 @@ function friction() {
   let f_1 = 0.99;
   let f_2 = 0.4;
   return {
-    vx(x_1, x_2) {
+    vx(_, x_2) {
       let factor = x_2 > 350 ? f_1 : f_2;
       return factor; 
     },
-    vy(y_1, y_2) {
+    vy(_, y_2) {
       let factor = y_2 > 350 ? f_1 : f_2;
       return factor; 
     }
