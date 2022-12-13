@@ -1,1 +1,0 @@
-.menu__root{height:30px;display:flex}.menu__item{cursor:pointer;text-decoration-line:underline}.menu__item_selected{cursor:auto;text-decoration-line:initial}.menu__item:not(:first-child){padding-left:10px}
