@@ -27,9 +27,11 @@ body {
 
 .menu__root {
   margin: 8px;
-  height: 30px;
   display: flex;
   position: fixed;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 10px;
 }
 
 .menu__item {
@@ -40,8 +42,4 @@ body {
 .menu__item_selected {
   cursor: auto;
   text-decoration-line: initial;
-}
-
-.menu__item:not(:first-child) {
-  padding-left: 10px;
 }

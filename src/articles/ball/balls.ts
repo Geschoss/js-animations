@@ -38,8 +38,8 @@ export const ballsModule: Module = {
 
 function makeBalls(count: number, env: Env) {
   let balls = [];
-  let pad_x = env.width / 5; 
-  let pad_y = env.height / 5; 
+  let pad_x = env.width / 10; 
+  let pad_y = env.height / 10; 
   for (let i = 0; i < count; i++) {
     let x = pad_x + Math.random() * (env.width - pad_x * 2);
     let y = pad_y + Math.random() * (env.height - pad_y * 2);
