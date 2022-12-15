@@ -25,7 +25,9 @@ export const arrowModule: Module = {
     arrow.ratateTo(mouse);
     arrow.draw(ctx);
   },
-  destroy() {},
+  destroy() {
+    keyboard.destroy();
+  },
 };
 
 class Arraw {

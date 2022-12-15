@@ -1,7 +1,5 @@
 import { Module } from '../../common/module';
-import { Mouse } from '../../common/io/mouse';
 
-let mouse: Mouse;
 let ball_1: Ball;
 let ball_2: Ball;
 let ball_3: Ball;
@@ -11,12 +9,11 @@ export const wavesModule: Module = {
   settings: {
     name: 'waves',
   },
-  init(canvas, env) {
+  init(_, env) {
     ball_1 = new Ball(env.width/2, env.height/2, 40, "#ffee00");
     ball_2 = new Ball(env.width/2, env.height/2, 40, "#00ff00");
     ball_3 = new Ball(env.width/2, env.height/2, 40, "#0000ff");
     ball_4 = new Ball(env.width/2, env.height/2, 40);
-    mouse = new Mouse(canvas);
   },
   render(ctx, env) {
     angle += 0.03;
