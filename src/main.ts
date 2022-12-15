@@ -6,6 +6,6 @@ import { trigonometry } from './articles/trigonometry';
 
 
 createSite([
-    // ...trigonometry,
+    ...trigonometry,
     ...balls
 ]);
