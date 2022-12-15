@@ -1,6 +1,6 @@
 import { Ball } from './ball';
 import { Mouse } from '../../common/io';
-import { Module } from '../../common/module';
+import { Env, Module } from '../../common/module';
 
 let mouse;
 let balls;
@@ -15,9 +15,9 @@ export const balls_2Module: Module = {
   settings: {
     name: 'balls_2',
   },
-  init: (canvas: HTMLCanvasElement) => {
+  init: (canvas, _env) => {
     mouse = new Mouse(canvas);
-    balls = makeBalls(2000);
+    balls = makeBalls(2000, _env);
     player = new Ball(100, 100, 20, '#eebe0a');
   },
   render: (ctx) => {
@@ -36,17 +36,19 @@ export const balls_2Module: Module = {
   },
 };
 
-function makeBalls(count: number) {
+function makeBalls(count: number, env: Env) {
   let balls = [];
+  let pad_x = env.width / 10; 
+  let pad_y = env.height / 10; 
   for (let i = 0; i < count; i++) {
-    let x = 100 + Math.random() * 500;
-    let y = 100 + Math.random() * 400;
+    let x = pad_x + Math.random() * (env.width - pad_x * 2);
+    let y = pad_y + Math.random() * (env.height - pad_y * 2);
     balls.push(
       new Ball(
         x,
         y,
-        x > 350 ? 2 : 3,
-        x > 350 ? '#00bcd4' : '#bdb76b' 
+        x > env.width / 2 ? 2 : 3,
+        x > env.width / 2 ? '#00bcd4' : '#bdb76b' 
         )
     );
   }

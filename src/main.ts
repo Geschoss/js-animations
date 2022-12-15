@@ -5,4 +5,7 @@ import { balls, } from './articles/ball';
 import { trigonometry } from './articles/trigonometry';
 
 
-createSite([...trigonometry, ...balls]);
+createSite([
+    // ...trigonometry,
+    ...balls
+]);
