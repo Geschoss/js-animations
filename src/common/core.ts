@@ -3,6 +3,7 @@ import { Module } from './module';
 export function createSite(modules: Module[]) {
   const menuNode = document.getElementById('menu');
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+  const body = document.body;
   const ctx = canvas.getContext('2d');
 
   let curren: Module;
@@ -18,15 +19,23 @@ export function createSite(modules: Module[]) {
       curren.destroy(canvas);
     }
     curren = modules[id];
-    canvas.width = curren.settings.width || 700;
-    canvas.height = curren.settings.height || 600;
-    curren.init(canvas);
+    let env = {
+      width: curren.settings.width || body.offsetWidth,
+      height: curren.settings.height || body.offsetHeight,
+    };
+    canvas.width = env.width;
+    canvas.height = env.height;
+    curren.init(canvas, env);
     render();
   }
 
   function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    curren.render(ctx);
+    let env = {
+      width: canvas.width,
+      height: canvas.height,
+    };
+    curren.render(ctx, env);
     animationCbId = requestAnimationFrame(render);
   }
 }

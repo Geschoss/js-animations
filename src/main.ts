@@ -1,6 +1,8 @@
 import './style.css';
 
-import { p_dorNodule, ballsModule, balls_2Module} from './articles/ball';
 import { createSite } from './common/core';
+import { balls, } from './articles/ball';
+import { trigonometry } from './articles/trigonometry';
 
-createSite([p_dorNodule, ballsModule, balls_2Module]);
+
+createSite([...trigonometry, ...balls]);

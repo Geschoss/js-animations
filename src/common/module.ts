@@ -1,10 +1,15 @@
+export type Env = {
+  width: number;
+  height: number;
+};
+
 export interface Module {
   settings: {
     name: string;
     width?: number;
     height?: number;
   };
-  init(canvas: HTMLCanvasElement): void;
-  render(ctx: CanvasRenderingContext2D): void;
+  init(canvas: HTMLCanvasElement, env: Env): void;
+  render(ctx: CanvasRenderingContext2D, env: Env): void;
   destroy(canvas: HTMLCanvasElement): void;
 }

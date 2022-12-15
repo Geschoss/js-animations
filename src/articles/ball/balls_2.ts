@@ -1,5 +1,5 @@
 import { Ball } from './ball';
-import { Mouse } from './mouse';
+import { Mouse } from '../../common/io';
 import { Module } from '../../common/module';
 
 let mouse;
