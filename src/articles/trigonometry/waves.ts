@@ -10,22 +10,24 @@ export const wavesModule: Module = {
     name: 'waves',
   },
   init(_, env) {
-    ball_1 = new Ball(env.width/2, env.height/2, 40, "#ffee00");
-    ball_2 = new Ball(env.width/2, env.height/2, 40, "#00ff00");
-    ball_3 = new Ball(env.width/2, env.height/2, 40, "#0000ff");
-    ball_4 = new Ball(env.width/2, env.height/2, 40);
+    ball_1 = new Ball(env.width / 2, env.height / 2, 40, '#ffee00');
+    ball_2 = new Ball(env.width / 2, env.height / 2, 40, '#00ff00');
+    ball_3 = new Ball(env.width / 2, env.height / 2, 40, '#0000ff');
+    ball_4 = new Ball(env.width / 2, env.height / 2, 40);
   },
   render(ctx, env) {
     angle += 0.03;
-    ball_1.x = env.width / 2 + Math.sin(angle * 0.2) * 300;
-    
-    ball_2.y = env.height / 2 + Math.sin(angle * 0.3) * 300;
-    
-    ball_3.y = env.height / 2 + Math.sin(angle * 0.4) * 300;
-    ball_3.x = env.width / 2 + Math.sin(angle) * 300;
-    
-    ball_4.y = env.height / 2 + Math.sin(angle * 0.5) * 300;
-    ball_4.x = env.width / 2 + Math.cos(angle * 0.2) * 300;
+    let half_x = env.width / 2;
+    let half_y = env.width / 2;
+    ball_1.x = half_x + Math.sin(angle * 0.2) * half_x;
+
+    ball_2.y = half_y + Math.sin(angle * 0.3) * half_y;
+
+    ball_3.y = half_y + Math.sin(angle * 0.4) * half_y;
+    ball_3.x = half_x + Math.sin(angle) * half_x;
+
+    ball_4.y = half_y + Math.sin(angle * 0.5) * half_y;
+    ball_4.x = half_x + Math.cos(angle * 0.2) * half_x;
 
     ball_1.draw(ctx);
     ball_2.draw(ctx);
