@@ -66,7 +66,7 @@ function initCurrentPage() {
 }
 
 function changeUrl(moduleName: string) {
-  document.location.href = `${moduleName}`
+  window.history.pushState({}, moduleName, `/js-animations/${moduleName}`);
 }
 
 function createMenu(
