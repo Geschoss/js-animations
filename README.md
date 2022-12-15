@@ -2,6 +2,8 @@
 
 
 ## gh-pages
+yarn build
+
 git add dist -f
 
 git commit -m "gp-pages"
