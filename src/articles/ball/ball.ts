@@ -1,5 +1,3 @@
-import { Env } from "../../common/module";
-
 export class Ball {
   x: number;
   y: number;
