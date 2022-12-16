@@ -1,3 +1,5 @@
+import { Env } from "../../common/module";
+
 export class Ball {
   x: number;
   y: number;
@@ -40,12 +42,12 @@ export class Ball {
     }
 
     // spring back
-    this.vx += env.spring.vx(this.x, this.originX)
-    this.vy += env.spring.vy(this.y, this.originY)    
+    this.vx += env.spring.vx(this.x, this.originX, env )
+    this.vy += env.spring.vy(this.y, this.originY, env)    
 
     // friction
-    this.vx *= env.friction.vx(this.x, this.originX);
-    this.vy *= env.friction.vy(this.x, this.originX);
+    this.vx *= env.friction.vx(this.x, this.originX, env);
+    this.vy *= env.friction.vy(this.x, this.originX, env);
 
     // actual move
     this.x += this.vx;
