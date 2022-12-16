@@ -21,6 +21,7 @@ export function createSite(modulesArray: Module[]) {
   initModule();
 
   function initModule() {
+    clear = true;
     let env = {
       width: curren.settings.width || body.offsetWidth,
       height: curren.settings.height || body.offsetHeight,
