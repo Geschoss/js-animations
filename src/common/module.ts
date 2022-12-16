@@ -10,6 +10,6 @@ export interface Module {
     height?: number;
   };
   init(canvas: HTMLCanvasElement, env: Env): void;
-  render(ctx: CanvasRenderingContext2D, env: Env): void;
+  render(ctx: CanvasRenderingContext2D, env: Env): void | boolean;
   destroy(canvas: HTMLCanvasElement): void;
 }

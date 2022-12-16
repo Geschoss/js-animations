@@ -14,6 +14,7 @@ export function createSite(modulesArray: Module[]) {
   let currentPage = initCurrentPage();
   let curren = initCurrentMosule(currentPage, modules);
   let animationCbId: number;
+  let clear = true;
 
   createMenu(modules, menuNode, selectModule, curren);
 
@@ -43,13 +44,20 @@ export function createSite(modulesArray: Module[]) {
     initModule();
   }
 
+
   function render() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (clear) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
     let env = {
       width: canvas.width,
       height: canvas.height,
     };
-    curren.render(ctx, env);
+    let result = curren.render(ctx, env);
+
+    if (typeof result === 'boolean') {
+      clear = result;
+    }
     animationCbId = requestAnimationFrame(render);
   }
 }
