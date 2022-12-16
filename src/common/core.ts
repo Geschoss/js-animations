@@ -56,17 +56,17 @@ export function createSite(modulesArray: Module[]) {
 function initCurrentMosule(pageName: string, modules: Record<string, Module>) {
   let current = modules[pageName];
   if (pageName === '' || current == undefined) {
-    return modules['balls']; // TODO костыль
+    return Object.values(modules)[0]; // TODO костыль
   }
   return current;
 }
 
 function initCurrentPage() {
-  return window.location.pathname.split('/').slice(2)[0] || '';
+  return window.location.hash.slice(1) || '';
 }
 
 function changeUrl(moduleName: string) {
-  window.history.pushState({}, moduleName, `/js-animations/${moduleName}`);
+  window.history.pushState({}, moduleName, `#${moduleName}`);
 }
 
 function createMenu(
@@ -97,7 +97,7 @@ function createMenu(
       }
       selected = div;
       selected.classList.add('menu__item_selected');
-      changeUrl(moduleName)
+      changeUrl(moduleName);
       selectModule(moduleName);
     });
 
