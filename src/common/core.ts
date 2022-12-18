@@ -1,116 +1,82 @@
-import { Module } from './module';
+import { Chapter, Module } from './module';
+import { initDOM } from './dom';
+import { getSearchParams, getSelectedChapter, getSelectedExample } from './url';
+import { findCurrentModule } from './utils';
 
-export function createSite(modulesArray: Module[]) {
-  const modules = modulesArray.reduce(
-    (acc, value) => ({ ...acc, [value.settings.name]: value }),
+type Inited = {
+  inited?: boolean;
+};
+export function createSite(chaptersArr: Chapter[]) {
+  const chapters = chaptersArr.reduce(
+    (acc, value) => ({ ...acc, [value.name]: value }),
     {}
   );
+  const DOM = initDOM();
+  const queryParams = getSearchParams();
+  const ctx = DOM.canvas.getContext('2d');
 
-  const menuNode = document.getElementById('menu');
-  const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-  const body = document.body;
-  const ctx = canvas.getContext('2d');
-
-  let currentPage = initCurrentPage();
-  let curren = initCurrentMosule(currentPage, modules);
+  let currentChapter = getSelectedChapter(queryParams.chapter, chapters);
+  let currentExample: Module & Inited;
   let animationCbId: number;
   let clear = true;
 
-  createMenu(modules, menuNode, selectModule, curren);
+  DOM.updateChaptersMenu(chapters, currentChapter, selectChapter);
 
-  initModule();
+  function selectChapter(chapterName: string) {
+    destroyModule();
 
-  function initModule() {
-    clear = true;
-    let env = {
-      width: curren.settings.width || body.offsetWidth,
-      height: curren.settings.height || body.offsetHeight,
-    };
+    currentChapter = chapters[chapterName];
+    currentExample = getSelectedExample(queryParams.example, currentChapter);
 
-    canvas.width = env.width;
-    canvas.height = env.height;
-    curren.init(canvas, env);
-    render();
-  }
-
-  function selectModule(moduleName: string) {
-    if (animationCbId) {
-      cancelAnimationFrame(animationCbId);
-    }
-    if (curren) {
-      curren.destroy(canvas);
-    }
-    curren = modules[moduleName];
+    DOM.updateExamplesMenu(currentChapter, currentExample, selectExample);
 
     initModule();
   }
 
+  function selectExample(exampleName: string) {
+    destroyModule();
+
+    currentExample = findCurrentModule(exampleName, currentChapter);
+
+    initModule();
+  }
+
+  function destroyModule() {
+    if (animationCbId) {
+      cancelAnimationFrame(animationCbId);
+    }
+    if (currentExample && currentExample.inited) {
+      currentExample.destroy(DOM.canvas);
+    }
+  }
+
+  function initModule() {
+    clear = true;
+    let env = {
+      width: currentExample.settings.width || DOM.body.offsetWidth,
+      height: currentExample.settings.height || DOM.body.offsetHeight,
+    };
+
+    DOM.canvas.width = env.width;
+    DOM.canvas.height = env.height;
+    currentExample.init(DOM.canvas, env);
+    currentExample.inited = true;
+    render();
+  }
 
   function render() {
     if (clear) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, DOM.canvas.width, DOM.canvas.height);
     }
     let env = {
-      width: canvas.width,
-      height: canvas.height,
+      width: DOM.canvas.width,
+      height: DOM.canvas.height,
     };
-    let result = curren.render(ctx, env);
+    let result = currentExample.render(ctx, env);
 
     if (typeof result === 'boolean') {
       clear = result;
     }
     animationCbId = requestAnimationFrame(render);
   }
-}
-function initCurrentMosule(pageName: string, modules: Record<string, Module>) {
-  let current = modules[pageName];
-  if (pageName === '' || current == undefined) {
-    return Object.values(modules)[0]; // TODO костыль
-  }
-  return current;
-}
-
-function initCurrentPage() {
-  return window.location.hash.slice(1) || '';
-}
-
-function changeUrl(moduleName: string) {
-  window.history.pushState({}, moduleName, `#${moduleName}`);
-}
-
-function createMenu(
-  modules: Record<string, Module>,
-  menuNode: HTMLElement,
-  selectModule,
-  curren: Module
-) {
-  let selected: HTMLDivElement;
-  Object.keys(modules).map((moduleName) => {
-    let instance = modules[moduleName];
-
-    let div = document.createElement('div');
-    div.classList.add('menu__item');
-    div.innerText = instance.settings.name;
-
-    if (curren === instance) {
-      selected = div;
-      selected.classList.add('menu__item_selected');
-    }
-
-    div.addEventListener('click', () => {
-      if (selected === div) {
-        return;
-      }
-      if (selected) {
-        selected.classList.remove('menu__item_selected');
-      }
-      selected = div;
-      selected.classList.add('menu__item_selected');
-      changeUrl(moduleName);
-      selectModule(moduleName);
-    });
-
-    menuNode.appendChild(div);
-    return div;
-  });
 }

@@ -1,6 +1,6 @@
 import { Ball } from './ball';
-import { Mouse } from '../../common/io';
-import { Env, Module } from '../../common/module';
+import { Mouse } from '../../../common/io';
+import { Env, Module } from '../../../common/module';
 
 let mouse: Mouse;
 let balls: Ball[];

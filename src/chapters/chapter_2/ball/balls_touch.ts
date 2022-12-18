@@ -1,6 +1,6 @@
 import { Ball } from './ball';
-import { Touch } from '../../common/io';
-import { Env, Module } from '../../common/module';
+import { Touch } from '../../../common/io';
+import { Env, Module } from '../../../common/module';
 
 let balls: Ball[];
 let player: Ball;

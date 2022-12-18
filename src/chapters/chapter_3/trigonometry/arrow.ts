@@ -1,8 +1,8 @@
-import { Module } from '../../common/module';
-import { Mouse } from '../../common/io/mouse';
+import { Module } from '../../../common/module';
+import { Mouse } from '../../../common/io/mouse';
 // move
-import { Ball } from '../ball/ball';
-import { Keyboard } from '../../common/io';
+import { Ball } from '../../chapter_2/ball/ball';
+import { Keyboard } from '../../../common/io';
 
 let mouse: Mouse;
 let arrow: Arraw;

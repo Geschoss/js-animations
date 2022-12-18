@@ -1,4 +1,4 @@
-import { Module } from '../../common/module';
+import { Module } from '../../../common/module';
 import { Ball } from './ball';
 
 let ball_1: Ball;

@@ -13,3 +13,8 @@ export interface Module {
   render(ctx: CanvasRenderingContext2D, env: Env): void | boolean;
   destroy(canvas: HTMLCanvasElement): void;
 }
+
+export type Chapter = {
+  name: string;
+  expamples: Module[]
+}

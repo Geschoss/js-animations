@@ -1,11 +1,11 @@
 import './style.css';
 
 import { createSite } from './common/core';
-import { balls, } from './articles/ball';
-import { trigonometry } from './articles/trigonometry';
+import { chapter_3 } from './chapters/chapter_3';
+import { chapter_2 } from './chapters/chapter_2';
 
 
 createSite([
-    ...trigonometry,
-    ...balls
+    chapter_3,
+    chapter_2,
 ]);
