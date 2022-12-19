@@ -4,8 +4,8 @@ import { p_dorNodule } from './p_dor';
 import { ballsTouchModule } from './balls_touch';
 
 export const balls = [
-  ballsTouchModule,
   ballsModule,
   balls_2Module,
   p_dorNodule,
+  ballsTouchModule,
 ];

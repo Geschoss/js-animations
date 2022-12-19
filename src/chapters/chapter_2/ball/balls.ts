@@ -17,7 +17,7 @@ export const ballsModule: Module = {
   },
   init: (canvas, env) => {
     mouse = new Mouse(canvas);
-    balls = makeBalls(2000, env);
+    balls = makeBalls(5000, env);
     player = new Ball(100, 100, 20, '#eebe0a');
   },
   render: (ctx) => {

@@ -2,9 +2,9 @@ import { Chapter } from './module';
 import { findCurrentModule } from './utils';
 
 export function setSearchParam(name: string, value: string) {
-  let params = new URLSearchParams(window.location.search);
-  params.set(name, value);
-  window.location.search = `${params}`;
+  let url = new URL(window.location.href);
+  url.searchParams.set(name, value);
+  window.history.pushState('Animations', name, url);
 }
 
 export function getSearchParams() {

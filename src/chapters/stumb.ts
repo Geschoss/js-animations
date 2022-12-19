@@ -1,7 +1,7 @@
 // @ts-ignore
-export const wavesModule: Module = {
+export const Module: Module = {
   settings: {
-    name: 'waves',
+    name: '',
   },
   init() {},
   render() {},

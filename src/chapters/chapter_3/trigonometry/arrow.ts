@@ -27,6 +27,7 @@ export const arrowModule: Module = {
   },
   destroy() {
     keyboard.destroy();
+    mouse.destroy();
   },
 };
 

@@ -84,8 +84,8 @@ function updateChaptersMenu(node: HTMLElement) {
       });
 
       node.appendChild(div);
-      selectChapter(currentChapter.name);
     });
+    selectChapter(currentChapter.name);
   };
 }
 

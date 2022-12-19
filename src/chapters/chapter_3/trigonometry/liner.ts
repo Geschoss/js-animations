@@ -66,7 +66,7 @@ export const linerModule: Module = {
     ball_2.render(ctx);
     ball_1.render(ctx);
 		ball_3.render(ctx);
-		return false;
+		return () => {};
   },
   destroy() {},
 };

@@ -2,6 +2,7 @@ import { Chapter, Module } from './module';
 import { initDOM } from './dom';
 import { getSearchParams, getSelectedChapter, getSelectedExample } from './url';
 import { findCurrentModule } from './utils';
+import { isNil, values } from '../lib';
 
 type Inited = {
   inited?: boolean;
@@ -18,7 +19,13 @@ export function createSite(chaptersArr: Chapter[]) {
   let currentChapter = getSelectedChapter(queryParams.chapter, chapters);
   let currentExample: Module & Inited;
   let animationCbId: number;
-  let clear = true;
+  let cleanupFn: () => void;
+  let defaultEnv = {
+    width: DOM.body.offsetWidth,
+    height: DOM.body.offsetHeight,
+    injectors: {},
+  };
+  let env = defaultEnv;
 
   DOM.updateChaptersMenu(chapters, currentChapter, selectChapter);
 
@@ -46,37 +53,65 @@ export function createSite(chaptersArr: Chapter[]) {
       cancelAnimationFrame(animationCbId);
     }
     if (currentExample && currentExample.inited) {
+      if (!isNil(env.injectors)) {
+        values(env.injectors).map((injector) => injector.destroy());
+      }
       currentExample.destroy(DOM.canvas);
+      currentExample.inited = false;
     }
+    env = defaultEnv;
   }
 
   function initModule() {
-    clear = true;
-    let env = {
+    if (currentExample.inited) {
+      return;
+    }
+
+    let injectors =
+      currentExample.settings.injectors?.reduce((acc, injector) => {
+        return {
+          ...acc,
+          [injector.name]: createInjector(injector, { canvas: DOM.canvas }),
+        };
+      }, {}) || {};
+
+    env = {
       width: currentExample.settings.width || DOM.body.offsetWidth,
       height: currentExample.settings.height || DOM.body.offsetHeight,
+      injectors,
     };
 
     DOM.canvas.width = env.width;
     DOM.canvas.height = env.height;
+
     currentExample.init(DOM.canvas, env);
     currentExample.inited = true;
     render();
   }
 
   function render() {
-    if (clear) {
-      ctx.clearRect(0, 0, DOM.canvas.width, DOM.canvas.height);
+    if (!isNil(cleanupFn)) {
+      cleanupFn();
+    } else {
+      cleanupDefaultFn();
     }
-    let env = {
-      width: DOM.canvas.width,
-      height: DOM.canvas.height,
-    };
-    let result = currentExample.render(ctx, env);
 
-    if (typeof result === 'boolean') {
-      clear = result;
-    }
+    cleanupFn = currentExample.render(ctx, env) || null;
     animationCbId = requestAnimationFrame(render);
   }
+
+  function cleanupDefaultFn() {
+    ctx.clearRect(0, 0, DOM.canvas.width, DOM.canvas.height);
+  }
+}
+
+function createInjector(injector, deps) {
+  let args = injector.deps.map(({ name }) => {
+    let dep = deps[name];
+    if (isNil(dep)) {
+      throw new Error(`${injector.name} has unknow dep ${name}`);
+    }
+    return dep;
+  });
+  return new injector.instance(...args);
 }

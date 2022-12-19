@@ -39,7 +39,9 @@ export const distanceModule: Module = {
     ctx.closePath();
     ctx.stroke();
   },
-  destroy() {},
+  destroy() {
+    mouse.destroy()
+  },
 };
 
 type Point = {
