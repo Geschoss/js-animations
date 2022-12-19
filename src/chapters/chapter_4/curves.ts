@@ -16,7 +16,6 @@ export const curvesModule: Module = {
   },
   destroy() {},
 };
-function cleanup() {}
 type Point = {
   x: number;
   y: number;

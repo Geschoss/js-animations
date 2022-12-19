@@ -18,11 +18,11 @@ export class Mouse {
     this.canvas.removeEventListener('mouseup', this.mouseup, false);
   }
 
-  mousedown = (event: MouseEvent) => {
+  mousedown = (_: MouseEvent) => {
     this.leftButtonDown = true;
   };
 
-  mouseup = (event: MouseEvent) => {
+  mouseup = (_: MouseEvent) => {
     this.leftButtonDown = false;
   };
 
