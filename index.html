@@ -9,11 +9,17 @@
 </head>
 
 <body>
+  <img id="picture" class="hidden" src="vovka_2.png" style="display: none;">
+  <video id="video" class="hidden" width="640" height="360" autoplay style="display: none;">
+    <source src="video.mov" type="video/mp4" />
+  </video>
   <div id="menu" class="menu__root">
     <div id="chapters_menu" class="menu__list menu__list_chapter"></div>
     <div id="examples_menu" class="menu__list"></div>
   </div>
-  <canvas id="canvas" class="canvas"></canvas>
+  <div class="canvas__wrapper">
+    <canvas id="canvas" class="canvas"></canvas>
+  </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 

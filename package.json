@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && rm -rf dist && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gp-pages": "yarn build && git add dist -f && git commit -m \"gp-pages\" && git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
     "typescript": "^4.9.3",

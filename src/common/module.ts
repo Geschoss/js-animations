@@ -11,7 +11,11 @@ export interface Module {
     height?: number;
     injectors?: any[];
   };
-  init(canvas: HTMLCanvasElement, env: Env): void;
+  init(
+    canvas: HTMLCanvasElement,
+    env: Env,
+    ctx: CanvasRenderingContext2D
+  ): void;
   render(ctx: CanvasRenderingContext2D, env: Env): (() => void) | void;
   destroy(canvas: HTMLCanvasElement): void;
 }

@@ -84,7 +84,7 @@ export function createSite(chaptersArr: Chapter[]) {
     DOM.canvas.width = env.width;
     DOM.canvas.height = env.height;
 
-    currentExample.init(DOM.canvas, env);
+    currentExample.init(DOM.canvas, env, ctx);
     currentExample.inited = true;
     render();
   }

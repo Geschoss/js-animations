@@ -16,8 +16,9 @@ export function colorToRGB(color: number | string, alpha: number = 1) {
     return `rgb(${r},${g},${b},${a})`;
   }
 }
-
-export function parseColor(color: number | string, toNumber: boolean = false) {
+export function parseColor(color: string | number, toNumber: true): number;
+export function parseColor(color: string | number, toNumber: false): string;
+export function parseColor(color: any, toNumber: any = false): any {
   if (toNumber === true) {
     if (typeof color === 'number') {
       return color | 0; //chop off decimal
