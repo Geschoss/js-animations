@@ -23,15 +23,25 @@ export class Rocket implements Bullet {
   y: number;
   speed: number;
   rotation: number;
+  acceleration: number;
+  max_speed: number;
 
-  constructor(x = 0, y = 0, rotation = 0, speed = 2) {
+  constructor(x = 0, y = 0, rotation = 0, speed = 0, acceleration = 0.04) {
     this.x = x + 5 * Math.cos(rotation);
     this.y = y + 5 * Math.sin(rotation);
     this.speed = speed;
     this.rotation = rotation;
+    this.acceleration = acceleration;
+    this.max_speed = 6 ;
   }
 
   think() {
+    this.speed += this.acceleration;
+    if (this.speed >= this.max_speed) {
+      this.acceleration = 0;
+    } else {
+      this.acceleration += 0.02;
+    }
     this.x += this.speed * Math.cos(this.rotation);
     this.y += this.speed * Math.sin(this.rotation);
   }

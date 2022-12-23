@@ -1,5 +1,28 @@
 import { Bullet, Shooter, Weapon } from './types';
 
+export class MachineGun implements Weapon {
+  rate: number;
+  bulletSpeed: number;
+  prevShotTime: number;
+
+  constructor() {
+    this.rate = 20;
+    this.prevShotTime = 0;
+    this.bulletSpeed = 10;
+  }
+
+  shot(shooter: Shooter, bullets: Bullet[]) {
+    let now = new Date().getTime();
+
+    if (now - this.prevShotTime > 1000 / this.rate) {
+      this.prevShotTime = now;
+      bullets.push(
+        new Bullets(shooter.x, shooter.y, shooter.rotation, this.bulletSpeed)
+      );
+    }
+  }
+}
+
 export class Bullets implements Bullet {
   x: number;
   y: number;
@@ -30,28 +53,5 @@ export class Bullets implements Bullet {
     ctx.closePath();
     ctx.stroke();
     ctx.restore();
-  }
-}
-
-export class MachineGun implements Weapon {
-  rate: number;
-  bulletSpeed: number;
-  prevShotTime: number;
-
-  constructor() {
-    this.rate = 20;
-    this.prevShotTime = 0;
-    this.bulletSpeed = 10;
-  }
-
-  shot(shooter: Shooter, bullets: Bullet[]) {
-    let now = new Date().getTime();
-
-    if (now - this.prevShotTime > 1000 / this.rate) {
-      this.prevShotTime = now;
-      bullets.push(
-        new Bullets(shooter.x, shooter.y, shooter.rotation, this.bulletSpeed)
-      );
-    }
   }
 }
