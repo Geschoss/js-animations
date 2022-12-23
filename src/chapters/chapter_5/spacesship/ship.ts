@@ -1,6 +1,6 @@
 import { Keyboard } from '../../../common/io';
 import { Acceleration } from './acceleration';
-import { Bullet, Weapon } from './weapons/types';
+import { Weapon } from './weapons/types';
 
 export class Ship {
   x: number;

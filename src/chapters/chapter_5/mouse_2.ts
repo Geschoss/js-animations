@@ -1,10 +1,9 @@
-import { Keyboard, KeyboardInjector, Keys } from '../../common/io/keyboard';
+import { Keyboard, KeyboardInjector } from '../../common/io/keyboard';
 import { Mouse, MouseInjector } from '../../common/io/mouse';
 import { Module } from '../../common/module';
 import { Arraw } from './arraw';
 
 let mouse: Mouse;
-let keyboard: Keyboard;
 let arraw: Arraw;
 let force = 0.05;
 let vx = 0;
@@ -18,7 +17,6 @@ export const mouse_1Module: Module = {
     arraw = new Arraw(env.width / 2, env.height / 2);
     force = 0.05;
     mouse = env.injectors.mouse;
-    keyboard = env.injectors.keyboard;
   },
   render(ctx) {
     let dx = mouse.x - arraw.x;

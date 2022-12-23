@@ -2,7 +2,6 @@ import { Keyboard, KeyboardInjector, Keys } from '../../common/io/keyboard';
 import { Mouse, MouseInjector } from '../../common/io/mouse';
 import { Module } from '../../common/module';
 
-let mouse: Mouse;
 let keyboard: Keyboard;
 let arraw: Arraw;
 let speed = 0;
@@ -14,7 +13,6 @@ export const accelerationModule: Module = {
   init(_, env) {
     arraw = new Arraw(env.width / 2, env.height / 2);
     speed = 0;
-    mouse = env.injectors.mouse;
     keyboard = env.injectors.keyboard;
   },
   render(ctx) {
@@ -42,23 +40,9 @@ export const accelerationModule: Module = {
     arraw.x += vx;
     arraw.y += vy;
     arraw.draw(ctx);
-
-    // drawVector(ctx, arraw);
   },
   destroy() {},
 };
-
-function drawVector(ctx: CanvasRenderingContext2D, arraw: Arraw) {
-  let dx = 100 * Math.cos(arraw.rotation);
-  let dy = 100 * Math.sin(arraw.rotation);
-  ctx.beginPath();
-  ctx.strokeStyle = '#ff0000';
-  ctx.lineWidth = 3;
-  ctx.moveTo(arraw.x, arraw.y);
-  ctx.lineTo(arraw.x + dx, arraw.y + dy);
-  ctx.closePath();
-  ctx.stroke();
-}
 
 class Arraw {
   x: number;

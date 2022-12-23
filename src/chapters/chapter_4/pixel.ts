@@ -1,4 +1,4 @@
-import { Color, parseColor } from '../../common/colors';
+import { Color } from '../../common/colors';
 import { Mouse, MouseInjector } from '../../common/io/mouse';
 import { Module } from '../../common/module';
 import { isNil } from '../../lib';
