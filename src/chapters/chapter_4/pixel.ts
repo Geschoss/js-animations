@@ -1,4 +1,4 @@
-import { parseColor } from '../../common/colors';
+import { Color, parseColor } from '../../common/colors';
 import { Mouse, MouseInjector } from '../../common/io/mouse';
 import { Module } from '../../common/module';
 import { isNil } from '../../lib';
@@ -37,7 +37,7 @@ class Pencil {
   draw(ctx: CanvasRenderingContext2D, image_data: ImageData) {
     let pixels = image_data.data;
     if (isNil(this.prevPos) && this.mouse.leftButtonDown) {
-      this.brush_color = parseColor(Math.random() * 0xffffff, true);
+      this.brush_color = Color.parse(Math.random() * 0xffffff, true);
 
       this.prevPos = this.mouse.copyPos();
     } else if (!isNil(this.prevPos) && this.mouse.leftButtonDown) {
@@ -53,7 +53,7 @@ class Pencil {
         pixels[offset + 2] = this.brush_color & 0xff;
         pixels[offset + 3] = 255;
       }
-			ctx.putImageData(image_data, 0, 0);
+      ctx.putImageData(image_data, 0, 0);
       this.prevPos = this.mouse.copyPos();
     } else if (!isNil(this.prevPos) && !this.mouse.leftButtonDown) {
       this.prevPos = null;

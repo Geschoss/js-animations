@@ -86,17 +86,17 @@ export function createSite(chaptersArr: Chapter[]) {
 
     currentExample.init(DOM.canvas, env, ctx);
     currentExample.inited = true;
-    render();
+    render(0);
   }
 
-  function render() {
+  function render(time: DOMHighResTimeStamp) {
     if (!isNil(cleanupFn)) {
       cleanupFn();
     } else {
       cleanupDefaultFn();
     }
 
-    cleanupFn = currentExample.render(ctx, env) || null;
+    cleanupFn = currentExample.render(ctx, env, time) || null;
     animationCbId = requestAnimationFrame(render);
   }
 

@@ -16,7 +16,11 @@ export interface Module {
     env: Env,
     ctx: CanvasRenderingContext2D
   ): void;
-  render(ctx: CanvasRenderingContext2D, env: Env): (() => void) | void;
+  render(
+    ctx: CanvasRenderingContext2D,
+    env: Env,
+    time: DOMHighResTimeStamp
+  ): (() => void) | void;
   destroy(canvas: HTMLCanvasElement): void;
 }
 
