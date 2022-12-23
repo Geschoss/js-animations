@@ -1,5 +1,5 @@
-import { KeyboardInjector } from '../../../common/io/keyboard';
-import { Env, Module } from '../../../common/module';
+import { KeyboardInjector } from '../../common/io/keyboard';
+import { Env, Module } from '../../common/module';
 import { Space } from './acceleration';
 import { Ship } from './ship';
 import { Bullet, RocketLaucher } from './weapons';
@@ -14,7 +14,7 @@ let world: World = {
   bullets: [],
 };
 let ship: Ship;
-export const spacesshipModule: Module = {
+export const spacesshipGame: Module = {
   settings: {
     name: 'spacesship',
     injectors: [KeyboardInjector],

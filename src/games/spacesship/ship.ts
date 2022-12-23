@@ -1,4 +1,4 @@
-import { Keyboard } from '../../../common/io';
+import { Keyboard } from '../../common/io';
 import { Acceleration } from './acceleration';
 import { Weapon } from './weapons/types';
 
