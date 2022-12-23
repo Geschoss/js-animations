@@ -1,5 +1,5 @@
 export interface Bullet {
-  think(): void;
+  think(arg: any): void;
   render(ctx: CanvasRenderingContext2D): void;
 }
 export interface Weapon {

@@ -1,5 +1,5 @@
 import { Keyboard, KeyboardInjector, Keys } from '../../common/io/keyboard';
-import { Mouse, MouseInjector } from '../../common/io/mouse';
+import { MouseInjector } from '../../common/io/mouse';
 import { Module } from '../../common/module';
 
 let keyboard: Keyboard;

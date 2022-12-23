@@ -1,4 +1,4 @@
-import { Keyboard, KeyboardInjector } from '../../common/io/keyboard';
+import { KeyboardInjector } from '../../common/io/keyboard';
 import { Mouse, MouseInjector } from '../../common/io/mouse';
 import { Module } from '../../common/module';
 import { Arraw } from './arraw';
