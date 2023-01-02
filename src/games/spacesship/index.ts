@@ -2,7 +2,7 @@ import { KeyboardInjector } from '../../common/io/keyboard';
 import { Env, Module } from '../../common/module';
 import { Space } from './acceleration';
 import { Ship } from './ship';
-import { Bullet, RocketLaucher } from './weapons';
+import { Bullet, MachineGun, RocketLaucher } from './weapons';
 
 type World = {
   weapons?: [];
@@ -16,7 +16,7 @@ let world: World = {
 let ship: Ship;
 export const spacesshipGame: Module = {
   settings: {
-    name: 'spacesship',
+    name: 'Spacesship',
     injectors: [KeyboardInjector],
   },
   init(_, env) {
@@ -27,7 +27,7 @@ export const spacesshipGame: Module = {
       acceleration,
       env.width / 2,
       env.height / 2,
-      new RocketLaucher()
+      new MachineGun()
     );
   },
   render(ctx, env) {

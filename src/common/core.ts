@@ -28,6 +28,20 @@ export function createSite(chaptersArr: Chapter[]) {
   let env = defaultEnv;
 
   DOM.updateChaptersMenu(chapters, currentChapter, selectChapter);
+  DOM.onResize(() => {
+    env = {
+      ...env,
+      width: currentExample.settings.width || DOM.body.offsetWidth,
+      height: currentExample.settings.height || DOM.body.offsetHeight,
+    };
+
+    DOM.canvas.width = env.width;
+    DOM.canvas.height = env.height;
+
+    if (currentExample.resize) {
+      currentExample.resize(ctx, env);
+    }
+  });
 
   function selectChapter(chapterName: string) {
     destroyModule();
@@ -46,20 +60,6 @@ export function createSite(chaptersArr: Chapter[]) {
     currentExample = findCurrentModule(exampleName, currentChapter);
 
     initModule();
-  }
-
-  function destroyModule() {
-    if (animationCbId) {
-      cancelAnimationFrame(animationCbId);
-    }
-    if (currentExample && currentExample.inited) {
-      if (!isNil(env.injectors)) {
-        values(env.injectors).map((injector) => injector.destroy());
-      }
-      currentExample.destroy(DOM.canvas);
-      currentExample.inited = false;
-    }
-    env = defaultEnv;
   }
 
   function initModule() {
@@ -98,6 +98,20 @@ export function createSite(chaptersArr: Chapter[]) {
 
     cleanupFn = currentExample.render(ctx, env, time) || null;
     animationCbId = requestAnimationFrame(render);
+  }
+
+  function destroyModule() {
+    if (animationCbId) {
+      cancelAnimationFrame(animationCbId);
+    }
+    if (currentExample && currentExample.inited) {
+      if (!isNil(env.injectors)) {
+        values(env.injectors).map((injector) => injector.destroy());
+      }
+      currentExample.destroy(DOM.canvas);
+      currentExample.inited = false;
+    }
+    env = defaultEnv;
   }
 
   function cleanupDefaultFn() {

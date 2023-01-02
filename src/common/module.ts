@@ -22,6 +22,7 @@ export interface Module {
     time: DOMHighResTimeStamp
   ): (() => void) | void;
   destroy(canvas: HTMLCanvasElement): void;
+  resize?(ctx: CanvasRenderingContext2D, env: Env): void;
 }
 
 // написать норм типы

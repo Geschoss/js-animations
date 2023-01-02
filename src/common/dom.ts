@@ -10,11 +10,19 @@ export const initDOM = () => {
   };
   return {
     ...dom,
-
+    onResize: onResize(),
     updateExamplesMenu: updateExamplesMenu(dom.examples),
     updateChaptersMenu: updateChaptersMenu(dom.chapters),
   };
 };
+
+function onResize() {
+  return (cb: () => void) => {
+    window.addEventListener('resize', () => {
+      cb();
+    });
+  };
+}
 
 function updateExamplesMenu(node: HTMLElement) {
   return (

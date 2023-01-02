@@ -6,9 +6,9 @@ export class MachineGun implements Weapon {
   prevShotTime: number;
 
   constructor() {
-    this.rate = 20;
+    this.rate = 10;
     this.prevShotTime = 0;
-    this.bulletSpeed = 10;
+    this.bulletSpeed = 6;
   }
 
   shot(shooter: Shooter, bullets: Bullet[]) {
