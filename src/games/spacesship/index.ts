@@ -2,7 +2,7 @@ import { KeyboardInjector } from '../../common/io/keyboard';
 import { Env, Module } from '../../common/module';
 import { Space } from './acceleration';
 import { Ship } from './ship';
-import { Bullet, MachineGun, RocketLaucher } from './weapons';
+import { Bullet, MachineGun } from './weapons';
 
 type World = {
   weapons?: [];

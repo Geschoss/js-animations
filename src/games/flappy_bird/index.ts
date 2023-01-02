@@ -49,7 +49,6 @@ function createPipes(screen: Rect) {
   let x_position = screen.width / 2;
   let y_position = screen.y;
   let screen_height = screen.height;
-  let x_max = screen.right + Pipe.WIDTH;
 
   let max_pipe = screen.width / (Pipe.WIDTH + Pipe.DISTANCE_BEETWEN) + 1;
   for (let i = 0; i < max_pipe; i++) {
