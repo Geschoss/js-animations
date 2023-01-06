@@ -8,13 +8,15 @@ export class EF_50Ship implements ShipViewInstance {
   weapons: [WeaponInstance, WeaponInstance, WeaponInstance];
 
   constructor(weapon: Weapon) {
-    this.weapon_name = weapon.name;
-    this.weapons = [new weapon(), new weapon(), new weapon()];
+    const w = new weapon();
+    this.weapon_name = w.name;
+    this.weapons = [w, new weapon(), new weapon()];
   }
 
   changeWeapon(weapon: Weapon) {
-    this.weapon_name = weapon.name;
-    this.weapons = [new weapon(), new weapon(), new weapon()];
+    const w = new weapon();
+    this.weapon_name = w.name;
+    this.weapons = [w, new weapon(), new weapon()];
   }
 
   shot(ship: BaseShip): Bullet[] {

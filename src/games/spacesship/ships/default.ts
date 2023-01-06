@@ -7,12 +7,14 @@ export class DefaultShip implements ShipViewInstance {
   weapon: WeaponInstance;
 
   constructor(weapon: Weapon) {
-    this.weapon_name = weapon.name;
+    const w = new weapon();
+    this.weapon_name = w.name;
     this.weapon = new weapon();
   }
 
   changeWeapon(weapon: Weapon) {
-    this.weapon_name = weapon.name;
+    const w = new weapon();
+    this.weapon_name = w.name;
     this.weapon = new weapon();
   }
 
