@@ -15,7 +15,7 @@ let world: World = {
 };
 export const flappyBirdModule: Module = {
   settings: {
-    name: 'Flappy Bird',
+    name: 'Flappy_Bird',
   },
   init(_, env) {
     let screen = createScreen(env);
@@ -89,6 +89,7 @@ function createBird() {
     color: '#00ff00',
   });
 }
+
 function createScreen(env: Env) {
   let w_padding = env.width * 5 / 100;
   let h_padding = env.height * 10 / 100;

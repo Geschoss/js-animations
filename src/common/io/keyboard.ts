@@ -1,8 +1,12 @@
 import { isNil } from '../../lib';
 
 export enum Keys {
+  KeyO = 'KeyO',
+  KeyP = 'KeyP',
+  KeyL = 'KeyL',
   Space = 'Space',
   ArrowUp = 'ArrowUp',
+  Semicolon = 'Semicolon',
   ArrowLeft = 'ArrowLeft',
   ArrowDown = 'ArrowDown',
   ArrowRight = 'ArrowRight',

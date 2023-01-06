@@ -4,5 +4,8 @@ import { spacesshipGame } from './spacesship';
 
 export const games: Chapter = {
   name: 'games',
-  expamples: [flappyBirdModule, spacesshipGame],
+  expamples: [
+    spacesshipGame,
+    flappyBirdModule,
+  ],
 };

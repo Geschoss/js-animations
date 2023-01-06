@@ -1,13 +1,13 @@
 import { Bullet, Position, WeaponInstance } from './types';
 
-export class MachineGun implements WeaponInstance {
-  name = 'Пулимет';
+export class PlasmaGun implements WeaponInstance {
+  name = 'Плазма';
   rate: number;
   bulletSpeed: number;
   prevShotTime: number;
 
   constructor() {
-    this.rate = 10;
+    this.rate = 5;
     this.prevShotTime = 0;
     this.bulletSpeed = 6;
   }
@@ -17,19 +17,19 @@ export class MachineGun implements WeaponInstance {
 
     if (now - this.prevShotTime > 1000 / this.rate) {
       this.prevShotTime = now;
-      return new Bullets(shooter.x, shooter.y, shooter.rotation, this.bulletSpeed);
+      return new Plasma(shooter.x, shooter.y, shooter.rotation, this.bulletSpeed);
     }
     return undefined;
   }
 }
 
-export class Bullets implements Bullet {
+export class Plasma implements Bullet {
   x: number;
   y: number;
   speed: number;
   rotation: number;
 
-  constructor(x, y, rotation, speed = 3) {
+  constructor(x, y, rotation, speed = 4) {
     this.x = x;
     this.y = y;
     this.speed = speed;
@@ -42,16 +42,15 @@ export class Bullets implements Bullet {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    let dx = 5 * Math.cos(this.rotation);
-    let dy = 5 * Math.sin(this.rotation);
     ctx.save();
     ctx.beginPath();
-    ctx.strokeStyle = '#ff0000';
-    ctx.lineWidth = 2;
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x + dx, this.y + dy);
+    ctx.fillStyle = '#00ff00';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
+    ctx.fill();
     ctx.closePath();
-    ctx.stroke();
+
     ctx.restore();
+
   }
 }

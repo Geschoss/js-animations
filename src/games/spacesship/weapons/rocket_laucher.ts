@@ -1,6 +1,7 @@
-import { Bullet, Shooter, Weapon } from './types';
+import { Bullet, Position, WeaponInstance } from './types';
 
-export class RocketLaucher implements Weapon {
+export class RocketLaucher implements WeaponInstance {
+  name = 'Рокетница';
   rate: number;
   prevShotTime: number;
 
@@ -9,12 +10,13 @@ export class RocketLaucher implements Weapon {
     this.prevShotTime = 0;
   }
 
-  shot(shooter: Shooter, bullets: Bullet[]) {
+  shot(shooter: Position) {
     let now = new Date().getTime();
     if (now - this.prevShotTime > 1000 / this.rate) {
       this.prevShotTime = now;
-      bullets.push(new Rocket(shooter.x, shooter.y, shooter.rotation));
+      return new Rocket(shooter.x, shooter.y, shooter.rotation);
     }
+    return undefined;
   }
 }
 
@@ -32,7 +34,7 @@ export class Rocket implements Bullet {
     this.speed = speed;
     this.rotation = rotation;
     this.acceleration = acceleration;
-    this.max_speed = 6 ;
+    this.max_speed = 6;
   }
 
   think() {
