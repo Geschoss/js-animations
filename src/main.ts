@@ -8,4 +8,4 @@ import { chapter_4 } from './chapters/chapter_4';
 import { chapter_5 } from './chapters/chapter_5';
 import { chapter_6 } from './chapters/chapter_6';
 
-createSite([chapter_6, chapter_5, chapter_4, chapter_3, chapter_2, games]);
+createSite([games, chapter_6, chapter_5, chapter_4, chapter_3, chapter_2]);

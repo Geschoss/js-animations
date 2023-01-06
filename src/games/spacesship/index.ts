@@ -136,6 +136,8 @@ function renderHelpText(ctx: CanvasRenderingContext2D, env: Env) {
   ctx.font = '20px Arial';
   ctx.fillText(`Смена корабля: Д или Ж`, 10, env.height - 10);
   ctx.fillText(`Смена оружия: Щ или З`, 10, env.height - 30);
+  ctx.fillText(`Летать на стрелки`, 10, env.height - 50);
+  
   ctx.restore();
 }
 
@@ -143,7 +145,7 @@ function renderShipName(ctx: CanvasRenderingContext2D, env: Env, ship: Ship) {
   ctx.save();
   ctx.fillStyle = '#ff0000';
   ctx.font = '20px Arial';
-  ctx.fillText(`корабль: ${ship.view.name}`, 10, env.height - 50);
-  ctx.fillText(`оружие: ${ship.view.weapon_name}`, 10, env.height - 70);
+  ctx.fillText(`корабль: ${ship.view.name}`, 10, env.height - 80);
+  ctx.fillText(`оружие: ${ship.view.weapon_name}`, 10, env.height - 100);
   ctx.restore();
 }
