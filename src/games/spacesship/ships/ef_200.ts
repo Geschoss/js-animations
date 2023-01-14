@@ -165,35 +165,7 @@ export class Ef_200Ship implements ShipViewInstance {
     ctx.moveTo(-4, 4);
     ctx.lineTo(-11, 11);
     ctx.stroke();
-//    
-//    ctx.lineWidth = 1;
-//    ctx.strokeStyle = '#ff0000';
-//    ctx.beginPath();
-//    ctx.moveTo(15, 10);
-//    ctx.lineTo(10, 10);
-//    ctx.lineTo(10, 5);
-//    ctx.lineTo(-10, 5);
-//    ctx.lineTo(-10, 10);
-//    ctx.lineTo(-15, 10);
-//    ctx.lineTo(-15, -10);
-//    ctx.lineTo(-10, -10);
-//    ctx.lineTo(-10, -5);
-//    ctx.lineTo(-10, -5);
-//    ctx.lineTo(10, -5);
-//    ctx.lineTo(10, -10);
-//    ctx.lineTo(15, -10);
-//    ctx.stroke();
-//
-//    ctx.beginPath();
-//    ctx.moveTo(15, 10);
-//    ctx.quadraticCurveTo(
-//      30,
-//      0,
-//      15,
-//      -10,
-//    );
-//    ctx.stroke();
-//
+
     if (data.moving) {
       ctx.beginPath();
       ctx.strokeStyle = '#ff9200';

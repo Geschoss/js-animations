@@ -5,6 +5,7 @@ export enum Keys {
   KeyP = 'KeyP',
   KeyL = 'KeyL',
   Space = 'Space',
+  Enter = 'Enter',
   ArrowUp = 'ArrowUp',
   Semicolon = 'Semicolon',
   ArrowLeft = 'ArrowLeft',
@@ -37,7 +38,7 @@ export class Keyboard {
     window.removeEventListener('keyup', this.keyup, false);
   }
 
-  keydown = (event: KeyboardEvent) => {
+  private keydown = (event: KeyboardEvent) => {
     let key = event.code as Keys;
     this.keys_pressed.push(key);
     this.down_subscribers.forEach(({ keys, cb }) => {
@@ -49,9 +50,8 @@ export class Keyboard {
     });
   };
 
-  keyup = (event: KeyboardEvent) => {
+  private keyup = (event: KeyboardEvent) => {
     this.keys_pressed = this.keys_pressed.filter((key) => key !== event.code);
-
     let key = event.code as Keys;
     this.up_subscribers.forEach(({ keys, cb }) => {
       if (keys.length === 0) {

@@ -1,14 +1,19 @@
 // import { LinearMove } from '../../common/behaviors';
 import { Rect } from '../../common/entities/index';
+import { Keyboard, KeyboardInjector } from '../../common/io';
 import { Env, Module } from '../../common/module';
+import { Bird } from './bird';
 import { Pipe } from './pipe';
 
-type World = {
-  bird: Rect;
+type State = {
+  type: 'dead' | 'play' | 'init';
+  bird: Bird;
   screen: Rect;
   pipes: Pipe[];
 };
-let world: World = {
+
+let game: State = {
+  type: 'init',
   bird: null,
   screen: null,
   pipes: [],
@@ -16,83 +21,80 @@ let world: World = {
 export const flappyBirdModule: Module = {
   settings: {
     name: 'Flappy_Bird',
+    injectors: [KeyboardInjector],
   },
   init(_, env) {
-    let screen = createScreen(env);
-    let bird = createBird();
-    let pipes = createPipes(screen);
-
-    world = {
-      bird,
-      screen,
-      pipes,
-    };
+    game.screen = createScreen(env);
   },
-  render(ctx) {
-    world.screen.render(ctx);
-    world.bird.render(ctx);
+  render(ctx, env) {
+    game.screen.render(ctx);
+    switch (game.type) {
+      case 'init':
+        init(game, env, ctx);
+        break;
 
-    world.pipes.forEach((pipe) => {
-      pipe.think();
-      pipe.render(ctx);
-    });
+      case 'play':
+        play(game, env, ctx);
+        break;
 
-    movePipe(world);
+      case 'dead':
+        dead(game, env, ctx);
+        break;
+
+      default:
+        break;
+    }
   },
   destroy() {
-    world = null;
+    game = null;
   },
 };
 
-function createPipes(screen: Rect) {
-  let result = [];
-  let x_position = screen.width / 2;
-  let y_position = screen.y;
-  let screen_height = screen.height;
-
-  let max_pipe = screen.width / (Pipe.WIDTH + Pipe.DISTANCE_BEETWEN) + 1;
-  for (let i = 0; i < max_pipe; i++) {
-    result.push(new Pipe(x_position, y_position, screen_height));
-    x_position += Pipe.WIDTH + Pipe.DISTANCE_BEETWEN;
-  }
-
-  return result;
-}
-
-function movePipe(world: World) {
-  let first = world.pipes[0];
-  let last = world.pipes[world.pipes.length - 1];
-
-  let x_min = world.screen.x - Pipe.WIDTH;
-
-  if (first.x < x_min) {
-    world.pipes.shift();
-    let y_position = world.screen.y;
-    let screen_height = world.screen.height;
-
-    world.pipes.push(
-      new Pipe(
-        last.x + Pipe.WIDTH + Pipe.DISTANCE_BEETWEN,
-        y_position,
-        screen_height
-      )
-    );
+function init(game: State, env: Env, ctx: CanvasRenderingContext2D) {
+  ctx.font = '30px Arial';
+  ctx.fillStyle = '#0000ff';
+  ctx.fillText(`Press ENTER to start`, env.width / 2 - 150, env.height / 2);
+  if (env.injectors.keyboard.pressed(Keyboard.keys.Enter)) {
+    game.type = 'play';
+    game.bird = new Bird();
+    game.pipes = Pipe.create(game.screen);
   }
 }
 
-function createBird() {
-  return Rect.create({
-    x: 150,
-    y: 350,
-    width: 50,
-    height: 50,
-    color: '#00ff00',
+function play(game: State, env: Env, ctx: CanvasRenderingContext2D) {
+  if (env.injectors.keyboard.pressed(Keyboard.keys.Space)) {
+    game.bird.velocity = -6;
+  }
+  game.bird.think();
+
+  if (game.bird.collision(game.pipes, game.screen)) {
+    game.type = 'dead';
+    return;
+  }
+
+  game.bird.render(ctx);
+  game.pipes.forEach((pipe) => {
+    pipe.think();
+    pipe.render(ctx);
   });
+  Pipe.move(game.pipes, game.screen);
+}
+
+function dead(game: State, env: Env, ctx: CanvasRenderingContext2D) {
+  ctx.font = '30px Arial';
+  ctx.fillStyle = '#0000ff';
+  ctx.fillText(`You are dead`, env.width / 2 - 100, env.height / 2 - 30);
+  ctx.fillText(`Press ENTER to start`, env.width / 2 - 150, env.height / 2);
+  if (env.injectors.keyboard.pressed(Keyboard.keys.Enter)) {
+    game.type = 'play';
+    game.bird = new Bird();
+    game.pipes = Pipe.create(game.screen);
+  }
 }
 
 function createScreen(env: Env) {
-  let w_padding = env.width * 5 / 100;
-  let h_padding = env.height * 10 / 100;
+  let w_padding = (env.width * 5) / 100;
+  let h_padding = (env.height * 10) / 100;
   return new Rect(
     w_padding,
     h_padding,
