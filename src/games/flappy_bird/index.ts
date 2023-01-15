@@ -10,6 +10,7 @@ type State = {
   bird: Bird;
   screen: Rect;
   pipes: Pipe[];
+  score: number;
 };
 
 let game: State = {
@@ -17,6 +18,7 @@ let game: State = {
   bird: null,
   screen: null,
   pipes: [],
+  score: 0,
 };
 export const flappyBirdModule: Module = {
   settings: {
@@ -46,7 +48,13 @@ export const flappyBirdModule: Module = {
     }
   },
   destroy() {
-    game = null;
+    game = {
+      type: 'init',
+      bird: null,
+      screen: null,
+      pipes: [],
+      score: 0,
+    };
   },
 };
 
@@ -58,10 +66,12 @@ function init(game: State, env: Env, ctx: CanvasRenderingContext2D) {
     game.type = 'play';
     game.bird = new Bird();
     game.pipes = Pipe.create(game.screen);
+    game.score = 0;
   }
 }
 
 function play(game: State, env: Env, ctx: CanvasRenderingContext2D) {
+  renderScore(game, env, ctx);
   if (env.injectors.keyboard.pressed(Keyboard.keys.Space)) {
     game.bird.velocity = -6;
   }
@@ -77,10 +87,13 @@ function play(game: State, env: Env, ctx: CanvasRenderingContext2D) {
     pipe.think();
     pipe.render(ctx);
   });
-  Pipe.move(game.pipes, game.screen);
+  if (Pipe.move(game.pipes, game.screen, game.score)) {
+    game.score += 1;
+  }
 }
 
 function dead(game: State, env: Env, ctx: CanvasRenderingContext2D) {
+  renderScore(game, env, ctx);
   ctx.font = '30px Arial';
   ctx.fillStyle = '#0000ff';
   ctx.fillText(`You are dead`, env.width / 2 - 100, env.height / 2 - 30);
@@ -89,6 +102,7 @@ function dead(game: State, env: Env, ctx: CanvasRenderingContext2D) {
     game.type = 'play';
     game.bird = new Bird();
     game.pipes = Pipe.create(game.screen);
+    game.score = 0;
   }
 }
 
@@ -102,4 +116,9 @@ function createScreen(env: Env) {
     env.height - 2 * h_padding,
     '#0000ff'
   );
+}
+function renderScore(game: State, env: Env, ctx: CanvasRenderingContext2D) {
+  ctx.font = '35px Arial';
+  ctx.fillStyle = '#0000ff';
+  ctx.fillText(`Score: ${game.score}`, env.width / 2 - 70, 150);
 }

@@ -2,7 +2,7 @@ import { Behavior, LinearMove } from '../../common/behaviors/index';
 import { Rect } from '../../common/entities/index';
 
 export class Pipe {
-  static GAP = 200;
+  static GAP = 290;
   static WIDTH = 50;
   static MIN_HEIGHT = 10;
   static DISTANCE_BEETWEN = 290;
@@ -14,24 +14,24 @@ export class Pipe {
   y: number;
   behavior: Behavior<Pipe>;
 
-  constructor(x: number, y: number, height: number) {
+  constructor(x: number, y: number, height: number, score: number = 0) {
     this.x = x;
     this.y = y;
-    this.behavior = new LinearMove(Pipe.SPEED);
+    this.behavior = new LinearMove(Pipe.SPEED - (score / 10));
+    let gap = Pipe.GAP - score;
 
     this.top = Rect.create({
       x: x,
       y: y,
       width: Pipe.WIDTH,
       height:
-        Pipe.MIN_HEIGHT +
-        Math.random() * (height - (Pipe.GAP + Pipe.MIN_HEIGHT)),
+        Pipe.MIN_HEIGHT + Math.random() * (height - (gap + Pipe.MIN_HEIGHT)),
     });
     this.bottom = Rect.create({
       x: this.top.x,
-      y: this.top.bottom + Pipe.GAP,
+      y: this.top.bottom + gap,
       width: Pipe.WIDTH,
-      height: height - this.top.height - Pipe.GAP,
+      height: height - this.top.height - gap,
     });
   }
 
@@ -108,7 +108,7 @@ export class Pipe {
     return result;
   }
 
-  static move(pipes: Pipe[], screen: Rect) {
+  static move(pipes: Pipe[], screen: Rect, score: number) {
     let first = pipes[0];
     let last = pipes[pipes.length - 1];
 
@@ -123,10 +123,13 @@ export class Pipe {
         new Pipe(
           last.x + Pipe.WIDTH + Pipe.DISTANCE_BEETWEN,
           y_position,
-          screen_height
+          screen_height,
+          score
         )
       );
+      return true;
     }
+    return false;
   }
 }
 
