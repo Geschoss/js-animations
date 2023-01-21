@@ -45,7 +45,7 @@ export class Rect_ {
   for_each(cb: (p: Point) => void) {
     for (let x = this.x1; x <= this.x2; x++) {
       for (let y = this.y1; y <= this.y2; y++) {
-        cb({ x, y });
+        cb(Point.from({ x, y }));
       }
     }
   }

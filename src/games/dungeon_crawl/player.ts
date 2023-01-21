@@ -1,7 +1,6 @@
 import { Point } from '../../common/entities';
 import { Keyboard } from '../../common/io';
 import { Env } from '../../common/module';
-import { Camera } from './camera';
 import { DungeonMap } from './map';
 
 export class Player {
@@ -35,7 +34,7 @@ export class Player {
     ctx.restore();
   }
 
-  update(map: DungeonMap, camera: Camera, env: Env) {
+  update(map: DungeonMap, env: Env) {
     let now = new Date().getTime();
 
     if (now - this.prevMove > 50) {

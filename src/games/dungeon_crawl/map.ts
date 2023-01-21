@@ -78,22 +78,6 @@ export class DungeonMap {
   }
 }
 
-function renderWall(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  size_x: number,
-  size_y: number
-) {
-  ctx.save();
-  ctx.fillStyle = '#f5f591';
-  ctx.beginPath();
-  ctx.rect(x, y, size_x, size_y);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
-
 function renderFloor(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -110,53 +94,14 @@ function renderFloor(
   ctx.restore();
 }
 
-function renderPixelIndex(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  size_x: number,
-  size_y: number
-) {
-  ctx.font = '8px Arial';
-  ctx.fillStyle = '#ff0000';
-  ctx.fillText(`${x}:${y}`, x * size_x + 4, y * size_y + 16);
-}
-
-/*
-
- ctx.save();
-    ctx.strokeStyle = '#00ff00';
-    
-    ctx.beginPath();
-    ctx.rect(
-      this.position.x - this.size / 2,
-      this.position.y - this.size / 2,
-      this.size * 2,
-      this.size * 2
-    );
-    ctx.closePath();
-    ctx.stroke();
-    ctx.restore();
-
-  in_bounds(point: Point) {
-    return (
-      point.x >= 0 &&
-      point.x < SCREEN_WIDTH &&
-      point.y >= 0 &&
-      point.y < SCREEN_HEIGHT
-    );
-  }
-  can_enter_tile(point: Point) {
-    return (
-      this.in_bounds(point) &&
-      this.tiles[map_idx(point.x, point.y)] == TileType.Floor
-    );
-  }
-  try_idx(point: Point) {
-    if (!this.in_bounds(point)) {
-      return undefined;
-    } else {
-      return map_idx(point.x, point.y);
-    }
-  }
-*/
+// function renderPixelIndex(
+//   ctx: CanvasRenderingContext2D,
+//   x: number,
+//   y: number,
+//   size_x: number,
+//   size_y: number
+// ) {
+//   ctx.font = '8px Arial';
+//   ctx.fillStyle = '#ff0000';
+//   ctx.fillText(`${x}:${y}`, x * size_x + 4, y * size_y + 16);
+// }
