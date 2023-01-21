@@ -1,4 +1,4 @@
-import { Chapter, Module } from './module';
+import { Chapter, Env, Module } from './module';
 import { initDOM } from './dom';
 import { getSearchParams, getSelectedChapter, getSelectedExample } from './url';
 import { findCurrentModule } from './utils';
@@ -25,7 +25,7 @@ export function createSite(chaptersArr: Chapter[]) {
     height: DOM.body.offsetHeight,
     injectors: {},
   };
-  let env = defaultEnv;
+  let env: Env = defaultEnv;
 
   DOM.updateChaptersMenu(chapters, currentChapter, selectChapter);
   DOM.onResize(() => {
@@ -33,6 +33,7 @@ export function createSite(chaptersArr: Chapter[]) {
       ...env,
       width: currentExample.settings.width || DOM.body.offsetWidth,
       height: currentExample.settings.height || DOM.body.offsetHeight,
+      tile_dimensions: currentExample.settings.tile_dimensions,
     };
 
     DOM.canvas.width = env.width;
@@ -78,6 +79,7 @@ export function createSite(chaptersArr: Chapter[]) {
     env = {
       width: currentExample.settings.width || DOM.body.offsetWidth,
       height: currentExample.settings.height || DOM.body.offsetHeight,
+      tile_dimensions: currentExample.settings.tile_dimensions,
       injectors,
     };
 

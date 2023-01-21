@@ -117,6 +117,7 @@ function createScreen(env: Env) {
     '#0000ff'
   );
 }
+
 function renderScore(game: State, env: Env, ctx: CanvasRenderingContext2D) {
   ctx.font = '35px Arial';
   ctx.fillStyle = '#0000ff';

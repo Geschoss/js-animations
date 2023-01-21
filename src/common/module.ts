@@ -2,6 +2,7 @@ export type Env = {
   width: number;
   height: number;
   injectors: Record<string, any>;
+  tile_dimensions?: { x: number; y: number };
 };
 
 export interface Module {
@@ -10,6 +11,7 @@ export interface Module {
     width?: number;
     height?: number;
     injectors?: any[];
+    tile_dimensions?: { x: number; y: number };
   };
   init(
     canvas: HTMLCanvasElement,
