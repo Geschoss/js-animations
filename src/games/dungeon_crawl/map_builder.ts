@@ -1,6 +1,7 @@
 import { Point, Rect_ } from '../../common/entities';
 import { Random } from '../../lib/random';
 import { DungeonMap, TileType } from './map';
+import { TilesE } from './tiles';
 
 const NUM_ROOMS = 60;
 const MAX_SIZE_ROOM = 25;
@@ -9,18 +10,19 @@ const MAX_CREATE_TRY = 200;
 
 export class MapBuilder {
   map: DungeonMap;
+  tiles: TilesE;
   rooms: Rect_[];
   player_start: Point;
 
-  static create(width: number, height: number) {
+  static create(tiles: TilesE, width: number, height: number) {
     let mb = new MapBuilder(
-      DungeonMap.create(width, height),
+      DungeonMap.create(tiles, width, height),
       [],
       Point.create()
     );
     mb.fill(TileType.Wall);
-    // mb.mock_rooms(width, height);
-    mb.build_random_rooms(width, height);
+    mb.mock_rooms(width, height);
+    // mb.build_random_rooms(width, height);
     mb.build_corridors();
     mb.player_start = mb.rooms[0].center_trunc();
     return mb;
@@ -33,7 +35,7 @@ export class MapBuilder {
   }
 
   fill(tile: TileType) {
-    this.map.tiles = this.map.tiles.map(() => tile);
+    this.map.sectors = this.map.sectors.map(() => tile);
   }
 
   mock_rooms(width: number, height: number) {
@@ -44,7 +46,7 @@ export class MapBuilder {
       room.for_each(({ x, y }) => {
         if (x > 0 && x < width - 1 && y > 0 && y < height - 1) {
           let idx = this.map.idx(x, y);
-          this.map.tiles[idx] = TileType.Floor;
+          this.map.sectors[idx] = TileType.Floor;
         }
       });
     });
@@ -66,7 +68,7 @@ export class MapBuilder {
         create_try = 0;
         room.for_each(({ x, y }) => {
           let idx = this.map.idx(x, y);
-          this.map.tiles[idx] = TileType.Floor;
+          this.map.sectors[idx] = TileType.Floor;
         });
         this.rooms.push(room);
       }
@@ -80,7 +82,7 @@ export class MapBuilder {
     for (let x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
       let idx = this.map.try_idx(Point.create(x, y));
       if (idx) {
-        this.map.tiles[idx] = TileType.Floor;
+        this.map.sectors[idx] = TileType.Floor;
       }
     }
   }
@@ -89,7 +91,7 @@ export class MapBuilder {
     for (let y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
       let idx = this.map.try_idx(Point.create(x, y));
       if (idx) {
-        this.map.tiles[idx] = TileType.Floor;
+        this.map.sectors[idx] = TileType.Floor;
       }
     }
   }

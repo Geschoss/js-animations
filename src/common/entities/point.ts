@@ -16,4 +16,17 @@ export class Point {
   add(other: Point) {
     return new Point(this.x + other.x, this.y + other.y);
   }
+
+  left() {
+    this.x -=1;
+  }
+  right() {
+    this.x +=1;
+  }
+  up() {
+    this.y -=1;
+  }
+  down() {
+    this.y +=1;
+  }
 }

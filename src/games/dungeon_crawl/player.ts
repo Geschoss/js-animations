@@ -2,36 +2,29 @@ import { Point } from '../../common/entities';
 import { Keyboard } from '../../common/io';
 import { Env } from '../../common/module';
 import { DungeonMap } from './map';
+import { TilesE } from './tiles';
 
 export class Player {
-  position: Point;
+  tiles: TilesE;
   centre: Point;
+  position: Point;
   prevMove: number;
 
-  static create(x = 0, y = 0, centre: Point) {
-    return new Player(x, y, centre);
+  static create(tiles: TilesE, x = 0, y = 0, centre: Point) {
+    return new Player(tiles, x, y, centre);
   }
 
-  constructor(x: number, y: number, centre: Point) {
-    this.position = Point.create(x, y);
+  constructor(tiles: TilesE, x: number, y: number, centre: Point) {
+    this.tiles = tiles;
     this.centre = centre;
+    this.position = Point.create(x, y);
     this.prevMove = 0;
-    console.log(x, y, centre);
   }
 
-  render(ctx: CanvasRenderingContext2D, env: Env) {
-    ctx.save();
-    ctx.fillStyle = '#00ff00';
-    ctx.beginPath();
-    ctx.rect(
-      this.centre.x,
-      this.centre.y,
-      env.tile_dimensions.x || 16,
-      env.tile_dimensions.y || 16
-    );
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
+  render(ctx: CanvasRenderingContext2D) {
+    if (this.tiles.isReady()) {
+      this.tiles.renderPlayer(ctx, this.centre);
+    }
   }
 
   update(map: DungeonMap, env: Env) {
@@ -49,18 +42,19 @@ export class Player {
   }
 
   move(keyboard: Keyboard): Point {
+    let point = Point.from({ x: 0, y: 0 });
     if (keyboard.pressed(Keyboard.keys.ArrowLeft)) {
-      return Point.from({ x: -1, y: 0 });
+      point.left();
     }
     if (keyboard.pressed(Keyboard.keys.ArrowRight)) {
-      return Point.from({ x: 1, y: 0 });
+      point.right();
     }
     if (keyboard.pressed(Keyboard.keys.ArrowUp)) {
-      return Point.from({ x: 0, y: -1 });
+      point.up();
     }
     if (keyboard.pressed(Keyboard.keys.ArrowDown)) {
-      return Point.from({ x: 0, y: 1 });
+      point.down();
     }
-    return Point.from({ x: 0, y: 0 });
+    return point
   }
 }

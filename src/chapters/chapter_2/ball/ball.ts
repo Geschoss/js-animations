@@ -40,7 +40,7 @@ export class Ball {
     }
 
     // spring back
-    this.vx += env.spring.vx(this.x, this.originX, env )
+    this.vx += env.spring.vx(this.x, this.originX, env)
     this.vy += env.spring.vy(this.y, this.originY, env)    
 
     // friction

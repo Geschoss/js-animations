@@ -29,8 +29,10 @@ body {
 }
 
 .menu__root {
-  margin: 8px;
+  padding: 8px;
   position: fixed;
+  background-color: #dadada;
+  border-radius: 6px;
 }
 
 .menu__list {

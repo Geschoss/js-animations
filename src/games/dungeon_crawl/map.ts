@@ -2,6 +2,7 @@ import { Point } from '../../common/entities';
 import { Env } from '../../common/module';
 import { range } from '../../lib';
 import { Player } from './player';
+import { TilesE } from './tiles';
 
 export enum TileType {
   Wall,
@@ -9,18 +10,20 @@ export enum TileType {
 }
 
 export class DungeonMap {
-  tiles: TileType[];
+  tiles: TilesE;
+  sectors: TileType[];
   width = 0;
   height = 0;
 
-  static create(width: number, height: number) {
-    let tiles = range(width * height, () => TileType.Floor);
-    return new DungeonMap(tiles, width, height);
+  static create(tiles: TilesE, width: number, height: number) {
+    let sectors = range(width * height, () => TileType.Floor);
+    return new DungeonMap(tiles, sectors, width, height);
   }
 
-  constructor(tiles: TileType[], width, height) {
-    this.width = width;
+  constructor(tiles: TilesE, sectors: TileType[], width, height) {
     this.tiles = tiles;
+    this.width = width;
+    this.sectors = sectors;
     this.height = height;
   }
 
@@ -28,7 +31,7 @@ export class DungeonMap {
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         let idx = this.idx(x, y);
-        let tile = this.tiles[idx];
+        let tile = this.sectors[idx];
         let x_pos =
           player.centre.x + (x - player.position.x) * env.tile_dimensions.x;
         let y_pos =
@@ -36,15 +39,10 @@ export class DungeonMap {
 
         switch (tile) {
           case TileType.Floor:
-            renderFloor(
-              ctx,
-              x_pos,
-              y_pos,
-              env.tile_dimensions.x,
-              env.tile_dimensions.y
-            );
+            this.tiles.renderFloor(ctx, Point.from({ x: x_pos, y: y_pos }));
             break;
           case TileType.Wall:
+            // this.tiles.renderWall(ctx, Point.from({ x: x_pos, y: y_pos }));
             break;
 
           default:
@@ -57,7 +55,7 @@ export class DungeonMap {
   can_enter_tile(point: Point) {
     return (
       this.in_bounds(point) &&
-      this.tiles[this.idx(point.x, point.y)] === TileType.Floor
+      this.sectors[this.idx(point.x, point.y)] === TileType.Floor
     );
   }
   in_bounds(p: Point) {
@@ -77,31 +75,3 @@ export class DungeonMap {
     return y * this.width + x;
   }
 }
-
-function renderFloor(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  size_x: number,
-  size_y: number
-) {
-  ctx.save();
-  ctx.fillStyle = '#ff00ff';
-  ctx.beginPath();
-  ctx.rect(x, y, size_x, size_y);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
-
-// function renderPixelIndex(
-//   ctx: CanvasRenderingContext2D,
-//   x: number,
-//   y: number,
-//   size_x: number,
-//   size_y: number
-// ) {
-//   ctx.font = '8px Arial';
-//   ctx.fillStyle = '#ff0000';
-//   ctx.fillText(`${x}:${y}`, x * size_x + 4, y * size_y + 16);
-// }
