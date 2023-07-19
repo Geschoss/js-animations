@@ -1,4 +1,4 @@
-import { Chapter } from '../common/module';
+import { Chapter } from '../../common/module';
 import { dungeonCrawlModule } from './dungeon_crawl';
 import { flappyBirdModule } from './flappy_bird';
 import { spacesshipGame } from './spacesship';

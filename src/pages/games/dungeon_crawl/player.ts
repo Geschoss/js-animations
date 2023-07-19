@@ -1,6 +1,6 @@
-import { Point } from '../../common/entities';
-import { Keyboard } from '../../common/io';
-import { Env } from '../../common/module';
+import { Point } from '../../../common/entities';
+import { Keyboard } from '../../../common/io';
+import { Env } from '../../../common/module';
 import { DungeonMap } from './map';
 import { TilesE } from './tiles';
 

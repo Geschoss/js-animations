@@ -1,4 +1,4 @@
-import { Module } from "../../common/module";
+import { Module } from "../../../common/module";
 
 export const angrySerjioModule: Module = {
     settings: {

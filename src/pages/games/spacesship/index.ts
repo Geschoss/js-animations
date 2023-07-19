@@ -1,5 +1,5 @@
-import { KeyboardInjector, Keyboard } from '../../common/io';
-import { Env, Module } from '../../common/module';
+import { KeyboardInjector, Keyboard } from '../../../common/io';
+import { Env, Module } from '../../../common/module';
 import { Space } from './acceleration';
 import { Ship } from './ship';
 import { DefaultShip, Ef_200Ship, EF_50Ship, Ex_100Ship, ShipView, T_50Ship } from './ships';

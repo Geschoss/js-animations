@@ -1,5 +1,5 @@
-import { Behavior, LinearMove } from '../../common/behaviors/index';
-import { Rect } from '../../common/entities/index';
+import { Behavior, LinearMove } from '../../../common/behaviors/index';
+import { Rect } from '../../../common/entities/index';
 
 export class Pipe {
   static GAP = 290;

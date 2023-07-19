@@ -1,6 +1,6 @@
-import { Point } from '../../common/entities';
-import { KeyboardInjector } from '../../common/io';
-import { Module } from '../../common/module';
+import { Point } from '../../../common/entities';
+import { KeyboardInjector } from '../../../common/io';
+import { Module } from '../../../common/module';
 import { Camera } from './camera';
 import { DungeonMap } from './map';
 import { MapBuilder } from './map_builder';

@@ -1,5 +1,5 @@
-import { Point } from '../../common/entities';
-import { Env } from '../../common/module';
+import { Point } from '../../../common/entities';
+import { Env } from '../../../common/module';
 
 export class Camera {
   left_x: number;

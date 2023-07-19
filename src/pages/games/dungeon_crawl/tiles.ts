@@ -1,5 +1,5 @@
-import { Point, ImageE } from '../../common/entities';
-import { Env } from '../../common/module';
+import { Point, ImageE } from '../../../common/entities';
+import { Env } from '../../../common/module';
 
 export class TilesE {
   private env: Env;

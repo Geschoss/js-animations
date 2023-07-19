@@ -1,5 +1,5 @@
-import { Rect } from '../../common/entities';
-import { Keyboard } from '../../common/io';
+import { Rect } from '../../../common/entities';
+import { Keyboard } from '../../../common/io';
 import { Pipe } from './pipe';
 
 export class Bird {

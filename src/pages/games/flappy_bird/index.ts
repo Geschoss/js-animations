@@ -1,7 +1,7 @@
 // import { LinearMove } from '../../common/behaviors';
-import { Rect } from '../../common/entities/index';
-import { Keyboard, KeyboardInjector } from '../../common/io';
-import { Env, Module } from '../../common/module';
+import { Rect } from '../../../common/entities/index';
+import { Keyboard, KeyboardInjector } from '../../../common/io';
+import { Env, Module } from '../../../common/module';
 import { Bird } from './bird';
 import { Pipe } from './pipe';
 

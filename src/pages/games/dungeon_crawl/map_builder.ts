@@ -1,5 +1,5 @@
-import { Point, Rect_ } from '../../common/entities';
-import { Random } from '../../lib/random';
+import { Point, Rect_ } from '../../../common/entities';
+import { Random } from '../../../lib/random';
 import { DungeonMap, TileType } from './map';
 import { TilesE } from './tiles';
 
@@ -21,8 +21,8 @@ export class MapBuilder {
       Point.create()
     );
     mb.fill(TileType.Wall);
-    mb.mock_rooms(width, height);
-    // mb.build_random_rooms(width, height);
+    // mb.mock_rooms(width, height);
+    mb.build_random_rooms(width, height);
     mb.build_corridors();
     mb.player_start = mb.rooms[0].center_trunc();
     return mb;

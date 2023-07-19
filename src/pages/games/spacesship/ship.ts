@@ -1,4 +1,4 @@
-import { Keyboard } from '../../common/io';
+import { Keyboard } from '../../../common/io';
 import { Acceleration } from './acceleration';
 import { ShipView, ShipViewInstance } from './ships';
 import { Weapon } from './weapons';

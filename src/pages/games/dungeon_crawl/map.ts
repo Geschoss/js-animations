@@ -1,6 +1,6 @@
-import { Point } from '../../common/entities';
-import { Env } from '../../common/module';
-import { range } from '../../lib';
+import { Point } from '../../../common/entities';
+import { Env } from '../../../common/module';
+import { range } from '../../../lib';
 import { Player } from './player';
 import { TilesE } from './tiles';
 
