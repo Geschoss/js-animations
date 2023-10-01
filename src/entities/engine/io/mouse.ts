@@ -1,7 +1,10 @@
-export class Mouse {
+import { Controller } from '@/entities/engine/io/types';
+
+export class Mouse implements Controller {
   x = 0;
   y = 0;
-  leftButtonDown = false;
+  pressed = false;
+
   rect: DOMRect;
   canvas: HTMLElement;
 
@@ -19,11 +22,11 @@ export class Mouse {
   }
 
   mousedown = (_: MouseEvent) => {
-    this.leftButtonDown = true;
+    this.pressed = true;
   };
 
   mouseup = (_: MouseEvent) => {
-    this.leftButtonDown = false;
+    this.pressed = false;
   };
 
   move = (event: MouseEvent) => {
@@ -53,13 +56,3 @@ export class Mouse {
     return { x: this.x, y: this.y };
   }
 }
-
-export const MouseInjector = {
-  name: 'mouse',
-  instance: Mouse,
-  deps: [
-    {
-      name: 'canvas',
-    },
-  ],
-};

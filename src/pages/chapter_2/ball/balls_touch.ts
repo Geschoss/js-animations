@@ -1,42 +1,45 @@
 import { Ball } from './ball';
 import { Touch } from '../../../common/io';
-import { Env, Module } from '../../../common/module';
+import { Engine2D, Env } from '@/entities/engine/2d/engine';
 
-let balls: Ball[];
-let player: Ball;
-let touch: Touch;
+export class BallTouch {
+  name = 'BallTouch';
 
-let env = {
-  friction: friction(0.99),
-  spring: spring(0.0),
-};
+  balls: Ball[];
+  player: Ball;
+  game2D: Engine2D;
 
-export const ballsTouchModule: Module = {
-  settings: {
-    name: 'balls_touch',
-  },
-  init: (canvas, _env) => {    
-    touch = new Touch(canvas);
-    balls = makeBalls(2000, _env);
-    player = new Ball(_env.width/2, _env.height/2, 30, '#eebe0a');
-  },
-  render: (ctx) => {
-    if (touch.pressed) {
-      player.set(touch.x, touch.y);
-    }
-    player.render(ctx);
-    balls.forEach((ball) => {
-      ball.think(player, env);
-      ball.render(ctx);
+  constructor() {
+    this.game2D = new Engine2D({ controller: Touch });
+    const env = this.game2D.env;
+
+    this.balls = makeBalls(2000, env);
+    this.player = new Ball(env.width / 2, env.height / 2, 30, '#eebe0a');
+
+    let physics = {
+      friction: friction(0.99),
+      spring: spring(0.0),
+    };
+    this.game2D.tick((ctx, touch) => {
+      if (touch.pressed) {
+        this.player.set(touch.x, touch.y);
+      }
+      this.player.render(ctx);
+      this.balls.forEach((ball) => {
+        ball.think(this.player, physics);
+        ball.render(ctx);
+      });
     });
-  },
+  }
+
   destroy() {
-    touch.destroy();
-    touch = undefined;
-    balls = undefined;
-    player = undefined;
-  },
-};
+    this.game2D.destroy();
+
+    this.balls = undefined;
+    this.game2D = undefined;
+    this.player = undefined;
+  }
+}
 
 function makeBalls(count: number, env: Env) {
   let balls = [];

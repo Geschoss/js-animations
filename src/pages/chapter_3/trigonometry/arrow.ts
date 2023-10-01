@@ -1,35 +1,32 @@
-import { Module } from '../../../common/module';
-import { Mouse } from '../../../common/io/mouse';
-// move
 import { Ball } from '../../chapter_2/ball/ball';
-import { Keyboard } from '../../../common/io';
+import { Engine2D } from '@/entities/engine/2d/engine';
 
-let mouse: Mouse;
-let arrow: Arraw;
-let player: Ball;
-let keyboard: Keyboard;
-export const arrowModule: Module = {
-  settings: {
-    name: 'arrow',
-  },
-  init(canvas) {
-    arrow = new Arraw(150, 150);
-    mouse = new Mouse(canvas);
-    player = new Ball(100, 100, 20, '#eebe0a');
-    keyboard = new Keyboard();
-  },
-  render(ctx) {
-    player.set(mouse.x, mouse.y);
-    player.render(ctx);
+export class Arrow {
+  name = 'Arrow';
 
-    arrow.ratateTo(mouse);
-    arrow.draw(ctx);
-  },
+  game2D: Engine2D;
+
+  constructor() {
+    this.game2D = new Engine2D();
+
+    let arrow = new Arraw(150, 150);
+    let player = new Ball(100, 100, 20, '#eebe0a');
+
+    this.game2D.tick((ctx, mouse) => {
+      player.set(mouse.x, mouse.y);
+      player.render(ctx);
+
+      arrow.ratateTo(mouse);
+      arrow.draw(ctx);
+    });
+  }
+
   destroy() {
-    keyboard.destroy();
-    mouse.destroy();
-  },
-};
+    this.game2D.destroy();
+
+    this.game2D = undefined;
+  }
+}
 
 class Arraw {
   x: number;

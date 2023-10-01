@@ -1,45 +1,47 @@
-import { Ball } from './ball';
-import { Mouse } from '../../../common/io';
-import { Env, Module } from '../../../common/module';
+import { Env } from '@/common/module';
+import { Ball } from '@/pages/chapter_2/ball/ball';
+import { Engine2D } from '@/entities/engine/2d/engine';
 
-let mouse;
-let balls;
-let player;
+export class Balls {
+  name = 'Balls';
 
-let env = {
-  friction: friction(0.5),
-  spring: spring(0.01),
-};
+  balls: Ball[];
+  player: Ball;
+  game2D: Engine2D;
 
-export const ballsModule: Module = {
-  settings: {
-    name: 'balls',
-  },
-  init: (canvas, env) => {
-    mouse = new Mouse(canvas);
-    balls = makeBalls(5000, env);
-    player = new Ball(100, 100, 20, '#eebe0a');
-  },
-  render: (ctx) => {
-    player.set(mouse.x, mouse.y);
-    player.render(ctx);
-    balls.forEach((ball) => {
-      ball.think(player, env);
-      ball.render(ctx);
+  constructor() {
+    this.game2D = new Engine2D();
+    this.balls = makeBalls(5000, this.game2D.env);
+    this.player = new Ball(100, 100, 20, '#eebe0a');
+
+    let physics = {
+      friction: friction(0.5),
+      spring: spring(0.01),
+    };
+
+    this.game2D.tick((ctx, mouse) => {
+      this.player.set(mouse.x, mouse.y);
+      this.player.render(ctx);
+      this.balls.forEach((ball) => {
+        ball.think(this.player, physics);
+        ball.render(ctx);
+      });
     });
-  },
+  }
+
   destroy() {
-    mouse.destroy();
-    mouse = undefined;
-    balls = undefined;
-    player = undefined;
-  },
-};
+    this.game2D.destroy();
+
+    this.game2D = undefined;
+    this.balls = undefined;
+    this.player = undefined;
+  }
+}
 
 function makeBalls(count: number, env: Env) {
   let balls = [];
-  let pad_x = env.width / 10; 
-  let pad_y = env.height / 10; 
+  let pad_x = env.width / 10;
+  let pad_y = env.height / 10;
   for (let i = 0; i < count; i++) {
     let x = pad_x + Math.random() * (env.width - pad_x * 2);
     let y = pad_y + Math.random() * (env.height - pad_y * 2);

@@ -1,4 +1,4 @@
-import { isNil } from '../../lib';
+import { isNil } from '../../shared/lib';
 
 export enum Keys {
   KeyO = 'KeyO',

@@ -1,30 +1,14 @@
 export type Env = {
   width: number;
   height: number;
-  injectors: Record<string, any>;
-  tile_dimensions?: { x: number; y: number };
 };
 
 export interface Module {
   settings: {
     name: string;
-    width?: number;
-    height?: number;
-    injectors?: any[];
-    tile_dimensions?: { x: number; y: number };
   };
-  init(
-    canvas: HTMLCanvasElement,
-    env: Env,
-    ctx: CanvasRenderingContext2D
-  ): void;
-  render(
-    ctx: CanvasRenderingContext2D,
-    env: Env,
-    time: DOMHighResTimeStamp
-  ): (() => void) | void;
-  destroy(canvas: HTMLCanvasElement): void;
-  resize?(ctx: CanvasRenderingContext2D, env: Env): void;
+  init(): void;
+  destroy(): void;
 }
 
 // написать норм типы

@@ -1,47 +1,52 @@
+import { Canvas2D } from '@/entities/engine/2d/canvas';
 import { Mouse } from '../../common/io';
 import { MouseInjector } from '../../common/io/mouse';
 import { Module } from '../../common/module';
-import { isNil } from '../../lib';
+import { isNil } from '../../shared/lib';
+import { Controller } from '@/entities/engine/io/types';
 
-let pencil: Pencil;
-export const lineModule: Module = {
-  settings: {
-    name: 'line',
-    injectors: [MouseInjector],
-  },
-  init(_, env) {
-    pencil = new Pencil(env.injectors.mouse);
-  },
-  render(ctx) {
-    pencil.draw(ctx);
-    return cleanup;
-  },
-  destroy() {},
-};
-function cleanup() {}
+export class Line {
+  name = 'Line';
 
-class Pencil {
-  mouse: Mouse;
-  prevPos: { x: number; y: number };
-  constructor(mouse: Mouse) {
-    this.mouse = mouse;
+  pencil: Pencil;
+  game2D: Canvas2D;
+
+  constructor() {
+    this.game2D = new Canvas2D();
+    this.pencil = new Pencil();
+
+    this.game2D.tick((ctx, mouse) => {
+      this.pencil.draw(ctx, mouse);
+    });
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    if (isNil(this.prevPos) && this.mouse.leftButtonDown) {
+  destroy() {
+    this.game2D.destroy();
+
+    this.game2D = undefined;
+    this.pencil = undefined;
+  }
+}
+
+class Pencil {
+  prevPos: { x: number; y: number };
+  constructor() {}
+
+  draw(ctx: CanvasRenderingContext2D, mouse: Controller) {
+    if (isNil(this.prevPos) && mouse.pressed) {
       ctx.strokeStyle = '#ff0000';
       ctx.lineWidth = 2;
       ctx.lineCap = 'butt'; // how the end point of each line
       ctx.lineJoin = 'miter';
       ctx.miterLimit = 10;
       ctx.beginPath();
-      ctx.moveTo(this.mouse.x, this.mouse.y);
-      this.prevPos = this.mouse.copyPos();
-    } else if (!isNil(this.prevPos) && this.mouse.leftButtonDown) {
-      ctx.lineTo(this.mouse.x, this.mouse.y);
-      this.prevPos = this.mouse.copyPos();
+      ctx.moveTo(mouse.x, mouse.y);
+      this.prevPos = { x: mouse.x, y: mouse.y };
+    } else if (!isNil(this.prevPos) && mouse.pressed) {
+      ctx.lineTo(mouse.x, mouse.y);
+      this.prevPos = { x: mouse.x, y: mouse.y };
       ctx.stroke();
-    } else if (!isNil(this.prevPos) && !this.mouse.leftButtonDown) {
+    } else if (!isNil(this.prevPos) && !mouse.pressed) {
       this.prevPos = null;
     }
   }

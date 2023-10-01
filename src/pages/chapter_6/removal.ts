@@ -1,33 +1,40 @@
 import { Expand } from '../../common/behaviors';
+import { Context2D } from '../../entities/engine/2d/context';
 import { Ball, Rect } from '../../common/entities';
 import { Module } from '../../common/module';
-import { range } from '../../lib';
+import { range } from '../../shared/lib';
 
 const BALLS_COUNT = 50;
 const BALL_RADIUS = 10;
 let rect: Rect;
 let balls: Ball[] = [];
+let context2d: Context2D;
+
 export const removalModule: Module = {
   settings: {
     name: 'removal',
   },
 
   init(_, env) {
+    context2d = new Context2D(720, 720);
     rect = createRect(env);
     balls = createBalls(rect);
   },
 
-  render(ctx) {
+  render(_) {
+    context2d.clean();
     balls = removeBalls(balls, rect);
     // balls = addBalls(balls, rect);
     balls.forEach((ball) => {
       ball.think();
-      ball.render(ctx);
+      ball.render(context2d.ctx);
     });
-    rect.render(ctx);
+    rect.render(context2d.ctx);
   },
 
-  destroy() {},
+  destroy() {
+    context2d.destroy();
+  },
 
   resize(_, env) {
     rect = createRect(env);

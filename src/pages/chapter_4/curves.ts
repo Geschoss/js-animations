@@ -1,21 +1,31 @@
-import { Mouse, MouseInjector } from '../../common/io/mouse';
-import { Env, Module } from '../../common/module';
-import { range } from '../../lib';
+import { Canvas2D, Env } from '@/entities/engine/2d/canvas';
+import { range } from '../../shared/lib';
+import { Controller } from '@/entities/engine/io/types';
 
-let pencil: Pencil;
-export const curvesModule: Module = {
-  settings: {
-    name: 'curves',
-    injectors: [MouseInjector],
-  },
-  init(_, env) {
-    pencil = new Pencil(env.injectors.mouse, env);
-  },
-  render(ctx) {
-    pencil.draw(ctx);
-  },
-  destroy() {},
-};
+export class Curves {
+  name = 'Curves';
+
+  pencil: Pencil;
+  game2D: Canvas2D;
+
+  constructor() {
+    this.game2D = new Canvas2D();
+    const env = this.game2D.env;
+    this.pencil = new Pencil(env);
+
+    this.game2D.tick((ctx, mouse) => {
+      this.pencil.draw(ctx, mouse);
+    });
+  }
+
+  destroy() {
+    this.game2D.destroy();
+
+    this.game2D = undefined;
+    this.pencil = undefined;
+  }
+}
+
 type Point = {
   x: number;
   y: number;
@@ -29,9 +39,8 @@ class Pencil {
     x1: 0,
     y1: 0,
   };
-  mouse: Mouse;
-  constructor(mouse: Mouse, env: Env) {
-    this.mouse = mouse;
+
+  constructor(env: Env) {
     this.points = range(20, () => ({
       x: Math.random() * env.width,
       y: Math.random() * env.height,
@@ -44,21 +53,16 @@ class Pencil {
     };
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D, mouse: Controller) {
     ctx.beginPath();
     ctx.strokeStyle = '#00ff00';
     ctx.lineWidth = 10;
     ctx.lineCap = 'butt';
-    
+
     ctx.lineJoin = 'round';
     ctx.miterLimit = 20;
     ctx.moveTo(this.point.x0, this.point.y0);
-    ctx.quadraticCurveTo(
-      this.mouse.x,
-      this.mouse.y,
-      this.point.x1,
-      this.point.y1,
-    );
+    ctx.quadraticCurveTo(mouse.x, mouse.y, this.point.x1, this.point.y1);
     ctx.stroke();
 
     ctx.beginPath();

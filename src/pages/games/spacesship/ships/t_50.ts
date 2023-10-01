@@ -1,4 +1,4 @@
-import { coin } from '../../../../lib';
+import { coin } from '../../../../shared/lib';
 import { Bullet, WeaponInstance, Weapon } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 

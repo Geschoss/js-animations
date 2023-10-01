@@ -1,21 +1,30 @@
-import { Mouse, MouseInjector } from '../../common/io/mouse';
-import { Env, Module } from '../../common/module';
-import { range } from '../../lib';
+import { Canvas2D, Env } from '@/entities/engine/2d/canvas';
+import { range } from '../../shared/lib';
 
-let pencil: Pencil;
-export const multiCurvesModule: Module = {
-  settings: {
-    name: 'multi_curves',
-    injectors: [MouseInjector],
-  },
-  init(_, env) {
-    pencil = new Pencil(env.injectors.mouse, env);
-  },
-  render(ctx) {
-    pencil.draw(ctx);
-  },
-  destroy() {},
-};
+export class MultiCurves {
+  name = 'MultiCurves';
+
+  pencil: Pencil;
+  game2D: Canvas2D;
+
+  constructor() {
+    this.game2D = new Canvas2D();
+    const env = this.game2D.env;
+    this.pencil = new Pencil(env);
+
+    this.game2D.tick((ctx) => {
+      this.pencil.draw(ctx);
+    });
+  }
+
+  destroy() {
+    this.game2D.destroy();
+
+    this.game2D = undefined;
+    this.pencil = undefined;
+  }
+}
+
 type Point = {
   x: number;
   y: number;
@@ -23,11 +32,10 @@ type Point = {
 
 class Pencil {
   count = 10;
-  mouse: Mouse;
   points: Point[] = [];
   ctrlPoint = {};
-  constructor(mouse: Mouse, env: Env) {
-    this.mouse = mouse;
+
+  constructor(env: Env) {
     this.points = range(this.count, () => ({
       x: Math.random() * env.width,
       y: Math.random() * env.height,
@@ -52,7 +60,6 @@ class Pencil {
     }
     ctx.quadraticCurveTo(this.points[i].x, this.points[i].y, dx, dy);
     ctx.stroke();
-
 
     ctx.beginPath();
     ctx.strokeStyle = '#0000ff';

@@ -1,43 +1,32 @@
-import { Chapter, Module } from './module';
-import { setSearchParam } from './url';
+import { Chapter } from '@/entities/site/chapter';
+import { Module } from '@/entities/site/module';
 
 export const initDOM = () => {
   let dom = {
     chapters: document.getElementById('chapters_menu'),
     examples: document.getElementById('examples_menu'),
-    canvas: document.getElementById('canvas') as HTMLCanvasElement,
-    body: document.body,
   };
   return {
     ...dom,
-    onResize: onResize(),
-    updateExamplesMenu: updateExamplesMenu(dom.examples),
+    updateModuleMenu: updateModuleMenu(dom.examples),
     updateChaptersMenu: updateChaptersMenu(dom.chapters),
   };
 };
 
-function onResize() {
-  return (cb: () => void) => {
-    window.addEventListener('resize', () => {
-      cb();
-    });
-  };
-}
-
-function updateExamplesMenu(node: HTMLElement) {
+function updateModuleMenu(node: HTMLElement) {
   return (
     currentChapter: Chapter,
-    currentExample: Module,
+    currentModule: Module,
     selectExample: (exampleName: string) => void
   ) => {
     removeChildren(node);
     let selected: HTMLDivElement;
-    currentChapter.expamples.forEach((module) => {
+    currentChapter.modules.forEach((module) => {
       let div = document.createElement('div');
       div.classList.add('menu__item');
-      div.innerText = module.settings.name;
+      div.innerText = module.name;
 
-      if (currentExample === module) {
+      if (currentModule.name === module.name) {
         selected = div;
         selected.classList.add('menu__item_selected');
       }
@@ -51,8 +40,8 @@ function updateExamplesMenu(node: HTMLElement) {
         }
         selected = div;
         selected.classList.add('menu__item_selected');
-        setSearchParam('example', module.settings.name);
-        selectExample(module.settings.name);
+        setSearchParam('module', module.name);
+        selectExample(module.name);
       });
       node.appendChild(div);
     });
@@ -101,4 +90,10 @@ function removeChildren(parent: HTMLElement) {
   while (parent.lastChild) {
     parent.removeChild(parent.lastChild);
   }
+}
+
+export function setSearchParam(name: string, value: string) {
+  let url = new URL(window.location.href);
+  url.searchParams.set(name, value);
+  window.history.pushState('Animations', name, url);
 }

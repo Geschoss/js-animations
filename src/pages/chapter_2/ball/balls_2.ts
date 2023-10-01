@@ -1,40 +1,42 @@
 import { Ball } from './ball';
-import { Mouse } from '../../../common/io';
-import { Env, Module } from '../../../common/module';
+import { Env } from '../../../common/module';
+import { Engine2D } from '@/entities/engine/2d/engine';
 
-let mouse: Mouse;
-let balls: Ball[];
-let player: Ball;
+export class Balls2 {
+  name = 'Balls2';
 
-let physics = {
-  friction: friction(),
-  spring: spring(),
-};
+  balls: Ball[];
+  player: Ball;
+  game2D: Engine2D;
 
-export const balls_2Module: Module = {
-  settings: {
-    name: 'balls_2',
-  },
-  init: (canvas, _env) => {
-    mouse = new Mouse(canvas);
-    balls = makeBalls(5000, _env);
-    player = new Ball(100, 100, 20, '#eebe0a');
-  },
-  render: (ctx, env) => {
-    player.set(mouse.x, mouse.y);
-    player.render(ctx);
-    balls.forEach((ball) => {
-      ball.think(player, { ...env, ...physics });
-      ball.render(ctx);
+  constructor() {
+    this.game2D = new Engine2D();
+    this.balls = makeBalls(5000, this.game2D.env);
+    this.player = new Ball(100, 100, 20, '#eebe0a');
+
+    let physics = {
+      friction: friction(),
+      spring: spring(),
+    };
+
+    this.game2D.tick((ctx, mouse) => {
+      this.player.set(mouse.x, mouse.y);
+      this.player.render(ctx);
+      this.balls.forEach((ball) => {
+        ball.think(this.player, { ...this.game2D.env, ...physics });
+        ball.render(ctx);
+      });
     });
-  },
+  }
+
   destroy() {
-    mouse.destroy();
-    mouse = undefined;
-    balls = undefined;
-    player = undefined;
-  },
-};
+    this.game2D.destroy();
+
+    this.game2D = undefined;
+    this.balls = undefined;
+    this.player = undefined;
+  }
+}
 
 function makeBalls(count: number, env: Env) {
   let balls = [];

@@ -1,43 +1,44 @@
 import { Ball } from './ball';
-import { Mouse } from '../../../common/io';
-import { Module } from '../../../common/module';
+import { Engine2D } from '@/entities/engine/2d/engine';
 
-let mouse;
-let balls;
-let player;
+export class Pidor {
+  name = 'Pidor';
 
-let env = {
-  friction: friction(0.8),
-  spring: spring(0.007),
-};
+  balls: Ball[];
+  player: Ball;
+  game2D: Engine2D;
 
-export const p_dorNodule: Module = {
-  settings: {
-    name: 'p_dor',
-  },
-  init: (canvas: HTMLCanvasElement) => {
-    mouse = new Mouse(canvas);
-    balls = makeP_dor_Text().map((ball) => {
+  constructor() {
+    this.game2D = new Engine2D();
+
+    this.balls = makeP_dor_Text().map((ball) => {
       ball.set(100 + Math.random() * 500, 100 + Math.random() * 400);
       return ball;
     });
-    player = new Ball(100, 100, 20, '#eebe0a');
-  },
-  render: (ctx) => {
-    player.set(mouse.x, mouse.y);
-    player.render(ctx);
-    balls.forEach((ball) => {
-      ball.think(player, env);
-      ball.render(ctx);
+    this.player = new Ball(100, 100, 20, '#eebe0a');
+
+    let physics = {
+      friction: friction(0.8),
+      spring: spring(0.007),
+    };
+    this.game2D.tick((ctx, mouse) => {
+      this.player.set(mouse.x, mouse.y);
+      this.player.render(ctx);
+      this.balls.forEach((ball) => {
+        ball.think(this.player, physics);
+        ball.render(ctx);
+      });
     });
-  },
+  }
   destroy() {
-    mouse.destroy();
-    mouse = undefined;
-    balls = undefined;
-    player = undefined;
-  },
-};
+    this.game2D.destroy();
+
+    this.balls = undefined;
+    this.game2D = undefined;
+    this.player = undefined;
+  }
+}
+
 const textColor = '#ff0000';
 const textSize = 2;
 const c = (x, y, color = textColor) => new Ball(x, y, textSize, color);
