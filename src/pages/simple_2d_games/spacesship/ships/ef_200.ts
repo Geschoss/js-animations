@@ -2,7 +2,7 @@ import { Bullet, Weapon, WeaponInstance } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 
 export class Ef_200Ship implements ShipViewInstance {
-  static name = 'еф-100';
+  name = 'еф-100';
   weapon_name: string;
   weapons: [WeaponInstance, WeaponInstance];
 

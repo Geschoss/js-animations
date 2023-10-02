@@ -2,7 +2,7 @@ import { Ball } from './ball';
 import { Engine2D } from '@/entities/engine/2d/engine';
 
 export class Pidor {
-  static name = 'Pidor';
+  static id = 'Pidor';
 
   balls: Ball[];
   player: Ball;

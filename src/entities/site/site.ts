@@ -8,7 +8,7 @@ export class Site {
 
   currentChapter: Chapter;
   currentModule: {
-    name: string;
+    id: string;
     module: Module;
   };
 
@@ -50,7 +50,7 @@ export class Site {
 
     if (mod) {
       this.currentModule = {
-        name: mod.name,
+        id: mod.name,
         module: new mod(),
       };
     }
@@ -75,7 +75,7 @@ export class Site {
 
     if (mod) {
       this.currentModule = {
-        name: mod.name,
+        id: mod.name,
         module: new mod(),
       };
     }

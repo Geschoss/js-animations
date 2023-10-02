@@ -1,7 +1,7 @@
 import { Bullet, Position, WeaponInstance } from './types';
 
 export class MachineGun implements WeaponInstance {
-  static name = 'Пулимет';
+  name = 'Пулимет';
   rate: number;
   bulletSpeed: number;
   prevShotTime: number;

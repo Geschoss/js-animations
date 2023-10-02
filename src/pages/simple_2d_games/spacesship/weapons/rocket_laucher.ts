@@ -1,7 +1,7 @@
 import { Bullet, Position, WeaponInstance } from './types';
 
 export class RocketLaucher implements WeaponInstance {
-  static name = 'Рокетница';
+  name = 'Рокетница';
   rate: number;
   prevShotTime: number;
 

@@ -8,7 +8,8 @@
     "build": "tsc && rm -rf dist && vite build",
     "preview": "vite preview",
     "gh-pages": "yarn build && git add dist -f && git commit -m \"gp-pages\" && git subtree push --prefix dist origin gh-pages",
-    "ts-cloc": "cloc . --include-lang=TypeScript"
+    "ts-cloc": "cloc . --include-lang=TypeScript",
+    "type-check": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
     "typescript": "^4.9.3",

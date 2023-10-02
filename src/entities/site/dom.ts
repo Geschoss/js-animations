@@ -12,7 +12,7 @@ export class Dom {
 
   updateModuleMenu(
     currentChapter: Chapter,
-    currentModule: { name: string; module: Module },
+    currentModule: { id: string; module: Module },
     selectModule: (exampleName: string) => void
   ) {
     this.removeChildren(this.examples);
@@ -22,9 +22,9 @@ export class Dom {
     currentChapter.modules.forEach((module) => {
       let div = document.createElement('div');
       div.classList.add('menu__item');
-      div.innerText = module.name;
+      div.innerText = module.id;
 
-      if (currentModule.name === module.name) {
+      if (currentModule.id === module.id) {
         selected = div;
         selected.classList.add('menu__item_selected');
       }
@@ -38,7 +38,7 @@ export class Dom {
         }
         selected = div;
         selected.classList.add('menu__item_selected');
-        selectModule(module.name);
+        selectModule(module.id);
       });
       this.examples.appendChild(div);
     });

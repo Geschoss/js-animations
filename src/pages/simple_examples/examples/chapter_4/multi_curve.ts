@@ -2,7 +2,7 @@ import { Canvas2D, Env } from '@/entities/engine/2d/canvas';
 import { range } from '../../../../shared/lib';
 
 export class MultiCurves {
-  static name = 'MultiCurves';
+  static id = 'MultiCurves';
 
   pencil: Pencil;
   game2D: Canvas2D;

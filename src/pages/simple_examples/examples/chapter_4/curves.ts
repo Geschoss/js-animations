@@ -3,7 +3,7 @@ import { range } from '../../../../shared/lib';
 import { Controller } from '@/entities/engine/io/types';
 
 export class Curves {
-  static name = 'Curves';
+  static id = 'Curves';
 
   pencil: Pencil;
   game2D: Canvas2D;

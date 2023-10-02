@@ -3,7 +3,7 @@ import { Bullet, WeaponInstance, Weapon } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 
 export class EF_50Ship implements ShipViewInstance {
-  static name = 'еф-50';
+  name = 'еф-50';
   weapon_name: string;
   weapons: [WeaponInstance, WeaponInstance, WeaponInstance];
 

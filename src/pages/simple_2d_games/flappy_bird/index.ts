@@ -13,7 +13,7 @@ type State = {
 };
 
 export class FlappyBird {
-  static name = 'FlappyBird';
+  static id = 'FlappyBird';
 
   state: State;
   game2D: Engine2D;

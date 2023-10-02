@@ -4,7 +4,7 @@ import { Canvas2D } from '@/entities/engine/2d/canvas';
 import { Controller } from '@/entities/engine/io/types';
 
 export class Pixel {
-  static name = 'Pixel';
+  static id = 'Pixel';
 
   game2D: Canvas2D;
   pencil: Pencil;
