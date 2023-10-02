@@ -1,26 +1,24 @@
 import { Chapter } from '@/entities/site/chapter';
 import { Module } from '@/entities/site/module';
 
-export const initDOM = () => {
-  let dom = {
-    chapters: document.getElementById('chapters_menu'),
-    examples: document.getElementById('examples_menu'),
-  };
-  return {
-    ...dom,
-    updateModuleMenu: updateModuleMenu(dom.examples),
-    updateChaptersMenu: updateChaptersMenu(dom.chapters),
-  };
-};
+export class Dom {
+  chapters: HTMLElement;
+  examples: HTMLElement;
 
-function updateModuleMenu(node: HTMLElement) {
-  return (
+  constructor(document: Document) {
+    this.chapters = document.getElementById('chapters_menu');
+    this.examples = document.getElementById('examples_menu');
+  }
+
+  updateModuleMenu(
     currentChapter: Chapter,
-    currentModule: Module,
-    selectExample: (exampleName: string) => void
-  ) => {
-    removeChildren(node);
+    currentModule: { name: string; module: Module },
+    selectModule: (exampleName: string) => void
+  ) {
+    this.removeChildren(this.examples);
+
     let selected: HTMLDivElement;
+
     currentChapter.modules.forEach((module) => {
       let div = document.createElement('div');
       div.classList.add('menu__item');
@@ -40,21 +38,19 @@ function updateModuleMenu(node: HTMLElement) {
         }
         selected = div;
         selected.classList.add('menu__item_selected');
-        setSearchParam('module', module.name);
-        selectExample(module.name);
+        selectModule(module.name);
       });
-      node.appendChild(div);
+      this.examples.appendChild(div);
     });
-  };
-}
+  }
 
-function updateChaptersMenu(node: HTMLElement) {
-  return (
+  updateChaptersMenu(
     chapters: Record<string, Chapter>,
     currentChapter: Chapter,
     selectChapter: (chapterName: string) => void
-  ) => {
+  ) {
     let selected: HTMLDivElement;
+
     Object.keys(chapters).forEach((chapterName) => {
       let instance = chapters[chapterName];
 
@@ -76,24 +72,17 @@ function updateChaptersMenu(node: HTMLElement) {
         }
         selected = div;
         selected.classList.add('menu__item_selected');
-        setSearchParam('chapter', chapterName);
         selectChapter(chapterName);
       });
 
-      node.appendChild(div);
+      this.chapters.appendChild(div);
     });
     selectChapter(currentChapter.name);
-  };
-}
-
-function removeChildren(parent: HTMLElement) {
-  while (parent.lastChild) {
-    parent.removeChild(parent.lastChild);
   }
-}
 
-export function setSearchParam(name: string, value: string) {
-  let url = new URL(window.location.href);
-  url.searchParams.set(name, value);
-  window.history.pushState('Animations', name, url);
+  private removeChildren(parent: HTMLElement) {
+    while (parent.lastChild) {
+      parent.removeChild(parent.lastChild);
+    }
+  }
 }

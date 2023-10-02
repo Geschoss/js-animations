@@ -6,7 +6,7 @@ import floor_tiles from './images/floor_tiles.png';
 import video from './images/video.mov';
 
 export class Images {
-  name = 'Images';
+  static name = 'Images';
 
   game2D: Canvas2D;
 

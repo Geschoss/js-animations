@@ -3,7 +3,7 @@ import { isNil } from '../../../../shared/lib';
 import { Controller } from '@/entities/engine/io/types';
 
 export class Line {
-  name = 'Line';
+  static name = 'Line';
 
   pencil: Pencil;
   game2D: Canvas2D;

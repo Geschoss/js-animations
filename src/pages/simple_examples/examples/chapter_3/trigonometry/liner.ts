@@ -2,7 +2,7 @@ import { Engine2D } from '@/entities/engine/2d/engine';
 import { Ball } from './ball';
 
 export class Liner {
-  name = 'Liner';
+  static name = 'Liner';
 
   game2D: Engine2D;
 

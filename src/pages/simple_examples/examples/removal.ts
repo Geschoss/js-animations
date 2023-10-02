@@ -7,7 +7,7 @@ const BALLS_COUNT = 50;
 const BALL_RADIUS = 10;
 
 export class Removal {
-  name = 'Removal';
+  static name = 'Removal';
 
   game2D: Engine2D;
 

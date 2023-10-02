@@ -6,7 +6,7 @@ type Point = {
 };
 
 export class Distance {
-  name = 'Distance';
+  static name = 'Distance';
 
   game2D: Engine2D;
 

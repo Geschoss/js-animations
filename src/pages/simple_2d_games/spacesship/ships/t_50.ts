@@ -3,7 +3,7 @@ import { Bullet, WeaponInstance, Weapon } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 
 export class T_50Ship implements ShipViewInstance {
-  name = 'т-50';
+  static name = 'т-50';
   weapon_name: string;
   weapons: [WeaponInstance, WeaponInstance];
 

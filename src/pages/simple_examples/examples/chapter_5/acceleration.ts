@@ -1,7 +1,7 @@
 import { Engine2D } from '@/entities/engine/2d/engine';
 
 export class Acceleration {
-  name = 'Acceleration';
+  static name = 'Acceleration';
   game2D: Engine2D;
 
   constructor() {

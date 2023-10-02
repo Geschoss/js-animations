@@ -1,7 +1,7 @@
 import { Bullet, Position, WeaponInstance } from './types';
 
 export class PlasmaGun implements WeaponInstance {
-  name = 'Плазма';
+  static name = 'Плазма';
   rate: number;
   bulletSpeed: number;
   prevShotTime: number;

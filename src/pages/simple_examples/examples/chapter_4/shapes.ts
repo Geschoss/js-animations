@@ -2,7 +2,7 @@ import { Canvas2D, Env } from '@/entities/engine/2d/canvas';
 import { range } from '../../../../shared/lib';
 
 export class Shapes {
-  name = 'Shapes';
+  static name = 'Shapes';
 
   pencil: Pencil;
   game2D: Canvas2D;

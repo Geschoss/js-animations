@@ -2,7 +2,7 @@ import { Ball } from '../../chapter_2/ball/ball';
 import { Engine2D } from '@/entities/engine/2d/engine';
 
 export class Arrow {
-  name = 'Arrow';
+  static name = 'Arrow';
 
   game2D: Engine2D;
 

@@ -33,7 +33,7 @@ let world: World = {
 let ship: Ship;
 
 export class SpacesShip {
-  name = 'SpacesShip';
+  static name = 'SpacesShip';
 
   game2D: Engine2D;
 

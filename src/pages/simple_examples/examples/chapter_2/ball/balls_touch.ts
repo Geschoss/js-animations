@@ -3,7 +3,7 @@ import { Ball } from './ball';
 import { Engine2D, Env } from '@/entities/engine/2d/engine';
 
 export class BallTouch {
-  name = 'BallTouch';
+  static name = 'BallTouch';
 
   balls: Ball[];
   player: Ball;

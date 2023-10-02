@@ -1,18 +1,19 @@
-import { initDOM } from '@/entities/dom/dom';
+import { Dom } from '@/entities/site/dom';
 import { Chapter } from '@/entities/site/chapter';
 import { Module } from '@/entities/site/module';
+import { Routing } from '@/entities/site/routing';
 
 export class Site {
   chaptersMap: Record<string, Chapter>;
-  currentModule: Module;
-  currentChapter: Chapter;
 
-  queryParams: {
-    module: string;
-    chapter: string;
+  currentChapter: Chapter;
+  currentModule: {
+    name: string;
+    module: Module;
   };
 
-  dom: ReturnType<typeof initDOM>;
+  dom: Dom;
+  routing: Routing;
 
   constructor(chapters: Chapter[]) {
     this.chaptersMap = chapters.reduce((acc, chapter) => {
@@ -22,13 +23,10 @@ export class Site {
       return { ...acc, [chapter.name]: chapter };
     }, {});
 
-    this.dom = initDOM();
-    this.queryParams = getSearchParams();
+    this.dom = new Dom(document);
+    this.routing = new Routing();
 
-    this.currentChapter = getSelectedChapter(
-      this.queryParams.chapter,
-      this.chaptersMap
-    );
+    this.currentChapter = this.getSelectedChapter(this.routing.chapter);
 
     this.dom.updateChaptersMenu(
       this.chaptersMap,
@@ -38,19 +36,23 @@ export class Site {
   }
 
   selectChapter(chapterName: string) {
+    this.routing.setChapter(chapterName);
     if (this.currentModule) {
-      this.currentModule.destroy();
+      this.currentModule.module.destroy();
       this.currentModule = undefined;
     }
 
     this.currentChapter = this.chaptersMap[chapterName];
-    const mod = getSelectedExample(
-      this.queryParams.module,
+    const mod = this.getSelectedExample(
+      this.routing.module,
       this.currentChapter
     );
 
     if (mod) {
-      this.currentModule = new mod();
+      this.currentModule = {
+        name: mod.name,
+        module: new mod(),
+      };
     }
 
     this.dom.updateModuleMenu(
@@ -61,8 +63,9 @@ export class Site {
   }
 
   selectModule(moduleName: string) {
+    this.routing.setModule(moduleName);
     if (this.currentModule) {
-      this.currentModule.destroy();
+      this.currentModule.module.destroy();
       this.currentModule = undefined;
     }
 
@@ -70,33 +73,27 @@ export class Site {
       ({ name }) => name === moduleName
     );
 
-    this.currentModule = new mod();
+    if (mod) {
+      this.currentModule = {
+        name: mod.name,
+        module: new mod(),
+      };
+    }
   }
-}
 
-function getSelectedChapter(
-  chapterName: string,
-  chapters: Record<string, Chapter>
-) {
-  let current = chapters[chapterName];
-  if (current == undefined) {
-    return Object.values(chapters)[0]; // TODO костыль
+  private getSelectedChapter(chapterName: string) {
+    let current = this.chaptersMap[chapterName];
+    if (current == undefined) {
+      return Object.values(this.chaptersMap)[0]; // TODO костыль
+    }
+    return current;
   }
-  return current;
-}
 
-function getSelectedExample(exampleName: string, chapter: Chapter) {
-  let current = chapter.modules.find(({ name }) => name === exampleName);
-  if (current == undefined) {
-    return chapter.modules[0]; // TODO костыль
+  private getSelectedExample(exampleName: string, chapter: Chapter) {
+    let current = chapter.modules.find(({ name }) => name === exampleName);
+    if (current == undefined) {
+      return chapter.modules[0]; // TODO костыль
+    }
+    return current;
   }
-  return current;
-}
-
-function getSearchParams() {
-  let searchParams = new URLSearchParams(window.location.search);
-  return {
-    chapter: searchParams.get('chapter') || '',
-    module: searchParams.get('module') || '',
-  };
 }
