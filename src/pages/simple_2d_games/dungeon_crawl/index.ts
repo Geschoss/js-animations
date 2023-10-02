@@ -24,7 +24,7 @@ const game: State = {
 };
 
 export class DungeonCrawl {
-  static id = 'DungeonCrawl';
+  static id = 'dungeonCrawl';
 
   game2D: Engine2D;
 

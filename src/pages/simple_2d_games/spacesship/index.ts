@@ -33,7 +33,7 @@ let world: World = {
 let ship: Ship;
 
 export class SpacesShip {
-  static id = 'SpacesShip';
+  static id = 'spacesShip';
 
   game2D: Engine2D;
 

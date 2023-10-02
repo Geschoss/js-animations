@@ -2,7 +2,7 @@ import { Engine2D } from '@/entities/engine/2d/engine';
 import { Arraw } from './arraw';
 
 export class Mouse1 {
-  static id = 'Mouse1';
+  static id = 'mouse1';
 
   game2D: Engine2D;
 

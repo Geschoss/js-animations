@@ -90,7 +90,7 @@ export class Site {
   }
 
   private getSelectedExample(exampleName: string, chapter: Chapter) {
-    let current = chapter.modules.find(({ name }) => name === exampleName);
+    let current = chapter.modules.find(({ id }) => id === exampleName);
     if (current == undefined) {
       return chapter.modules[0]; // TODO костыль
     }
