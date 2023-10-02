@@ -40,6 +40,7 @@ export class Site {
   selectChapter(chapterName: string) {
     if (this.currentModule) {
       this.currentModule.destroy();
+      this.currentModule = undefined;
     }
 
     this.currentChapter = this.chaptersMap[chapterName];
@@ -48,7 +49,9 @@ export class Site {
       this.currentChapter
     );
 
-    this.currentModule = new mod();
+    if (mod) {
+      this.currentModule = new mod();
+    }
 
     this.dom.updateModuleMenu(
       this.currentChapter,
@@ -60,6 +63,7 @@ export class Site {
   selectModule(moduleName: string) {
     if (this.currentModule) {
       this.currentModule.destroy();
+      this.currentModule = undefined;
     }
 
     const mod = this.currentChapter.modules.find(

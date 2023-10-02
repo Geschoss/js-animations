@@ -1,8 +1,7 @@
 import './style.css';
 
-import { chapter_3 } from './pages/chapter_3';
-import { chapter_2 } from './pages/chapter_2';
 import { Site } from '@/entities/site/site';
-import { chapter_4 } from '@/pages/chapter_4';
+import { simple_2d_games } from '@/pages/simple_2d_games';
+import { simple_examples } from '@/pages/simple_examples';
 
-new Site([chapter_4, chapter_3, chapter_2]);
+new Site([simple_2d_games, simple_examples]);

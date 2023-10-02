@@ -30,16 +30,19 @@ body {
 
 .menu__root {
   padding: 8px;
+  margin: 4px;
   position: fixed;
   background-color: #dadada;
   border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .menu__list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  height: 25px;
 }
 
 .menu__list_chapter {
