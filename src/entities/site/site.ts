@@ -1,6 +1,6 @@
 import { Dom } from '@/entities/site/dom';
 import { Chapter } from '@/entities/site/chapter';
-import { Module } from '@/entities/site/module';
+import { Module, ModuleConstructor } from '@/entities/site/module';
 import { Routing } from '@/entities/site/routing';
 
 export class Site {
@@ -36,23 +36,21 @@ export class Site {
   }
 
   selectChapter(chapterName: string) {
-    this.routing.setChapter(chapterName);
     if (this.currentModule) {
       this.currentModule.module.destroy();
       this.currentModule = undefined;
     }
 
     this.currentChapter = this.chaptersMap[chapterName];
-    const mod = this.getSelectedExample(
+    this.routing.setChapter(this.currentChapter.name);
+
+    const mod = this.getSelectedModule(
       this.routing.module,
       this.currentChapter
     );
 
     if (mod) {
-      this.currentModule = {
-        id: mod.name,
-        module: new mod(),
-      };
+      this.setModule(mod);
     }
 
     this.dom.updateModuleMenu(
@@ -63,22 +61,24 @@ export class Site {
   }
 
   selectModule(moduleName: string) {
-    this.routing.setModule(moduleName);
     if (this.currentModule) {
       this.currentModule.module.destroy();
       this.currentModule = undefined;
     }
 
-    const mod = this.currentChapter.modules.find(
-      ({ name }) => name === moduleName
-    );
+    const mod = this.currentChapter.modules.find(({ id }) => id === moduleName);
 
     if (mod) {
-      this.currentModule = {
-        id: mod.name,
-        module: new mod(),
-      };
+      this.setModule(mod);
     }
+  }
+
+  private setModule(mod: ModuleConstructor) {
+    this.routing.setModule(mod.id);
+    this.currentModule = {
+      id: mod.id,
+      module: new mod(),
+    };
   }
 
   private getSelectedChapter(chapterName: string) {
@@ -89,7 +89,7 @@ export class Site {
     return current;
   }
 
-  private getSelectedExample(exampleName: string, chapter: Chapter) {
+  private getSelectedModule(exampleName: string, chapter: Chapter) {
     let current = chapter.modules.find(({ id }) => id === exampleName);
     if (current == undefined) {
       return chapter.modules[0]; // TODO костыль
