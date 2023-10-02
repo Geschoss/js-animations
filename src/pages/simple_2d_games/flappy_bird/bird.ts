@@ -1,5 +1,5 @@
+import { Keyboard } from '@/entities/engine/io/keyboard';
 import { Rect } from '../../../entities/engine/2d/entities';
-import { Keyboard } from '../../../common/io';
 import { Pipe } from './pipe';
 
 export class Bird {

@@ -1,6 +1,5 @@
-import { Env } from '@/common/module';
 import { Ball } from '@/pages/simple_examples/examples/chapter_2/ball/ball';
-import { Engine2D } from '@/entities/engine/2d/engine';
+import { Engine2D, Env } from '@/entities/engine/2d/engine';
 
 export class Balls {
   name = 'Balls';
