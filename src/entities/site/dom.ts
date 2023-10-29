@@ -1,53 +1,21 @@
 import { Chapter } from '@/entities/site/chapter';
 import { Module } from '@/entities/site/module';
+import { Routing } from '@/entities/site/routing';
 
 export class Dom {
+  routing: Routing;
   chapters: HTMLElement;
   examples: HTMLElement;
 
-  constructor(document: Document) {
+  constructor(document: Document, routing: Routing) {
+    this.routing = routing;
     this.chapters = document.getElementById('chapters_menu');
     this.examples = document.getElementById('examples_menu');
   }
 
-  updateModuleMenu(
-    currentChapter: Chapter,
-    currentModule: { id: string; module: Module },
-    selectModule: (exampleName: string) => void
-  ) {
-    this.removeChildren(this.examples);
-
-    let selected: HTMLDivElement;
-
-    currentChapter.modules.forEach((module) => {
-      let div = document.createElement('div');
-      div.classList.add('menu__item');
-      div.innerText = module.id;
-
-      if (currentModule.id === module.id) {
-        selected = div;
-        selected.classList.add('menu__item_selected');
-      }
-
-      div.addEventListener('click', () => {
-        if (selected === div) {
-          return;
-        }
-        if (selected) {
-          selected.classList.remove('menu__item_selected');
-        }
-        selected = div;
-        selected.classList.add('menu__item_selected');
-        selectModule(module.id);
-      });
-      this.examples.appendChild(div);
-    });
-  }
-
-  updateChaptersMenu(
+  renderChaptersMenu(
     chapters: Record<string, Chapter>,
-    currentChapter: Chapter,
-    selectChapter: (chapterName: string) => void
+    currentChapter: Chapter
   ) {
     let selected: HTMLDivElement;
 
@@ -72,12 +40,47 @@ export class Dom {
         }
         selected = div;
         selected.classList.add('menu__item_selected');
-        selectChapter(chapterName);
+        this.routing.setChapter(chapterName);
       });
 
       this.chapters.appendChild(div);
     });
-    selectChapter(currentChapter.name);
+  }
+
+  renderModuleMenu(
+    currentChapter?: Chapter,
+    currentModule?: { id: string; module: Module }
+  ) {
+    this.removeChildren(this.examples);
+    if (!currentChapter) {
+      return;
+    }
+
+    let selected: HTMLDivElement;
+
+    currentChapter.modules.forEach((module) => {
+      let div = document.createElement('div');
+      div.classList.add('menu__item');
+      div.innerText = module.id;
+
+      if (currentModule?.id === module.id) {
+        selected = div;
+        selected.classList.add('menu__item_selected');
+      }
+
+      div.addEventListener('click', () => {
+        if (selected === div) {
+          return;
+        }
+        if (selected) {
+          selected.classList.remove('menu__item_selected');
+        }
+        selected = div;
+        selected.classList.add('menu__item_selected');
+        this.routing.setModule(module.id);
+      });
+      this.examples.appendChild(div);
+    });
   }
 
   private removeChildren(parent: HTMLElement) {

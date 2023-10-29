@@ -1,13 +1,13 @@
 import { Dom } from '@/entities/site/dom';
 import { Chapter } from '@/entities/site/chapter';
-import { Module, ModuleConstructor } from '@/entities/site/module';
+import { Module } from '@/entities/site/module';
 import { Routing } from '@/entities/site/routing';
 
 export class Site {
   chaptersMap: Record<string, Chapter>;
 
-  currentChapter: Chapter;
-  currentModule: {
+  currentChapter?: Chapter;
+  currentModule?: {
     id: string;
     module: Module;
   };
@@ -23,77 +23,76 @@ export class Site {
       return { ...acc, [chapter.name]: chapter };
     }, {});
 
-    this.dom = new Dom(document);
-    this.routing = new Routing();
+    this.routing = new Routing(() => {
+      if (this.currentChapter?.name !== this.routing.chapter) {
+        this.chapterChanged();
+      } else if (this.currentModule?.id !== this.routing.module) {
+        this.moduleChanged();
+      }
+    });
 
-    this.currentChapter = this.getSelectedChapter(this.routing.chapter);
+    this.dom = new Dom(document, this.routing);
 
-    this.dom.updateChaptersMenu(
-      this.chaptersMap,
-      this.currentChapter,
-      this.selectChapter.bind(this)
-    );
+    this.initCurrentChapter();
+
+    this.dom.renderChaptersMenu(this.chaptersMap, this.currentChapter);
+    this.dom.renderModuleMenu(this.currentChapter, this.currentModule);
   }
 
-  selectChapter(chapterName: string) {
+  private chapterChanged() {
     if (this.currentModule) {
       this.currentModule.module.destroy();
       this.currentModule = undefined;
     }
 
-    this.currentChapter = this.chaptersMap[chapterName];
-    this.routing.setChapter(this.currentChapter.name);
-
-    const mod = this.getSelectedModule(
-      this.routing.module,
-      this.currentChapter
-    );
-
-    if (mod) {
-      this.setModule(mod);
-    }
-
-    this.dom.updateModuleMenu(
-      this.currentChapter,
-      this.currentModule,
-      this.selectModule.bind(this)
-    );
+    this.currentChapter = this.chapterByName();
+    this.moduleChanged();
   }
 
-  selectModule(moduleName: string) {
+  moduleChanged() {
     if (this.currentModule) {
       this.currentModule.module.destroy();
       this.currentModule = undefined;
     }
 
-    const mod = this.currentChapter.modules.find(({ id }) => id === moduleName);
+    let module;
+    if (this.currentChapter) {
+      module = this.moduleByName();
+    }
+    if (module) {
+      this.currentModule = {
+        id: module.id,
+        module: new module(),
+      };
+    }
 
-    if (mod) {
-      this.setModule(mod);
+    this.dom.renderModuleMenu(this.currentChapter, this.currentModule);
+  }
+
+  private initCurrentChapter() {
+    this.currentChapter = this.chapterByName();
+    let module;
+    if (this.currentChapter) {
+      module = this.moduleByName();
+    }
+    if (module) {
+      this.currentModule = {
+        id: module.id,
+        module: new module(),
+      };
     }
   }
 
-  private setModule(mod: ModuleConstructor) {
-    this.routing.setModule(mod.id);
-    this.currentModule = {
-      id: mod.id,
-      module: new mod(),
-    };
+  private chapterByName() {
+    return this.chaptersMap[this.routing.chapter];
   }
 
-  private getSelectedChapter(chapterName: string) {
-    let current = this.chaptersMap[chapterName];
-    if (current == undefined) {
-      return Object.values(this.chaptersMap)[0]; // TODO костыль
+  private moduleByName() {
+    if (!this.currentChapter) {
+      return undefined;
     }
-    return current;
-  }
-
-  private getSelectedModule(exampleName: string, chapter: Chapter) {
-    let current = chapter.modules.find(({ id }) => id === exampleName);
-    if (current == undefined) {
-      return chapter.modules[0]; // TODO костыль
-    }
-    return current;
+    return this.currentChapter.modules.find(
+      ({ id }) => id === this.routing.module
+    );
   }
 }
