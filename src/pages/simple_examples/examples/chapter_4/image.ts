@@ -1,5 +1,5 @@
-import { Canvas2D } from '@/entities/engine/2d/canvas';
 import { ImageAsset, AssetsLoader, VideoAsset } from '@/entities/engine/assets';
+import { Engine2D } from '@/entities/engine/2d/engine';
 
 import vovka from './images/vovka.png';
 import floor_tiles from './images/floor_tiles.png';
@@ -8,10 +8,10 @@ import video from './images/video.mov';
 export class Images {
   static id = 'Images';
 
-  game2D: Canvas2D;
+  game2D: Engine2D;
 
   constructor() {
-    this.game2D = new Canvas2D();
+    this.game2D = new Engine2D();
     const imageLoader = new AssetsLoader([
       new ImageAsset(vovka),
       new ImageAsset(floor_tiles),

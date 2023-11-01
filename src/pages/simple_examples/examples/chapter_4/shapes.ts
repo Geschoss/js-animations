@@ -1,14 +1,14 @@
-import { Canvas2D, Env } from '@/entities/engine/2d/canvas';
+import { Engine2D, Env } from '@/entities/engine/2d/engine';
 import { range } from '../../../../shared/lib';
 
 export class Shapes {
   static id = 'Shapes';
 
   pencil: Pencil;
-  game2D: Canvas2D;
+  game2D: Engine2D;
 
   constructor() {
-    this.game2D = new Canvas2D();
+    this.game2D = new Engine2D();
     const env = this.game2D.env;
     this.pencil = new Pencil(env);
 

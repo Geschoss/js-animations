@@ -1,16 +1,15 @@
 import { Chapter } from '@/entities/site/chapter';
+import { Menu } from '@/entities/site/html/menu';
 import { Module } from '@/entities/site/module';
 import { Routing } from '@/entities/site/routing';
 
 export class Dom {
+  menu: Menu;
   routing: Routing;
-  chapters: HTMLElement;
-  examples: HTMLElement;
 
   constructor(document: Document, routing: Routing) {
+    this.menu = new Menu(document.body);
     this.routing = routing;
-    this.chapters = document.getElementById('chapters_menu');
-    this.examples = document.getElementById('examples_menu');
   }
 
   renderChaptersMenu(
@@ -32,6 +31,7 @@ export class Dom {
       }
 
       div.addEventListener('click', () => {
+
         if (selected === div) {
           return;
         }
@@ -43,7 +43,7 @@ export class Dom {
         this.routing.setChapter(chapterName);
       });
 
-      this.chapters.appendChild(div);
+      this.menu.chapters.appendChild(div);
     });
   }
 
@@ -51,7 +51,7 @@ export class Dom {
     currentChapter?: Chapter,
     currentModule?: { id: string; module: Module }
   ) {
-    this.removeChildren(this.examples);
+    this.removeChildren(this.menu.examples);
     if (!currentChapter) {
       return;
     }
@@ -79,7 +79,7 @@ export class Dom {
         selected.classList.add('menu__item_selected');
         this.routing.setModule(module.id);
       });
-      this.examples.appendChild(div);
+      this.menu.examples.appendChild(div);
     });
   }
 

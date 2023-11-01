@@ -1,15 +1,15 @@
-import { Canvas2D } from '@/entities/engine/2d/canvas';
 import { isNil } from '../../../../shared/lib';
 import { Controller } from '@/entities/engine/io/types';
+import { Engine2D } from '@/entities/engine/2d/engine';
 
 export class Line {
   static id = 'Line';
 
   pencil: Pencil;
-  game2D: Canvas2D;
+  game2D: Engine2D;
 
   constructor() {
-    this.game2D = new Canvas2D();
+    this.game2D = new Engine2D();
     this.pencil = new Pencil();
 
     this.game2D.tick((ctx, mouse) => {

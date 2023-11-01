@@ -1,16 +1,16 @@
+import { Engine2D } from '@/entities/engine/2d/engine';
 import { isNil } from '../../../../shared/lib';
 import { Color } from '@/entities/engine/colors';
-import { Canvas2D } from '@/entities/engine/2d/canvas';
 import { Controller } from '@/entities/engine/io/types';
 
 export class Pixel {
   static id = 'pixel';
 
-  game2D: Canvas2D;
+  game2D: Engine2D;
   pencil: Pencil;
 
   constructor() {
-    this.game2D = new Canvas2D();
+    this.game2D = new Engine2D();
     const env = this.game2D.env;
     const image_data = this.game2D.context2d.ctx.getImageData(
       0,

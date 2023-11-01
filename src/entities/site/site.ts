@@ -25,28 +25,17 @@ export class Site {
 
     this.routing = new Routing(() => {
       if (this.currentChapter?.name !== this.routing.chapter) {
-        this.chapterChanged();
-      } else if (this.currentModule?.id !== this.routing.module) {
-        this.moduleChanged();
+        this.currentChapter = this.chapterByName();
       }
+      this.moduleChanged();
     });
 
     this.dom = new Dom(document, this.routing);
 
-    this.initCurrentChapter();
-
-    this.dom.renderChaptersMenu(this.chaptersMap, this.currentChapter);
-    this.dom.renderModuleMenu(this.currentChapter, this.currentModule);
-  }
-
-  private chapterChanged() {
-    if (this.currentModule) {
-      this.currentModule.module.destroy();
-      this.currentModule = undefined;
-    }
-
     this.currentChapter = this.chapterByName();
     this.moduleChanged();
+
+    this.dom.renderChaptersMenu(this.chaptersMap, this.currentChapter);
   }
 
   moduleChanged() {
@@ -55,10 +44,10 @@ export class Site {
       this.currentModule = undefined;
     }
 
-    let module;
-    if (this.currentChapter) {
-      module = this.moduleByName();
+    if (!this.currentChapter) {
+      return;
     }
+    let module = this.moduleByName();
     if (module) {
       this.currentModule = {
         id: module.id,
@@ -67,20 +56,6 @@ export class Site {
     }
 
     this.dom.renderModuleMenu(this.currentChapter, this.currentModule);
-  }
-
-  private initCurrentChapter() {
-    this.currentChapter = this.chapterByName();
-    let module;
-    if (this.currentChapter) {
-      module = this.moduleByName();
-    }
-    if (module) {
-      this.currentModule = {
-        id: module.id,
-        module: new module(),
-      };
-    }
   }
 
   private chapterByName() {
