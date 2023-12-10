@@ -3,27 +3,31 @@ export class Routing {
   chapter: string;
   onChange: () => void;
 
-  constructor(onChange: () => void) {
+  constructor() {
     const { module, chapter } = this.getSearchParam();
 
     this.module = module;
     this.chapter = chapter;
-    this.onChange = onChange;
+    this.onChange = () => {};
 
-    window.addEventListener('popstate', () => this.onUrlChanged(), false);
+    window.addEventListener('popstate', () => this.urlChanged(), false);
+  }
+
+  onUrlChanged(onChange) {
+    this.onChange = onChange;
   }
 
   setModule(moduleName: string) {
     this.setSearchParam('module', moduleName);
-    this.onUrlChanged();
+    this.urlChanged();
   }
 
   setChapter(chapterName: string) {
     this.setSearchParam('chapter', chapterName);
-    this.onUrlChanged();
+    this.urlChanged();
   }
 
-  private onUrlChanged() {
+  private urlChanged() {
     const { module, chapter } = this.getSearchParam();
     this.module = module;
     this.chapter = chapter;

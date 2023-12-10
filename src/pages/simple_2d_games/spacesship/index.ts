@@ -1,4 +1,4 @@
-import { Engine2D, Env } from '@/entities/engine/2d/engine';
+import { Engine2D, Env } from 'src/entities/engine/2d/engine';
 import { Space } from './acceleration';
 import { Ship } from './ship';
 import {

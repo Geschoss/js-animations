@@ -1,5 +1,5 @@
-import { Env } from '@/entities/engine/2d/engine';
-import { Point } from '../../../entities/engine/2d/entities';
+import { Env } from 'src/entities/engine/2d/engine';
+import { Point } from 'src/entities/engine/2d/entities';
 
 export class Camera {
   left_x: number;

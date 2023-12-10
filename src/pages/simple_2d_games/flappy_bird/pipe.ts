@@ -1,4 +1,4 @@
-import { Behavior, LinearMove } from '@/entities/engine/2d/behaviors';
+import { Behavior, LinearMove } from 'src/entities/engine/2d/behaviors';
 import { Rect } from '../../../entities/engine/2d/entities/index';
 
 export class Pipe {

@@ -1,7 +1,7 @@
-import { Engine2D } from '@/entities/engine/2d/engine';
+import { Engine2D } from 'src/entities/engine/2d/engine';
 import { isNil } from '../../../../shared/lib';
-import { Color } from '@/entities/engine/colors';
-import { Controller } from '@/entities/engine/io/types';
+import { Color } from 'src/entities/engine/colors';
+import { Controller } from 'src/entities/engine/io/types';
 
 export class Pixel {
   static id = 'pixel';

@@ -2,6 +2,10 @@ export class Loop {
   private destroyed: boolean = false;
   private cb: (time: DOMHighResTimeStamp) => void;
   private animationCbId: number | null;
+  constructor() {
+    this.cb = () => {};
+    this.animationCbId = 0;
+  }
 
   tick(cb: (time: DOMHighResTimeStamp) => void) {
     this.cb = cb;
@@ -20,5 +24,6 @@ export class Loop {
     if (this.animationCbId) {
       cancelAnimationFrame(this.animationCbId);
     }
+    this.animationCbId = null;
   }
 }

@@ -1,4 +1,4 @@
-import { Context2D } from '@/entities/engine/2d/context';
+import { Context2D } from 'src/entities/engine/2d/context';
 
 export class Gradient {
   static id = 'Gradient';

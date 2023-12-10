@@ -1,8 +1,8 @@
-import { Keyboard } from '@/entities/engine/io/keyboard';
+import { Keyboard } from 'src/entities/engine/io/keyboard';
 import { Rect } from '../../../entities/engine/2d/entities/index';
 import { Bird } from './bird';
 import { Pipe } from './pipe';
-import { Engine2D, Env } from '@/entities/engine/2d/engine';
+import { Engine2D, Env } from 'src/entities/engine/2d/engine';
 
 type State = {
   type: 'dead' | 'play' | 'init';

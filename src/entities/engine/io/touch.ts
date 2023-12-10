@@ -1,4 +1,4 @@
-import { Controller } from '@/entities/engine/io/types';
+import { Controller } from 'src/entities/engine/io/types';
 
 export class TouchTap implements Controller {
   x = 0;

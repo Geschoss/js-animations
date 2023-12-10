@@ -1,6 +1,6 @@
 import { range } from '../../../../shared/lib';
-import { Controller } from '@/entities/engine/io/types';
-import { Engine2D, Env } from '@/entities/engine/2d/engine';
+import { Controller } from 'src/entities/engine/io/types';
+import { Engine2D, Env } from 'src/entities/engine/2d/engine';
 
 export class Curves {
   static id = 'Curves';

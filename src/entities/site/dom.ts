@@ -1,7 +1,7 @@
-import { Chapter } from '@/entities/site/chapter';
-import { Menu } from '@/entities/site/html/menu';
-import { Module } from '@/entities/site/module';
-import { Routing } from '@/entities/site/routing';
+import { Chapter } from 'src/entities/site/chapter';
+import { Menu } from 'src/entities/site/html/menu';
+import { Module } from 'src/entities/site/module';
+import { Routing } from 'src/entities/site/routing';
 
 export class Dom {
   menu: Menu;

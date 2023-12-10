@@ -1,12 +1,14 @@
 export class Resize {
-  cb: (w: number, h: number) => void;
-  resizeFn: () => void;
+  cb?: (w: number, h: number) => void;
+  resizeFn?: () => void;
 
   constructor(node: HTMLElement = document.body) {
     this.cb = () => {};
     this.resizeFn = () => {
       const { offsetWidth, offsetHeight } = node;
-      this.cb(offsetWidth, offsetHeight);
+      if (this.cb) {
+        this.cb(offsetWidth, offsetHeight);
+      }
     };
     window.addEventListener('resize', this.resizeFn);
   }
@@ -17,7 +19,9 @@ export class Resize {
 
   destroy() {
     this.cb = undefined;
-    window.removeEventListener('resize', this.resizeFn);
+    if (this.resizeFn) {
+      window.removeEventListener('resize', this.resizeFn);
+    }
     this.resizeFn = undefined;
   }
 }

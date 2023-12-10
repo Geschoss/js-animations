@@ -1,4 +1,4 @@
-import { isNil } from '@/shared/lib';
+import { isNil } from 'src/shared/lib';
 
 type Keys =
   | 'KeyO'

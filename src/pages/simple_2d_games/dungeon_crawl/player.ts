@@ -1,4 +1,4 @@
-import { Keyboard } from '@/entities/engine/io/keyboard';
+import { Keyboard } from 'src/entities/engine/io/keyboard';
 import { Point } from '../../../entities/engine/2d/entities';
 import { DungeonMap } from './map';
 import { TilesE } from './tiles';

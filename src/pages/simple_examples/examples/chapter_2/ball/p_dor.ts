@@ -1,5 +1,5 @@
 import { Ball } from './ball';
-import { Engine2D } from '@/entities/engine/2d/engine';
+import { Engine2D } from 'src/entities/engine/2d/engine';
 
 export class Pidor {
   static id = 'Pidor';

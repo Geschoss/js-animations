@@ -1,5 +1,5 @@
 import { range } from '../../../../shared/lib';
-import { Engine2D, Env } from '@/entities/engine/2d/engine';
+import { Engine2D, Env } from 'src/entities/engine/2d/engine';
 
 export class MultiCurves {
   static id = 'MultiCurves';

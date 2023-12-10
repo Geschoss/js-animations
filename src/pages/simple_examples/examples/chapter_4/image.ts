@@ -1,5 +1,5 @@
-import { ImageAsset, AssetsLoader, VideoAsset } from '@/entities/engine/assets';
-import { Engine2D } from '@/entities/engine/2d/engine';
+import { ImageAsset, AssetsLoader, VideoAsset } from 'src/entities/engine/assets';
+import { Engine2D } from 'src/entities/engine/2d/engine';
 
 import vovka from './images/vovka.png';
 import floor_tiles from './images/floor_tiles.png';

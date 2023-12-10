@@ -1,7 +1,7 @@
-import { Dom } from '@/entities/site/dom';
-import { Chapter } from '@/entities/site/chapter';
-import { Module } from '@/entities/site/module';
-import { Routing } from '@/entities/site/routing';
+import { Dom } from 'src/entities/site/dom';
+import { Chapter } from 'src/entities/site/chapter';
+import { Module } from 'src/entities/site/module';
+import { Routing } from 'src/entities/site/routing';
 
 export class Site {
   chaptersMap: Record<string, Chapter>;
@@ -23,7 +23,8 @@ export class Site {
       return { ...acc, [chapter.name]: chapter };
     }, {});
 
-    this.routing = new Routing(() => {
+    this.routing = new Routing();
+    this.routing.onUrlChanged(() => {
       if (this.currentChapter?.name !== this.routing.chapter) {
         this.currentChapter = this.chapterByName();
       }
@@ -31,7 +32,6 @@ export class Site {
     });
 
     this.dom = new Dom(document, this.routing);
-
     this.currentChapter = this.chapterByName();
     this.moduleChanged();
 
