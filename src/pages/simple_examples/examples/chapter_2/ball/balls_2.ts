@@ -1,5 +1,6 @@
-import { Ball } from './ball';
 import { Engine2D, Env } from 'src/entities/engine/2d/engine';
+
+import { Ball } from './ball';
 
 export class Balls2 {
   static id = 'Balls2';
@@ -78,12 +79,10 @@ function friction() {
   let f_2 = 0.4;
   return {
     vx(_, x_2, env: Env) {
-      let factor = x_2 > env.width / 2 ? f_1 : f_2;
-      return factor;
+      return x_2 > env.width / 2 ? f_1 : f_2;
     },
     vy(_, y_2, env: Env) {
-      let factor = y_2 > env.width / 2 ? f_1 : f_2;
-      return factor;
+      return y_2 > env.width / 2 ? f_1 : f_2;
     },
   };
 }

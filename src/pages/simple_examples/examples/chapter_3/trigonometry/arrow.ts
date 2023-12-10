@@ -1,5 +1,6 @@
-import { Ball } from '../../chapter_2/ball/ball';
 import { Engine2D } from 'src/entities/engine/2d/engine';
+
+import { Ball } from '../../chapter_2/ball/ball';
 
 export class Arrow {
   static id = 'Arrow';

@@ -1,5 +1,5 @@
 import { coin } from '../../../../shared/lib';
-import { Bullet, WeaponInstance, Weapon } from '../weapons';
+import { Bullet, Weapon,WeaponInstance } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 
 export class T_50Ship implements ShipViewInstance {
@@ -8,9 +8,7 @@ export class T_50Ship implements ShipViewInstance {
   weapons: [WeaponInstance, WeaponInstance];
 
   constructor(weapon: Weapon) {
-    const w = new weapon();
-    this.weapon_name = w.name;
-    this.weapons = [w, new weapon()];
+    this.changeWeapon(weapon);
   }
 
   changeWeapon(weapon: Weapon) {

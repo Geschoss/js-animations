@@ -21,11 +21,11 @@ export class Mouse implements Controller {
     this.canvas.removeEventListener('mouseup', this.mouseup, false);
   }
 
-  mousedown = (_: MouseEvent) => {
+  mousedown = () => {
     this.pressed = true;
   };
 
-  mouseup = (_: MouseEvent) => {
+  mouseup = () => {
     this.pressed = false;
   };
 

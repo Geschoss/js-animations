@@ -1,5 +1,5 @@
 import { Behavior, LinearMove } from 'src/entities/engine/2d/behaviors';
-import { Rect } from '../../../entities/engine/2d/entities/index';
+import { Rect } from 'src/entities/engine/2d/entities';
 
 export class Pipe {
   static GAP = 290;
@@ -17,7 +17,7 @@ export class Pipe {
   constructor(x: number, y: number, height: number, score: number = 0) {
     this.x = x;
     this.y = y;
-    this.behavior = new LinearMove(Pipe.SPEED - (score / 10));
+    this.behavior = new LinearMove(Pipe.SPEED - score / 10);
     let gap = Pipe.GAP - score;
 
     this.top = Rect.create({

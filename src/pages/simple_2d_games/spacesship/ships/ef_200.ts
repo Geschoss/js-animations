@@ -7,9 +7,7 @@ export class Ef_200Ship implements ShipViewInstance {
   weapons: [WeaponInstance, WeaponInstance];
 
   constructor(weapon: Weapon) {
-    const w = new weapon();
-    this.weapon_name = w.name;
-    this.weapons = [w, new weapon()];
+    this.changeWeapon(weapon);
   }
 
   changeWeapon(weapon: Weapon) {
@@ -55,7 +53,6 @@ export class Ef_200Ship implements ShipViewInstance {
     ctx.stroke();
     ctx.closePath();
 
-
     ctx.beginPath();
     ctx.arc(0, 0, 5, 0, 2 * Math.PI);
     ctx.stroke();
@@ -63,22 +60,12 @@ export class Ef_200Ship implements ShipViewInstance {
 
     ctx.beginPath();
     ctx.moveTo(3, 15);
-    ctx.quadraticCurveTo(
-      5,
-      22,
-      10,
-      21,
-    );
+    ctx.quadraticCurveTo(5, 22, 10, 21);
     ctx.stroke();
 
     ctx.beginPath();
     ctx.moveTo(8, 13);
-    ctx.quadraticCurveTo(
-      10,
-      18,
-      15,
-      17,
-    );
+    ctx.quadraticCurveTo(10, 18, 15, 17);
     ctx.stroke();
 
     ctx.beginPath();

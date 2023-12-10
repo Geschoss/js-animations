@@ -1,5 +1,5 @@
 import { coin } from '../../../../shared/lib';
-import { Bullet, WeaponInstance, Weapon } from '../weapons';
+import { Bullet, Weapon, WeaponInstance } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 
 export class EF_50Ship implements ShipViewInstance {
@@ -8,9 +8,7 @@ export class EF_50Ship implements ShipViewInstance {
   weapons: [WeaponInstance, WeaponInstance, WeaponInstance];
 
   constructor(weapon: Weapon) {
-    const w = new weapon();
-    this.weapon_name = w.name;
-    this.weapons = [w, new weapon(), new weapon()];
+    this.changeWeapon(weapon);
   }
 
   changeWeapon(weapon: Weapon) {
@@ -75,12 +73,7 @@ export class EF_50Ship implements ShipViewInstance {
 
     ctx.beginPath();
     ctx.moveTo(15, -10);
-    ctx.quadraticCurveTo(
-      8,
-      0,
-      15,
-      10,
-    );
+    ctx.quadraticCurveTo(8, 0, 15, 10);
     ctx.stroke();
 
     ctx.beginPath();

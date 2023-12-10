@@ -21,6 +21,6 @@ export function range<T extends (...args: any) => any>(
   return result;
 }
 
-export function coin(a, b) {
-    return Math.random() > 0.5 ? a : b;
+export function coin(a: number, b: number) {
+  return Math.random() > 0.5 ? a : b;
 }

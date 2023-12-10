@@ -1,6 +1,7 @@
 import { Behavior, None } from 'src/entities/engine/2d/behaviors';
-import { BaseEntity } from './base';
 import { BallView, View } from 'src/entities/engine/2d/view';
+
+import { BaseEntity } from './base';
 
 export class Ball implements BaseEntity {
   x: number;

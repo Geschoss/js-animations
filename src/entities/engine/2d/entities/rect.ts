@@ -1,6 +1,6 @@
 import { Behavior, None } from 'src/entities/engine/2d/behaviors';
-import { RectView, View } from 'src/entities/engine/2d/view';
 import { BaseEntity, Point } from 'src/entities/engine/2d/entities';
+import { RectView, View } from 'src/entities/engine/2d/view';
 
 export class Rect_ {
   /// The X position of the first point (typically the left)

@@ -1,4 +1,5 @@
 import { Keyboard } from 'src/entities/engine/io/keyboard';
+
 import { Acceleration } from './acceleration';
 import { ShipView, ShipViewInstance } from './ships';
 import { Weapon } from './weapons';

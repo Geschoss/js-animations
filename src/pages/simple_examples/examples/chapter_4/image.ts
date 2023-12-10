@@ -1,9 +1,9 @@
-import { ImageAsset, AssetsLoader, VideoAsset } from 'src/entities/engine/assets';
 import { Engine2D } from 'src/entities/engine/2d/engine';
+import { AssetsLoader, ImageAsset, VideoAsset } from 'src/entities/engine/assets';
 
-import vovka from './images/vovka.png';
 import floor_tiles from './images/floor_tiles.png';
 import video from './images/video.mov';
+import vovka from './images/vovka.png';
 
 export class Images {
   static id = 'Images';

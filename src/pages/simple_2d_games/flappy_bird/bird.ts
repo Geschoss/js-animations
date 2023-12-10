@@ -1,4 +1,5 @@
 import { Keyboard } from 'src/entities/engine/io/keyboard';
+
 import { Rect } from '../../../entities/engine/2d/entities';
 import { Pipe } from './pipe';
 

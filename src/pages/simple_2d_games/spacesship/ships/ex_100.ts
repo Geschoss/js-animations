@@ -7,9 +7,7 @@ export class Ex_100Ship implements ShipViewInstance {
   weapons: [WeaponInstance, WeaponInstance];
 
   constructor(weapon: Weapon) {
-    const w = new weapon();
-    this.weapon_name = w.name;
-    this.weapons = [w, new weapon()];
+    this.changeWeapon(weapon);
   }
 
   changeWeapon(weapon: Weapon) {
@@ -69,12 +67,7 @@ export class Ex_100Ship implements ShipViewInstance {
 
     ctx.beginPath();
     ctx.moveTo(15, 10);
-    ctx.quadraticCurveTo(
-      30,
-      0,
-      15,
-      -10,
-    );
+    ctx.quadraticCurveTo(30, 0, 15, -10);
     ctx.stroke();
 
     if (data.moving) {

@@ -1,5 +1,5 @@
-import { Dom } from 'src/entities/site/dom';
 import { Chapter } from 'src/entities/site/chapter';
+import { Dom } from 'src/entities/site/dom';
 import { Module } from 'src/entities/site/module';
 import { Routing } from 'src/entities/site/routing';
 

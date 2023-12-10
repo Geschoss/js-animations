@@ -1,4 +1,4 @@
-import { Bullet, WeaponInstance, Weapon } from '../weapons';
+import { Bullet, Weapon,WeaponInstance } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 
 export class DefaultShip implements ShipViewInstance {
@@ -7,9 +7,7 @@ export class DefaultShip implements ShipViewInstance {
   weapon: WeaponInstance;
 
   constructor(weapon: Weapon) {
-    const w = new weapon();
-    this.weapon_name = w.name;
-    this.weapon = new weapon();
+    this.changeWeapon(weapon)
   }
 
   changeWeapon(weapon: Weapon) {

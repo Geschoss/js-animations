@@ -1,4 +1,5 @@
 import { Engine2D } from 'src/entities/engine/2d/engine';
+
 import { Arraw } from './arraw';
 
 export class Mouse1 {

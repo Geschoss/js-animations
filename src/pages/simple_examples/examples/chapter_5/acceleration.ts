@@ -18,10 +18,8 @@ export class Acceleration {
       if (keyboard.pressed('ArrowRight')) {
         arraw.rotation += (2 * Math.PI) / 180;
       }
-      if (keyboard.pressed('ArrowUp')) {
-        if (speed < 4) {
-          speed += 0.2;
-        }
+      if (keyboard.pressed('ArrowUp') && speed < 4) {
+        speed += 0.2;
       }
       if (keyboard.pressed('ArrowDown')) {
         speed -= 0.2;

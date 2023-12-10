@@ -1,9 +1,9 @@
-import { Loop } from 'src/entities/engine/loop';
-import { Mouse } from 'src/entities/engine/io/mouse';
-import { Resize } from 'src/entities/engine/resize';
-import { Keyboard } from 'src/entities/engine/io/keyboard';
 import { Context2D } from 'src/entities/engine/2d/context';
+import { Keyboard } from 'src/entities/engine/io/keyboard';
+import { Mouse } from 'src/entities/engine/io/mouse';
 import { Controller, ControllerConstructor } from 'src/entities/engine/io/types';
+import { Loop } from 'src/entities/engine/loop';
+import { Resize } from 'src/entities/engine/resize';
 
 export interface Env {
   width: number;

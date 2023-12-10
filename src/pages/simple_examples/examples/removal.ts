@@ -1,7 +1,8 @@
 import { Expand } from 'src/entities/engine/2d/behaviors';
+import { Engine2D } from 'src/entities/engine/2d/engine';
+
 import { Ball, Rect } from '../../../entities/engine/2d/entities';
 import { range } from '../../../shared/lib';
-import { Engine2D } from 'src/entities/engine/2d/engine';
 
 const BALLS_COUNT = 50;
 const BALL_RADIUS = 10;

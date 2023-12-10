@@ -1,4 +1,5 @@
 import { Random } from 'src/shared/lib/random';
+
 import { Point, Rect_ } from '../../../entities/engine/2d/entities';
 import { DungeonMap, TileType } from './map';
 import { TilesE } from './tiles';

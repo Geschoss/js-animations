@@ -1,10 +1,11 @@
+import { Engine2D } from 'src/entities/engine/2d/engine';
+import { Point } from 'src/entities/engine/2d/entities';
+
 import { Camera } from './camera';
 import { DungeonMap } from './map';
 import { MapBuilder } from './map_builder';
 import { Player } from './player';
 import { TilesE } from './tiles';
-import { Engine2D } from 'src/entities/engine/2d/engine';
-import { Point } from 'src/entities/engine/2d/entities';
 
 const POSITION_SIZE = 24;
 

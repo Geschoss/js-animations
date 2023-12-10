@@ -1,15 +1,16 @@
 import { Engine2D, Env } from 'src/entities/engine/2d/engine';
+
 import { Space } from './acceleration';
 import { Ship } from './ship';
 import {
   DefaultShip,
-  Ef_200Ship,
   EF_50Ship,
+  Ef_200Ship,
   Ex_100Ship,
   ShipView,
   T_50Ship,
 } from './ships';
-import { Bullet, MachineGun, RocketLaucher, PlasmaGun } from './weapons';
+import { Bullet, MachineGun, PlasmaGun,RocketLaucher } from './weapons';
 
 const SHIPS_VIEWS: ShipView[] = [
   EF_50Ship,

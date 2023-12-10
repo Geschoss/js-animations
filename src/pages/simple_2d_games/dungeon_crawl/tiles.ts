@@ -1,4 +1,4 @@
-import { Point, ImageE } from '../../../entities/engine/2d/entities';
+import { ImageE,Point } from '../../../entities/engine/2d/entities';
 type Env = {
   tile_dimensions: {
     x: number;

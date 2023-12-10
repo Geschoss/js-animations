@@ -1,6 +1,7 @@
-import { TouchTap } from 'src/entities/engine/io/touch';
-import { Ball } from './ball';
 import { Engine2D, Env } from 'src/entities/engine/2d/engine';
+import { TouchTap } from 'src/entities/engine/io/touch';
+
+import { Ball } from './ball';
 
 export class BallTouch {
   static id = 'BallTouch';
