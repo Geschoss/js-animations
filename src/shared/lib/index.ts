@@ -1,26 +1,7 @@
+export { initByCb } from 'src/shared/lib/array';
+export { keys, values } from 'src/shared/lib/object';
+export { coin, range } from 'src/shared/lib/random';
+
 export function isNil(x: any): x is null | undefined {
   return x == null || x == undefined;
-}
-
-export function keys<T extends object>(obj: T) {
-  return Object.keys(obj);
-}
-
-export function values<T extends object>(obj: T) {
-  return Object.values(obj);
-}
-
-export function range<T extends (...args: any) => any>(
-  count: number,
-  cb: T
-): ReturnType<T>[] {
-  let result = [];
-  for (let i = 0; i < count; i++) {
-    result.push(cb(i, count));
-  }
-  return result;
-}
-
-export function coin(a: number, b: number) {
-  return Math.random() > 0.5 ? a : b;
 }

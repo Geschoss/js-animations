@@ -1,8 +1,8 @@
 import { Expand } from 'src/entities/engine/2d/behaviors';
 import { Engine2D } from 'src/entities/engine/2d/engine';
+import { initByCb } from 'src/shared/lib';
 
 import { Ball, Rect } from '../../../entities/engine/2d/entities';
-import { range } from '../../../shared/lib';
 
 const BALLS_COUNT = 50;
 const BALL_RADIUS = 10;
@@ -57,7 +57,7 @@ function createRect(env) {
 }
 
 function createBalls(rect: Rect) {
-  return range(
+  return initByCb(
     BALLS_COUNT,
     () =>
       new Ball(

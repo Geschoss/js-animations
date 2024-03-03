@@ -2,6 +2,7 @@ import { Chapter } from 'src/entities/site/chapter';
 import { Dom } from 'src/entities/site/dom';
 import { Module } from 'src/entities/site/module';
 import { Routing } from 'src/entities/site/routing';
+import { hasOwn } from 'src/shared/lib/object';
 
 export class Site {
   chaptersMap: Record<string, Chapter>;
@@ -17,7 +18,7 @@ export class Site {
 
   constructor(chapters: Chapter[]) {
     this.chaptersMap = chapters.reduce((acc, chapter) => {
-      if (Object.hasOwn(acc, chapter.name)) {
+      if (hasOwn(acc, chapter.name)) {
         throw new Error(`Chapter ${chapter.name} alredy has in list!`);
       }
       return { ...acc, [chapter.name]: chapter };

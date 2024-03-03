@@ -1,7 +1,7 @@
 import { Engine2D, Env } from 'src/entities/engine/2d/engine';
+import { Rect } from 'src/entities/engine/2d/entities';
 import { Keyboard } from 'src/entities/engine/io/keyboard';
 
-import { Rect } from '../../../entities/engine/2d/entities/index';
 import { Bird } from './bird';
 import { Pipe } from './pipe';
 

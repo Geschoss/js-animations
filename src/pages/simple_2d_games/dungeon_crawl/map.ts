@@ -1,5 +1,6 @@
+import { init } from 'src/shared/lib/array';
+
 import { Point } from '../../../entities/engine/2d/entities';
-import { range } from '../../../shared/lib';
 import { Player } from './player';
 import { TilesE } from './tiles';
 
@@ -22,7 +23,7 @@ export class DungeonMap {
   height = 0;
 
   static create(tiles: TilesE, width: number, height: number) {
-    let sectors = range(width * height, () => TileType.Floor);
+    let sectors = init(width * height, TileType.Floor);
     return new DungeonMap(tiles, sectors, width, height);
   }
 

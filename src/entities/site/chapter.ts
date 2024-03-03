@@ -1,4 +1,4 @@
-import { ModuleConstructor } from "@/entities/site/module";
+import { ModuleConstructor } from "src/entities/site/module";
 
 export class Chapter {
   name: string;

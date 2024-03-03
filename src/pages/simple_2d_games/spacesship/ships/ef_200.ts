@@ -1,3 +1,5 @@
+import { coin } from 'src/shared/lib';
+
 import { Bullet, Weapon, WeaponInstance } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
 
@@ -184,8 +186,4 @@ export class Ef_200Ship implements ShipViewInstance {
     }
     ctx.restore();
   }
-}
-
-function coin(a, b) {
-  return Math.random() > 0.5 ? a : b;
 }

@@ -1,7 +1,6 @@
 import { Engine2D, Env } from 'src/entities/engine/2d/engine';
 import { Controller } from 'src/entities/engine/io/types';
-
-import { range } from '../../../../shared/lib';
+import { initByCb } from 'src/shared/lib';
 
 export class Curves {
   static id = 'Curves';
@@ -42,7 +41,7 @@ class Pencil {
   };
 
   constructor(env: Env) {
-    this.points = range(20, () => ({
+    this.points = initByCb(20, () => ({
       x: Math.random() * env.width,
       y: Math.random() * env.height,
     }));

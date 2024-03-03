@@ -19,7 +19,7 @@ export class VideoAsset implements Asset {
     this.status = 'new';
   }
 
-  load(cb) {
+  load(cb: () => void) {
     this.data.setAttribute('src', this.url);
     this.data.addEventListener('loadeddata', () => {
       if (this.data.readyState >= 3) {
@@ -44,7 +44,7 @@ export class ImageAsset implements Asset {
     this.status = 'new';
   }
 
-  load(cb) {
+  load(cb: () => void) {
     this.data.src = this.url;
     this.data.onload = cb;
   }

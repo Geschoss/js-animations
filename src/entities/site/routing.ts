@@ -13,7 +13,7 @@ export class Routing {
     window.addEventListener('popstate', () => this.urlChanged(), false);
   }
 
-  onUrlChanged(onChange) {
+  onUrlChanged(onChange: () => void) {
     this.onChange = onChange;
   }
 

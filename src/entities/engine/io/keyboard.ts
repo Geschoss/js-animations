@@ -31,33 +31,32 @@ export class Keyboard {
     window.addEventListener('keydown', this.keydown, false);
     window.addEventListener('keyup', this.keyup, false);
   }
+
   destroy() {
     window.removeEventListener('keydown', this.keydown, false);
     window.removeEventListener('keyup', this.keyup, false);
   }
 
-  private keydown = (event: KeyboardEvent) => {
-    let key = event.code as Keys;
-    this.keys_pressed.push(key);
-    this.down_subscribers.forEach(({ keys, cb }) => {
+  private subscriber_callback =
+    (key: Keys) =>
+    ({ keys, cb }: HashSubscriber) => {
       if (keys.length === 0) {
         cb(key);
       } else if (keys.includes(key)) {
         cb(key);
       }
-    });
+    };
+
+  private keydown = (event: KeyboardEvent) => {
+    let key = event.code as Keys;
+    this.keys_pressed.push(key);
+    this.down_subscribers.forEach(this.subscriber_callback(key));
   };
 
   private keyup = (event: KeyboardEvent) => {
     this.keys_pressed = this.keys_pressed.filter((key) => key !== event.code);
     let key = event.code as Keys;
-    this.up_subscribers.forEach(({ keys, cb }) => {
-      if (keys.length === 0) {
-        cb(key);
-      } else if (keys.includes(key)) {
-        cb(key);
-      }
-    });
+    this.up_subscribers.forEach(this.subscriber_callback(key));
   };
 
   pressed(key?: Keys) {
