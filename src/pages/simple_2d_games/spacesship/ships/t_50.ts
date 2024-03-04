@@ -1,4 +1,4 @@
-import { coin } from 'src/shared/lib';
+import { r_coin } from 'src/shared/lib';
 
 import { Bullet, Weapon, WeaponInstance } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
@@ -81,13 +81,13 @@ export class T_50Ship implements ShipViewInstance {
       ctx.strokeStyle = '#ff9200';
       ctx.beginPath();
       ctx.moveTo(-20, -10);
-      ctx.lineTo(-coin(30, 27), -6);
+      ctx.lineTo(-r_coin(30, 27), -6);
       ctx.lineTo(-20, -2);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.moveTo(-20, 10);
-      ctx.lineTo(-coin(30, 27), 6);
+      ctx.lineTo(-r_coin(30, 27), 6);
       ctx.lineTo(-20, 2);
       ctx.stroke();
     }

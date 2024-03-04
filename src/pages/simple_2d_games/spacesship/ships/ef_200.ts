@@ -1,4 +1,4 @@
-import { coin } from 'src/shared/lib';
+import { r_coin } from 'src/shared/lib';
 
 import { Bullet, Weapon, WeaponInstance } from '../weapons';
 import { BaseShip, ShipViewInstance } from './types';
@@ -159,28 +159,28 @@ export class Ef_200Ship implements ShipViewInstance {
       ctx.beginPath();
       ctx.strokeStyle = '#ff9200';
       ctx.moveTo(-10, -12);
-      ctx.lineTo(-coin(21, 19), -11);
+      ctx.lineTo(-r_coin(21, 19), -11);
       ctx.lineTo(-14, -7);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.strokeStyle = '#ff9200';
       ctx.moveTo(-12, -7);
-      ctx.lineTo(-coin(22, 20), -4);
+      ctx.lineTo(-r_coin(22, 20), -4);
       ctx.lineTo(-14, 0);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.strokeStyle = '#ff9200';
       ctx.moveTo(-12, 7);
-      ctx.lineTo(-coin(22, 20), 4);
+      ctx.lineTo(-r_coin(22, 20), 4);
       ctx.lineTo(-14, 0);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.strokeStyle = '#ff9200';
       ctx.moveTo(-14, 7);
-      ctx.lineTo(-coin(21, 19), 11);
+      ctx.lineTo(-r_coin(21, 19), 11);
       ctx.lineTo(-10, 12);
       ctx.stroke();
     }

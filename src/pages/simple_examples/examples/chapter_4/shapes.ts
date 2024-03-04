@@ -12,8 +12,8 @@ export class Shapes {
     const env = this.game2D.env;
     this.pencil = new Pencil(env);
 
-    this.game2D.tick((ctx) => {
-      this.pencil.draw(ctx);
+    this.game2D.tick(({ context }) => {
+      this.pencil.draw(context.ctx);
     });
   }
 

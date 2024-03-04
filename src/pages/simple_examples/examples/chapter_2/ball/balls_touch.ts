@@ -21,14 +21,14 @@ export class BallTouch {
       friction: friction(0.99),
       spring: spring(0.0),
     };
-    this.game2D.tick((ctx, touch) => {
-      if (touch.pressed) {
-        this.player.set(touch.x, touch.y);
+    this.game2D.tick(({ context, controller }) => {
+      if (controller.pressed) {
+        this.player.set(controller.x, controller.y);
       }
-      this.player.render(ctx);
+      this.player.render(context.ctx);
       this.balls.forEach((ball) => {
         ball.think(this.player, physics);
-        ball.render(ctx);
+        ball.render(context.ctx);
       });
     });
   }

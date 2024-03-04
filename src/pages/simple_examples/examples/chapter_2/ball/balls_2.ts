@@ -19,12 +19,12 @@ export class Balls2 {
       spring: spring(),
     };
 
-    this.game2D.tick((ctx, mouse) => {
-      this.player.set(mouse.x, mouse.y);
-      this.player.render(ctx);
+    this.game2D.tick(({ context, controller }) => {
+      this.player.set(controller.x, controller.y);
+      this.player.render(context.ctx);
       this.balls.forEach((ball) => {
         ball.think(this.player, { ...this.game2D.env, ...physics });
-        ball.render(ctx);
+        ball.render(context.ctx);
       });
     });
   }

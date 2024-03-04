@@ -11,7 +11,7 @@ export class Acceleration {
     let arraw = new Arraw(env.width / 2, env.height / 2);
     let speed = 0;
 
-    this.game2D.tick((ctx, _, keyboard) => {
+    this.game2D.tick(({ context, keyboard }) => {
       if (keyboard.pressed('ArrowLeft')) {
         arraw.rotation -= (2 * Math.PI) / 180;
       }
@@ -33,7 +33,7 @@ export class Acceleration {
       let vy = Math.sin(arraw.rotation) * speed;
       arraw.x += vx;
       arraw.y += vy;
-      arraw.draw(ctx);
+      arraw.draw(context.ctx);
     });
   }
   destroy() {

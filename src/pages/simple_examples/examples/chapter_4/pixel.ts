@@ -21,8 +21,8 @@ export class Pixel {
     );
     this.pencil = new Pencil();
 
-    this.game2D.tick((ctx, mouse) => {
-      this.pencil.draw(ctx, mouse, image_data);
+    this.game2D.tick(({ context, controller }) => {
+      this.pencil.draw(context.ctx, controller, image_data);
     });
   }
 

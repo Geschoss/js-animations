@@ -1,7 +1,10 @@
 import { Context2D } from 'src/entities/engine/2d/context';
 import { Keyboard } from 'src/entities/engine/io/keyboard';
 import { Mouse } from 'src/entities/engine/io/mouse';
-import { Controller, ControllerConstructor } from 'src/entities/engine/io/types';
+import {
+  Controller,
+  ControllerConstructor,
+} from 'src/entities/engine/io/types';
 import { Loop } from 'src/entities/engine/loop';
 import { Resize } from 'src/entities/engine/resize';
 
@@ -37,23 +40,38 @@ export class Engine2D {
     this.keyboard = new Keyboard();
     this.controller = new controller(this.context2d.canvas);
 
-    this.resize.changed((w, h) => {
+    this.resize.onChanged((w, h) => {
+      this.env = {
+        width: node.offsetWidth,
+        height: node.offsetHeight,
+      };
       this.context2d.resize(w, h);
     });
   }
 
   tick(
-    cb: (
-      ctx: CanvasRenderingContext2D,
-      mouse: Controller,
-      keyboard: Keyboard,
-      time: DOMHighResTimeStamp
-    ) => void
+    cb: (value: {
+      context: Context2D;
+      controller: Controller;
+      keyboard: Keyboard;
+      time: DOMHighResTimeStamp;
+    }) => void
   ) {
     this.loop.tick((time) => {
       this.context2d.clean();
 
-      cb(this.context2d.ctx, this.controller, this.keyboard, time);
+      cb({
+        time,
+        context: this.context2d,
+        keyboard: this.keyboard,
+        controller: this.controller,
+      });
+    });
+  }
+
+  onResize(cb: (w: number, h: number) => void) {
+    this.resize.onChanged((w, h) => {
+      cb(w, h);
     });
   }
 

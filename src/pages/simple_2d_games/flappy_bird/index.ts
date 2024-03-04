@@ -31,20 +31,20 @@ export class FlappyBird {
       score: 0,
     };
 
-    this.game2D.tick((ctx, _, keyboard) => {
-      this.state.screen.render(ctx);
+    this.game2D.tick(({ context, keyboard }) => {
+      this.state.screen.render(context.ctx);
 
       switch (this.state.type) {
         case 'init':
-          init(this.state, env, ctx, keyboard);
+          init(this.state, env, context.ctx, keyboard);
           break;
 
         case 'play':
-          play(this.state, env, ctx, keyboard);
+          play(this.state, env, context.ctx, keyboard);
           break;
 
         case 'dead':
-          dead(this.state, env, ctx, keyboard);
+          dead(this.state, env, context.ctx, keyboard);
           break;
 
         default:

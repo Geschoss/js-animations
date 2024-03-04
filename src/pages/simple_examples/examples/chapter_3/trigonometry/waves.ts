@@ -17,7 +17,8 @@ export class Waves {
     let ball_4 = new Ball(env.width / 2, env.height / 2, radius, '#f0f0f0');
     let ball_5 = new Ball(env.width / 2, env.height / 2, radius);
 
-    this.game2D.tick((ctx) => {
+    this.game2D.tick(({ context }) => {
+      let ctx = context.ctx;
       angle += 0.03;
       let half_x = env.width / 2;
       let half_y = env.height / 2;

@@ -1,8 +1,10 @@
 export interface Behavior<T> {
+  dx: number;
+  dy: number;
   think(entity: T): void;
 }
 
-export class LinearMove<T extends { y?: number; x?: number }>
+export class LinearMove<T extends { y: number; x: number }>
   implements Behavior<T>
 {
   dx: number;
@@ -17,19 +19,8 @@ export class LinearMove<T extends { y?: number; x?: number }>
   }
 }
 
-export class Expand<T extends { y: number; x: number }> implements Behavior<T> {
-  vy: number;
-  vx: number;
-  constructor(vx = 0.3, vy = 0.3) {
-    this.vx = vx;
-    this.vy = vy;
-  }
-  think(entity: T): void {
-    entity.x += this.vx;
-    entity.y += this.vy;
-  }
-}
-
 export class None<T> implements Behavior<T> {
+  dx: number = 0;
+  dy: number = 0;
   think() {}
 }

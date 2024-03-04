@@ -13,8 +13,8 @@ export class Curves {
     const env = this.game2D.env;
     this.pencil = new Pencil(env);
 
-    this.game2D.tick((ctx, mouse) => {
-      this.pencil.draw(ctx, mouse);
+    this.game2D.tick(({ context, controller }) => {
+      this.pencil.draw(context.ctx, controller);
     });
   }
 

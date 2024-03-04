@@ -25,31 +25,31 @@ export class Distance {
       x: Math.random() * env.width,
       y: Math.random() * env.height,
     };
-    this.game2D.tick((ctx, mouse) => {
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(this.rect_1.x - 2, this.rect_1.y - 2, 4, 4);
+    this.game2D.tick(({ context, controller }) => {
+      context.ctx.fillStyle = '#000000';
+      context.ctx.fillRect(this.rect_1.x - 2, this.rect_1.y - 2, 4, 4);
 
-      ctx.fillStyle = '#ff0000';
-      ctx.fillRect(this.rect_2.x - 2, this.rect_2.y - 2, 4, 4);
+      context.ctx.fillStyle = '#ff0000';
+      context.ctx.fillRect(this.rect_2.x - 2, this.rect_2.y - 2, 4, 4);
 
-      ctx.font = '30px Arial';
-      ctx.fillText(
+      context.ctx.font = '30px Arial';
+      context.ctx.fillText(
         `points distance: ${calculateDistance(this.rect_1, this.rect_2)}`,
         10,
         100
       );
-      ctx.fillText(
-        `mouse distance: ${calculateDistance(mouse, this.rect_2)}`,
+      context.ctx.fillText(
+        `mouse distance: ${calculateDistance(controller, this.rect_2)}`,
         10,
         130
       );
 
       // draw line
-      ctx.beginPath();
-      ctx.moveTo(this.rect_2.x, this.rect_2.y);
-      ctx.lineTo(mouse.x, mouse.y);
-      ctx.closePath();
-      ctx.stroke();
+      context.ctx.beginPath();
+      context.ctx.moveTo(this.rect_2.x, this.rect_2.y);
+      context.ctx.lineTo(controller.x, controller.y);
+      context.ctx.closePath();
+      context.ctx.stroke();
     });
   }
 

@@ -1,4 +1,4 @@
-import { coin, range } from 'src/shared/lib/random';
+import { r_coin, r_range } from 'src/shared/lib/random';
 
 import { Point, Rect_ } from '../../../entities/engine/2d/entities';
 import { DungeonMap, TileType } from './map';
@@ -57,10 +57,10 @@ export class MapBuilder {
     let create_try = 0;
     while (this.rooms.length < NUM_ROOMS) {
       let room = Rect_.create(
-        range(-2, width - 2),
-        range(-2, height - 2),
-        range(MIN_ROOM_SIZE, MAX_SIZE_ROOM),
-        range(MIN_ROOM_SIZE, MAX_SIZE_ROOM)
+        r_range(-2, width - 2),
+        r_range(-2, height - 2),
+        r_range(MIN_ROOM_SIZE, MAX_SIZE_ROOM),
+        r_range(MIN_ROOM_SIZE, MAX_SIZE_ROOM)
       );
       room.cut_by_window(width - 2, height - 2);
       create_try += 1;
@@ -106,7 +106,7 @@ export class MapBuilder {
       let next = r.center_trunc();
       let prev = head.center_trunc();
 
-      if (coin(true, false)) {
+      if (r_coin(true, false)) {
         this.apply_horizontal_tunnel(prev.x, next.x, prev.y);
         this.apply_vertical_tunnel(prev.y, next.y, next.x);
       } else {

@@ -13,8 +13,8 @@ export class Line {
     this.game2D = new Engine2D();
     this.pencil = new Pencil();
 
-    this.game2D.tick((ctx, mouse) => {
-      this.pencil.draw(ctx, mouse);
+    this.game2D.tick(({ context, controller }) => {
+      this.pencil.draw(context.ctx, controller);
     });
   }
 

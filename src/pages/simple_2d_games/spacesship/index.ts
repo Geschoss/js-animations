@@ -10,7 +10,7 @@ import {
   ShipView,
   T_50Ship,
 } from './ships';
-import { Bullet, MachineGun, PlasmaGun,RocketLaucher } from './weapons';
+import { Bullet, MachineGun, PlasmaGun, RocketLaucher } from './weapons';
 
 const SHIPS_VIEWS: ShipView[] = [
   EF_50Ship,
@@ -52,7 +52,7 @@ export class SpacesShip {
       shipView
     );
 
-    this.game2D.tick((ctx, _, keyboard) => {
+    this.game2D.tick(({ context, keyboard }) => {
       if (keyboard.pressed('KeyL')) {
         changeShip(ship, SHIPS_VIEWS, 1);
       }
@@ -65,19 +65,19 @@ export class SpacesShip {
       if (keyboard.pressed('KeyP')) {
         changeWeapon(ship, -1);
       }
-      renderHelpText(ctx, env);
-      renderShipName(ctx, env, ship);
+      renderHelpText(context.ctx, env);
+      renderShipName(context.ctx, env, ship);
 
       world.enemies.forEach((enemy) => {
         enemy.think(world);
-        enemy.render(ctx);
+        enemy.render(context.ctx);
       });
       world.bullets.forEach((bullet) => {
         bullet.think(world);
-        bullet.render(ctx);
+        bullet.render(context.ctx);
       });
       ship.think(world);
-      ship.render(ctx);
+      ship.render(context.ctx);
 
       clearWorld(world, env);
     });

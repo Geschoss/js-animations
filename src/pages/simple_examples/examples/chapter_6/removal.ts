@@ -1,8 +1,8 @@
-import { Expand } from 'src/entities/engine/2d/behaviors';
+import { LinearMove } from 'src/entities/engine/2d/behaviors';
 import { Engine2D } from 'src/entities/engine/2d/engine';
 import { initByCb } from 'src/shared/lib';
 
-import { Ball, Rect } from '../../../entities/engine/2d/entities';
+import { Ball, Rect } from '../../../../entities/engine/2d/entities';
 
 const BALLS_COUNT = 50;
 const BALL_RADIUS = 10;
@@ -22,13 +22,13 @@ export class Removal {
     this.rect = createRect(env);
     this.balls = createBalls(this.rect);
 
-    this.game2D.tick((ctx) => {
+    this.game2D.tick(({ context }) => {
       this.balls = removeBalls(this.balls, this.rect);
       this.balls.forEach((ball) => {
         ball.think();
-        ball.render(ctx);
+        ball.render(context.ctx);
       });
-      this.rect.render(ctx);
+      this.rect.render(context.ctx);
     });
   }
 
@@ -65,7 +65,7 @@ function createBalls(rect: Rect) {
         BALL_RADIUS + rect.y + Math.random() * (rect.bottom - 2 * BALL_RADIUS),
         BALL_RADIUS,
         '#ff6600',
-        new Expand<Ball>(Math.random() * 2 - 1, Math.random() * 2 - 1)
+        new LinearMove<Ball>(Math.random() * 2 - 1, Math.random() * 2 - 1)
       )
   );
 }

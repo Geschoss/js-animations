@@ -48,11 +48,11 @@ export class DungeonCrawl {
       Point.create(env.width / 2, env.height / 2)
     );
 
-    this.game2D.tick((ctx, _, keyboard) => {
+    this.game2D.tick(({ context, keyboard }) => {
       if (game.tiles.isReady()) {
         game.player.update(game.map, keyboard);
-        game.map.render(ctx, game.player, { ...env, tile_dimensions });
-        game.player.render(ctx);
+        game.map.render(context.ctx, game.player, { ...env, tile_dimensions });
+        game.player.render(context.ctx);
       }
     });
   }

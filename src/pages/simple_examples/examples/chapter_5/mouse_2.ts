@@ -15,9 +15,9 @@ export class Mouse1 {
     const env = this.game2D.env;
 
     let arraw = new Arraw(env.width / 2, env.height / 2);
-    this.game2D.tick((ctx, mouse) => {
-      let dx = mouse.x - arraw.x;
-      let dy = mouse.y - arraw.y;
+    this.game2D.tick(({ context, controller }) => {
+      let dx = controller.x - arraw.x;
+      let dy = controller.y - arraw.y;
       let angle = Math.atan2(dy, dx);
       let ax = Math.cos(angle) * force;
       let ay = Math.sin(angle) * force;
@@ -26,7 +26,7 @@ export class Mouse1 {
       vy += ay;
       arraw.x += vx;
       arraw.y += vy;
-      arraw.draw(ctx);
+      arraw.draw(context.ctx);
     });
   }
   destroy() {

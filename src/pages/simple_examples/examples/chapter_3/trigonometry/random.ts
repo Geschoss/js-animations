@@ -20,7 +20,8 @@ export class Circle {
     let radius = 100;
     let speed = 0.02;
 
-    this.game2D.tick((ctx) => {
+    this.game2D.tick(({ context }) => {
+      let ctx = context.ctx;
       angle += speed;
       this.ball.x = centerX + Math.sin(angle) * radius;
       this.ball.y = centerY + Math.cos(angle) * radius;

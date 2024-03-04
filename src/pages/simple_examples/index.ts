@@ -17,9 +17,11 @@ import { Pixel } from 'src/pages/simple_examples/examples/chapter_4/pixel';
 import { Shapes } from 'src/pages/simple_examples/examples/chapter_4/shapes';
 import { Acceleration } from 'src/pages/simple_examples/examples/chapter_5/acceleration';
 import { Mouse1 } from 'src/pages/simple_examples/examples/chapter_5/mouse_2';
-import { Removal } from 'src/pages/simple_examples/examples/removal';
+import { Bundaries } from 'src/pages/simple_examples/examples/chapter_6/boundaties';
+import { Removal } from 'src/pages/simple_examples/examples/chapter_6/removal';
 
 export const simple_examples = new Chapter('simple_examples', [
+  Bundaries,
   Removal,
   Mouse1,
   Acceleration,

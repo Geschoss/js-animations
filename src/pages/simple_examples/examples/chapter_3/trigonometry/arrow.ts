@@ -13,12 +13,12 @@ export class Arrow {
     let arrow = new Arraw(150, 150);
     let player = new Ball(100, 100, 20, '#eebe0a');
 
-    this.game2D.tick((ctx, mouse) => {
-      player.set(mouse.x, mouse.y);
-      player.render(ctx);
+    this.game2D.tick(({ context, controller }) => {
+      player.set(controller.x, controller.y);
+      player.render(context.ctx);
 
-      arrow.ratateTo(mouse);
-      arrow.draw(ctx);
+      arrow.ratateTo(controller);
+      arrow.draw(context.ctx);
     });
   }
 

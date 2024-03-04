@@ -43,7 +43,7 @@ export class Liner {
     settings_3.centerX = env.width / 2;
     settings_3.centerY = env.height / 2;
 
-    this.game2D.tick((ctx) => {
+    this.game2D.tick(({ context }) => {
       settings_1.angle += settings_1.yspeed;
       ball_1.x += settings_1.xspeed;
       ball_1.y =
@@ -69,9 +69,9 @@ export class Liner {
       settings_3.angleY += settings_3.yspeed;
       settings_3.range += 0.01;
 
-      ball_2.render(ctx);
-      ball_1.render(ctx);
-      ball_3.render(ctx);
+      ball_2.render(context.ctx);
+      ball_1.render(context.ctx);
+      ball_3.render(context.ctx);
     });
   }
 

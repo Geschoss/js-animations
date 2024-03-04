@@ -20,10 +20,10 @@ export class Images {
 
      
     imageLoader.load().then(([vovka, floor_tiles, video]) => {
-      this.game2D.tick((ctx) => {
-        ctx.drawImage(floor_tiles.data, 230, 20, 80, 140, 200, 130, 100, 120);
-        ctx.drawImage(vovka.data, 80, 0, 135, 135, 90, 90, 65, 65);
-        ctx.drawImage(video.data, 300, 150, 100, 100);
+      this.game2D.tick(({ context }) => {
+        context.ctx.drawImage(floor_tiles.data, 230, 20, 80, 140, 200, 130, 100, 120);
+        context.ctx.drawImage(vovka.data, 80, 0, 135, 135, 90, 90, 65, 65);
+        context.ctx.drawImage(video.data, 300, 150, 100, 100);
       });
     });
   }
