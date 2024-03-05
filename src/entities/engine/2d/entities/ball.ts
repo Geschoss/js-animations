@@ -11,17 +11,6 @@ export class Ball implements BaseEntity {
   behavior: Behavior<Ball>;
   view: View<Ball>;
 
-  static create({
-    x = 0,
-    y = 0,
-    radius = 10,
-    color = '#ff6600',
-    view = new BallView(),
-    behavior = new None<Ball>(),
-  }) {
-    return new Ball(x, y, radius, color, behavior, view);
-  }
-
   constructor(
     x = 0,
     y = 0,
@@ -45,5 +34,22 @@ export class Ball implements BaseEntity {
 
   render(ctx: CanvasRenderingContext2D) {
     this.view.render(ctx, this);
+  }
+
+  getBounds() {
+    return {
+      x: this.x - this.radius,
+      y: this.y - this.radius,
+      width: this.radius * 2,
+      height: this.radius * 2,
+    };
+  }
+
+  distansTo(x: number, y: number) {
+    return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
+  }
+
+  isInside(x: number, y: number) {
+    return this.radius >= this.distansTo(x, y);
   }
 }

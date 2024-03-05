@@ -19,8 +19,10 @@ import { Acceleration } from 'src/pages/simple_examples/examples/chapter_5/accel
 import { Mouse1 } from 'src/pages/simple_examples/examples/chapter_5/mouse_2';
 import { Bundaries } from 'src/pages/simple_examples/examples/chapter_6/boundaties';
 import { Removal } from 'src/pages/simple_examples/examples/chapter_6/removal';
+import { Pressing } from 'src/pages/simple_examples/examples/chapter_7/pressing';
 
 export const simple_examples = new Chapter('simple_examples', [
+  Pressing,
   Bundaries,
   Removal,
   Mouse1,
