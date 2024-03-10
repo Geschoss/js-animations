@@ -1,37 +1,60 @@
 import { Behavior, LinearMove } from 'src/entities/engine/2d/behaviors';
+import { Env } from 'src/entities/engine/2d/engine';
 import { Rect } from 'src/entities/engine/2d/entities';
+import { Asset } from 'src/entities/engine/assets';
+import { Bird } from 'src/pages/simple_2d_games/flappy_bird/bird';
+import { Floor } from 'src/pages/simple_2d_games/flappy_bird/floor';
+import { Score } from 'src/pages/simple_2d_games/flappy_bird/score';
+import { r_range } from 'src/shared/lib';
 
 export class Pipe {
   static GAP = 290;
-  static WIDTH = 50;
-  static MIN_HEIGHT = 10;
+  static WIDTH = 90;
+  static MIN_HEIGHT = 60;
   static DISTANCE_BEETWEN = 290;
   static SPEED = -4;
 
-  top: Rect;
-  bottom: Rect;
   x: number;
   y: number;
+  top: Rect;
+  bottom: Rect;
+  asset: Asset;
   behavior: Behavior<Pipe>;
 
-  constructor(x: number, y: number, height: number, score: number = 0) {
+  type: 'passed' | 'current' | 'next';
+
+  constructor(
+    asset: Asset,
+    x: number,
+    y: number,
+    height: number,
+    score: number = 0
+  ) {
+    this.type = 'next';
+    this.asset = asset;
     this.x = x;
     this.y = y;
     this.behavior = new LinearMove(Pipe.SPEED - score / 10);
     let gap = Pipe.GAP - score;
 
+    let top_height = r_range(
+      Pipe.MIN_HEIGHT,
+      height - gap - 2 * Pipe.MIN_HEIGHT
+    );
     this.top = Rect.create({
       x: x,
       y: y,
       width: Pipe.WIDTH,
-      height:
-        Pipe.MIN_HEIGHT + Math.random() * (height - (gap + Pipe.MIN_HEIGHT)),
+      height: top_height,
     });
+
+    let bottom_y = this.top.bottom + gap;
+    let bottom_height = height - bottom_y;
     this.bottom = Rect.create({
       x: this.top.x,
-      y: this.top.bottom + gap,
+      y: bottom_y,
       width: Pipe.WIDTH,
-      height: height - this.top.height - gap,
+      height: bottom_height,
     });
   }
 
@@ -40,10 +63,51 @@ export class Pipe {
     this.top.x = this.x;
     this.bottom.x = this.x;
   }
+
   render(ctx: CanvasRenderingContext2D) {
-    this.top.render(ctx);
-    this.bottom.render(ctx);
+    // this.top.render(ctx);
+    // this.bottom.render(ctx);
+
+    // bottom
+    ctx.save();
+    ctx.drawImage(
+      this.asset.data,
+      0,
+      0,
+      51,
+      this.bottom.height,
+      this.bottom.x,
+      this.bottom.y,
+      this.bottom.width,
+      this.bottom.height
+    );
+    ctx.restore();
+
+    // top
+    ctx.save();
+    ctx.translate(
+      this.top.x + this.top.width / 2,
+      this.top.y + this.top.height / 2
+    );
+    ctx.rotate(Math.PI);
+    let dx = (this.top.width / 2) * -1;
+    let dy = (this.top.height / 2) * -1;
+
+    ctx.drawImage(
+      this.asset.data,
+      0,
+      0,
+      51,
+      this.top.height,
+      dx,
+      dy,
+      this.top.width,
+      this.top.height
+    );
+
+    ctx.restore();
   }
+
   collision(bird: Rect) {
     /*
        bird 
@@ -92,47 +156,94 @@ export class Pipe {
 
     return false;
   }
+}
 
-  static create(screen: Rect) {
+export class Plumbing {
+  private h_padding = 40;
+  env: Env;
+  pipes: Pipe[];
+  floor: Floor;
+  asset: Asset;
+
+  constructor(floor: Floor, env: Env, asset: Asset) {
+    this.env = env;
+    this.floor = floor;
+    this.asset = asset;
+
+    this.reset();
+  }
+
+  reset() {
     let result = [];
-    let x_position = screen.width;
-    let y_position = screen.y;
-    let screen_height = screen.height;
+    let x_position = this.env.width;
+    let y_position = this.h_padding;
+    let screen_height = this.env.height - this.floor.rect.height;
 
     let max_pipe = screen.width / (Pipe.WIDTH + Pipe.DISTANCE_BEETWEN) + 1;
     for (let i = 0; i < max_pipe; i++) {
-      result.push(new Pipe(x_position, y_position, screen_height));
+      result.push(new Pipe(this.asset, x_position, y_position, screen_height));
       x_position += Pipe.WIDTH + Pipe.DISTANCE_BEETWEN;
     }
 
-    return result;
+    this.pipes = result;
   }
 
-  static move(pipes: Pipe[], screen: Rect, score: number) {
-    let first = pipes[0];
-    let last = pipes[pipes.length - 1];
+  collision(bird: Bird) {
+    return this.pipes.some((pipe) => pipe.collision(bird.rect));
+  }
 
-    let x_min = screen.x - Pipe.WIDTH;
+  isPassed(bird: Bird) {
+    for (let pipe of this.pipes) {
+      if (pipe.type === 'passed') {
+        continue;
+      }
+
+      if (pipe.type === 'current') {
+        if (pipe.x + Pipe.WIDTH <= bird.rect.x) {
+          pipe.type = 'passed';
+          return true;
+        }
+      }
+
+      if (pipe.x <= bird.rect.x + bird.rect.width) {
+        pipe.type = 'current';
+      }
+      return false;
+    }
+    let first = this.pipes[0];
+
+    return first.x + Pipe.WIDTH < bird.rect.x;
+  }
+
+  think(score: Score) {
+    this.pipes.forEach((pipe) => pipe.think());
+    let first = this.pipes[0];
+    let last = this.pipes[this.pipes.length - 1];
+
+    let x_min = -Pipe.WIDTH;
 
     if (first.x < x_min) {
-      pipes.shift();
-      let y_position = screen.y;
-      let screen_height = screen.height;
+      this.pipes.shift();
+      let y_position = 0;
+      let screen_height = this.env.height - this.floor.rect.height;
 
-      pipes.push(
+      this.pipes.push(
         new Pipe(
+          this.asset,
           last.x + Pipe.WIDTH + Pipe.DISTANCE_BEETWEN,
           y_position,
           screen_height,
-          score
+          score.value
         )
       );
-      return true;
     }
-    return false;
+  }
+
+  render(ctx: CanvasRenderingContext2D) {
+    this.pipes.forEach((pipe) => pipe.render(ctx));
   }
 }
 
-function beetwen(r1, v, r2) {
+function beetwen(r1: number, v: number, r2: number) {
   return r1 < v && v < r2;
 }

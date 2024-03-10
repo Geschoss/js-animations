@@ -1,4 +1,4 @@
-interface Asset {
+export interface Asset {
   isLoaded: boolean;
   data: HTMLVideoElement | HTMLImageElement;
   load(cb: () => void): void;

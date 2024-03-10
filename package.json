@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && rm -rf dist && vite build",
     "preview": "vite preview",
-    "gh-pages": "yarn build && git add dist -f && git commit -m \"gp-pages\" && git subtree push --prefix dist origin gh-pages",
+    "gh-pages": "rm -rf dist && vite build && git add dist -f && git commit -m \"gp-pages\" && git subtree push --prefix dist origin gh-pages",
     "ts-cloc": "cloc . --include-lang=TypeScript",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "lint": "yarn eslint .",
