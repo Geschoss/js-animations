@@ -7,5 +7,5 @@ export default defineConfig({
       src: '/src',
     },
   },
-  assetsInclude: ['**/*.mov'],
+  assetsInclude: ['**/*.mov', '**/*.wav'],
 });

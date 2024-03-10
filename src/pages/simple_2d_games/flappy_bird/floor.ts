@@ -7,6 +7,7 @@ import { a_initByCb, a_last } from 'src/shared/lib/array';
 export class Floor {
   private width = 336;
   private height = 122;
+  private dh = 132;
   private speed = 3;
 
   bricks: Brick[];
@@ -34,8 +35,10 @@ export class Floor {
       return new Brick({
         x: this.width * i,
         y: this.rect.y,
-        width: this.width,
-        height: this.height,
+        sw: this.width,
+        sh: this.height,
+        dw: this.width,
+        dh: this.dh,
         asset: this.asset,
       });
     });
@@ -50,8 +53,10 @@ export class Floor {
         new Brick({
           x: last.rigth,
           y: this.rect.y,
-          width: this.width,
-          height: this.height,
+          sw: this.width,
+          sh: this.height,
+          dw: this.width,
+          dh: this.dh,
           asset: this.asset,
         })
       );
@@ -73,7 +78,7 @@ export class Floor {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    this.rect.render(ctx);
+    // this.rect.render(ctx);
 
     this.bricks.forEach((brick) => {
       brick.render(ctx);
@@ -84,33 +89,47 @@ export class Floor {
 export class Brick {
   private x: number;
   private y: number;
-  private width: number;
-  private height: number;
+
+  private sw: number;
+  private sh: number;
+
+  private dw: number;
+  private dh: number;
 
   private asset: Asset;
 
   constructor({
     x,
     y,
-    width,
-    height,
+    sw,
+    sh,
+    dw = sw,
+    dh = sh,
     asset,
   }: {
     x: number;
     y: number;
-    width: number;
-    height: number;
+    sw: number;
+    sh: number;
+    dw: number;
+    dh: number;
     asset: Asset;
   }) {
     this.x = x;
     this.y = y;
-    this.width = width;
-    this.height = height;
+    this.sw = sw;
+    this.sh = sh;
+    this.dw = dw;
+    this.dh = dh;
     this.asset = asset;
   }
 
   get rigth() {
-    return this.x + this.width;
+    return this.x + this.dw;
+  }
+
+  get left() {
+    return this.x;
   }
 
   think(offset: number) {
@@ -123,12 +142,12 @@ export class Brick {
       this.asset.data,
       0,
       0,
-      this.width,
-      112,
+      this.sw,
+      this.sh,
       this.x,
       this.y,
-      this.width,
-      this.height
+      this.dw,
+      this.dh
     );
     ctx.restore();
   }

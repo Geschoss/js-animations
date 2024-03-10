@@ -1,7 +1,33 @@
 export interface Asset {
   isLoaded: boolean;
-  data: HTMLVideoElement | HTMLImageElement;
+  data: HTMLVideoElement | HTMLImageElement | HTMLAudioElement;
   load(cb: () => void): void;
+}
+
+export class AudioAsset implements Asset {
+  url: string;
+  data: HTMLAudioElement;
+  status: 'new' | 'loaded';
+
+  constructor(url: string) {
+    this.url = url;
+    this.data = document.createElement('audio');
+
+    this.status = 'new';
+  }
+
+  load(cb: () => void) {
+    this.data.setAttribute('src', this.url);
+    this.data.addEventListener('loadeddata', () => {
+      if (this.data.readyState >= 3) {
+        cb();
+      }
+    });
+  }
+
+  get isLoaded() {
+    return this.status === 'loaded';
+  }
 }
 
 export class VideoAsset implements Asset {

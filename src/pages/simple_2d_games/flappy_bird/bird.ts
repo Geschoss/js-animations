@@ -1,23 +1,25 @@
-import { Asset } from 'src/entities/engine/assets';
+import { AudioAsset, ImageAsset } from 'src/entities/engine/assets';
 
 import { Rect } from '../../../entities/engine/2d/entities';
 
 type BirdAssets = {
-  bluebird_upflap: Asset;
-  bluebird_midflap: Asset;
-  bluebird_downflap: Asset;
+  bluebird_upflap: ImageAsset;
+  bluebird_midflap: ImageAsset;
+  bluebird_downflap: ImageAsset;
 };
 
 export class Bird {
   private MIN_VELOCITY = -6;
   status: 'jump' | 'fly' | 'down' = 'fly';
   rect: Rect;
+  audio: AudioAsset;
   asset: BirdAsset;
   velocity: number;
 
-  constructor(height: number, assets: BirdAssets) {
+  constructor(height: number, audio: AudioAsset, assets: BirdAssets) {
     this.rect = new Rect(150, height, 50, 35, '#00ff00');
     this.asset = new BirdAsset(assets);
+    this.audio = audio;
     this.velocity = 0;
   }
 
@@ -49,7 +51,12 @@ export class Bird {
   }
 
   jump() {
-    this.velocity = this.MIN_VELOCITY;
+    if (this.status !== 'jump') {
+      this.audio.data.pause();
+      this.audio.data.currentTime = 0;
+      this.audio.data.play();
+      this.velocity = this.MIN_VELOCITY;
+    }
   }
 }
 
