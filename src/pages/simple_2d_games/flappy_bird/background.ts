@@ -1,7 +1,7 @@
 import { Env } from 'src/entities/engine/2d/engine';
 import { Asset } from 'src/entities/engine/assets';
 import { Brick } from 'src/pages/simple_2d_games/flappy_bird/floor';
-import { a_initByCb, a_last } from 'src/shared/lib/array';
+import { a_initByCb } from 'src/shared/lib/array';
 
 export class Background {
   private width = 288;
@@ -21,7 +21,7 @@ export class Background {
   }
 
   private init_bricks() {
-    let bricks_count = Math.ceil(this.env.width / this.width) + 1;
+    let bricks_count = Math.ceil(this.env.width / this.width) + 2;
     let start_i = -1;
     return a_initByCb(bricks_count, (i) => {
       let curr_i = start_i + i;
