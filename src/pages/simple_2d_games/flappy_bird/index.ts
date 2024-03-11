@@ -30,7 +30,7 @@ type State = {
   background: Background;
 };
 
-const TEST = false;
+const TEST = true;
 
 export class FlappyBird {
   static id = 'flappy_bird';
@@ -118,7 +118,14 @@ export class FlappyBird {
                 break;
 
               case 'play':
-                play(this.state, env, context.ctx, keyboard, die_audio, point_audio);
+                play(
+                  this.state,
+                  env,
+                  context.ctx,
+                  keyboard,
+                  die_audio,
+                  point_audio
+                );
                 break;
 
               case 'dead':
@@ -159,7 +166,7 @@ function play(
   ctx: CanvasRenderingContext2D,
   keyboard: Keyboard,
   die_audio: AudioAsset,
-  point_audio: AudioAsset,
+  point_audio: AudioAsset
 ) {
   game.background.think();
   game.background.render(ctx);
@@ -192,7 +199,9 @@ function play(
 
   if (game.plumbing.isPassed(game.bird)) {
     if (!TEST) {
-      point_audio.data.play()
+      point_audio.data.pause();
+      point_audio.data.currentTime = 0;
+      point_audio.data.play();
       game.score.increment();
     }
   }

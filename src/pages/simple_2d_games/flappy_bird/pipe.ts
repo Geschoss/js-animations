@@ -13,6 +13,7 @@ export class Pipe {
   static MIN_HEIGHT = 60;
   static DISTANCE_BEETWEN = 290;
   static SPEED = -4;
+  static ASSET_HEIGHT = 320;
 
   x: number;
   y: number;
@@ -65,8 +66,8 @@ export class Pipe {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    // this.top.render(ctx);
-    // this.bottom.render(ctx);
+    this.top.render(ctx);
+    this.bottom.render(ctx);
 
     // bottom
     ctx.save();
@@ -75,7 +76,7 @@ export class Pipe {
       0,
       0,
       51,
-      this.bottom.height,
+      Pipe.ASSET_HEIGHT,
       this.bottom.x,
       this.bottom.y,
       this.bottom.width,
@@ -98,7 +99,7 @@ export class Pipe {
       0,
       0,
       51,
-      this.top.height,
+      Pipe.ASSET_HEIGHT,
       dx,
       dy,
       this.top.width,
