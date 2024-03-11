@@ -66,8 +66,8 @@ export class Pipe {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    this.top.render(ctx);
-    this.bottom.render(ctx);
+    // this.top.render(ctx);
+    // this.bottom.render(ctx);
 
     // bottom
     ctx.save();
