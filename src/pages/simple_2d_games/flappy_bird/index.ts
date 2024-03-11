@@ -30,7 +30,7 @@ type State = {
   background: Background;
 };
 
-const TEST = true;
+const TEST = false;
 
 export class FlappyBird {
   static id = 'flappy_bird';
