@@ -42,6 +42,7 @@ export class Keyboard {
     ({ keys, cb }: HashSubscriber) => {
       if (keys.length === 0) {
         cb(key);
+      // eslint-disable-next-line sonarjs/no-duplicated-branches
       } else if (keys.includes(key)) {
         cb(key);
       }

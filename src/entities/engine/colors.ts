@@ -1,7 +1,7 @@
 export class Color {
   static colorToRGB(color: number | string, alpha: number = 1) {
     //number in octal format or string prefixed with #
-    let c;
+    let c: number = 0;
     if (typeof color === 'string' && color[0] === '#') {
       c = parseInt(color.slice(1), 16);
     }
@@ -9,6 +9,7 @@ export class Color {
     var r = (c >> 16) & 0xff,
       g = (c >> 8) & 0xff,
       b = c & 0xff,
+      // eslint-disable-next-line sonarjs/no-nested-conditional
       a = alpha < 0 ? 0 : alpha > 1 ? 1 : alpha;
     //only use 'rgba' if needed
     if (a === 1) {

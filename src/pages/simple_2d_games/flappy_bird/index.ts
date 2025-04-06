@@ -106,6 +106,7 @@ export class FlappyBird {
             this.state.type = 'play';
           };
 
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           TEST && start_new_game();
 
           this.game2D.tick(({ context, keyboard }) => {
@@ -175,6 +176,7 @@ function play(
     game.bird.jump();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   !TEST && game.bird.think();
   game.bird.render(ctx);
 

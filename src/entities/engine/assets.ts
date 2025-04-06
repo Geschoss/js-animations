@@ -45,6 +45,7 @@ export class VideoAsset implements Asset {
     this.status = 'new';
   }
 
+  // eslint-disable-next-line sonarjs/no-identical-functions
   load(cb: () => void) {
     this.data.setAttribute('src', this.url);
     this.data.addEventListener('loadeddata', () => {
